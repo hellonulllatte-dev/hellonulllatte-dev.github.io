@@ -246,6 +246,7 @@ document.head.append(cigaretteStyle);
 // TV anime appearance information belongs to the cigarette lineup only.
 // Set this when the work's official page has been published (example: 'games.html#shigarl').
 // Leave blank until the real destination exists; no placeholder link is clickable.
+
 const SHIGARL_OFFICIAL_URL = 'https://unityroom.com/games/supatto-cigirls';
 
 const shigarlStyle = document.createElement('style');
@@ -280,14 +281,20 @@ if (cigaretteGrid) {
   description.className = 'goods-media-information-copy';
   description.textContent = '本ラインアップの一部銘柄が、TVアニメ『スパっと！シがーる』の作中に登場しています。各商品の愛用キャラクターは、以下の商品一覧をご覧ください。';
 
-  mediaInformation.append(label, title, description);
-  if (SHIGARL_OFFICIAL_URL.trim()) {
-    const officialLink = document.createElement('a');
-    officialLink.className = 'goods-media-information-link';
-    officialLink.href = SHIGARL_OFFICIAL_URL;
-    officialLink.textContent = '『スパっと！シがーる』公式ページ →';
-    mediaInformation.append(officialLink);
-  } else {
+mediaInformation.append(label, title, description);
+
+if (SHIGARL_OFFICIAL_URL.trim()) {
+  const officialLink = document.createElement('a');
+  officialLink.className = 'goods-media-information-link';
+  officialLink.href = SHIGARL_OFFICIAL_URL;
+
+  // 別タブで開く
+  officialLink.target = '_blank';
+  officialLink.rel = 'noopener noreferrer';
+
+  officialLink.textContent = '『スパっと！シがーる』公式ページ →';
+  mediaInformation.append(officialLink);
+} else {
     const pending = document.createElement('span');
     pending.className = 'goods-media-information-pending';
     pending.textContent = '『スパっと！シがーる』公式ページ：準備中';
