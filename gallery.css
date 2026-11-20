@@ -1,0 +1,53 @@
+/* FICTIONAL GOODS — standalone gallery styles */
+.goods-main{max-width:1120px;margin:0 auto}
+.goods-intro{text-align:center;margin:14px 0 34px}
+.goods-eyebrow{font-size:12px;letter-spacing:.16em;color:var(--accent)}
+.goods-intro h2{font-size:32px;margin:6px 0 4px;letter-spacing:.06em}
+.goods-intro>p{margin:3px 0}
+.goods-intro-ja{font-size:13px;opacity:.7}
+.goods-filters{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 0 45px}
+.goods-filter{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:7px 17px;font:inherit;font-size:13px;cursor:pointer}
+.goods-filter:hover{background:var(--paper)}
+.goods-filter.active{background:var(--text);color:var(--background);border-color:var(--text)}
+.goods-category{margin:0 0 55px}
+.goods-category[hidden]{display:none}
+.goods-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:22px}
+.goods-heading h3{font-size:22px;letter-spacing:.07em;margin:0}
+.goods-heading span{font-size:11px;color:var(--accent);letter-spacing:.1em}
+.goods-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.goods-card{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:13px;text-align:left;font:inherit;color:inherit;cursor:pointer;min-width:0;transition:transform .18s ease,background .18s ease}
+.goods-card:hover{transform:translateY(-4px);background:#e5d3c7}
+.goods-card:focus-visible,.goods-filter:focus-visible,.goods-close:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.goods-art{height:170px;border-radius:8px;background:#c6b3aa;display:flex;justify-content:center;align-items:center;overflow:hidden}
+.goods-art img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.goods-placeholder{font-size:12px;letter-spacing:.1em;opacity:.6}
+.goods-card h4{font-size:16px;line-height:1.35;margin:12px 0 3px;overflow-wrap:anywhere}
+.goods-card p{font-size:12px;line-height:1.5;opacity:.75;margin:0}
+.goods-note{text-align:center;font-size:12px;opacity:.65;margin:30px auto}
+.goods-dialog{position:fixed;max-width:min(760px,calc(100vw - 30px));width:100%;max-height:calc(100vh - 30px);overflow:auto;border:1px solid var(--line);border-radius:16px;background:var(--background);color:var(--text);padding:38px;box-shadow:0 18px 70px #30202d55}
+.goods-dialog::backdrop{background:#201a22b8}
+.goods-close{position:absolute;right:14px;top:10px;background:transparent;border:0;font:inherit;font-size:32px;cursor:pointer;color:inherit;line-height:1}
+.goods-dialog-inner{display:grid;grid-template-columns:1fr 1.1fr;gap:30px;align-items:center}
+.goods-dialog-visual{background:var(--paper);border-radius:10px;min-height:270px;display:flex;justify-content:center;align-items:center;padding:18px}
+.goods-dialog-visual img{max-width:100%;max-height:360px;object-fit:contain;image-rendering:pixelated}
+.goods-dialog-kind{font-size:12px;color:var(--accent);letter-spacing:.12em}
+.goods-dialog-copy h3{font-size:26px;margin:10px 0 18px}
+.goods-dialog-copy p{font-size:14px;line-height:1.9}
+.goods-dialog-en{font-style:italic}
+@media(max-width:900px){.goods-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.goods-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.goods-art{height:145px}.goods-dialog{padding:34px 20px 22px}.goods-dialog-inner{grid-template-columns:1fr;gap:12px}.goods-dialog-visual{min-height:180px}.goods-dialog-visual img{max-height:240px}.goods-intro h2{font-size:26px}}
+@media(prefers-reduced-motion:reduce){.goods-card{transition:none}}
+#dialog-en,
+#dialog-ja {
+white-space: pre-line;
+  line-height: 1.5;
+}
+
+/* 商品詳細モーダル：パッケージを大きく表示 */
+#dialog-visual img {
+  width: auto;
+  height: 210px;
+  max-width: 85%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
