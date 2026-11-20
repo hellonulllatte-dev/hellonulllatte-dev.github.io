@@ -118,26 +118,26 @@ const products = [
   },
   {
     category: 'cigarettes',
-    name: "RALLY ROAD ORIGINAL",
+    name: "RALLY LOAD ORIGINAL",
     image: 'images/goods/cigarettes/cigarette11.png',
     featuredBy: 'レギュラー',
     type: "REGULAR", format: 'BOX', contents: 20,
     tar: 12, nicotine: 1.0, price: 530,
     taste: { body: 4, aroma: 3, sharp: 3 },
     tagline: "REGULAR / 12mg",
-    en: "The standard RALLY ROAD model is a regular cigarette with a robust body and pronounced tobacco intensity. The blend emphasizes a traditional tobacco flavor.",
-    ja: "豊かなコクと力強い吸いごたえが特徴のレギュラータイプ。オーソドックスなたばこ本来の風味を大切にした、RALLY ROADシリーズのスタンダードモデルです。"
+    en: "The standard RALLY LOAD model is a regular cigarette with a robust body and pronounced tobacco intensity. The blend emphasizes a traditional tobacco flavor.",
+    ja: "豊かなコクと力強い吸いごたえが特徴のレギュラータイプ。オーソドックスなたばこ本来の風味を大切にした、RALLY LOADシリーズのスタンダードモデルです。"
   },
   {
     category: 'cigarettes',
-    name: "RALLY ROAD LIGHT",
+    name: "RALLY LOAD LIGHT",
     image: 'images/goods/cigarettes/cigarette12.png',
     type: "REGULAR", format: 'BOX', contents: 20,
     tar: 8, nicotine: 0.7, price: 530,
     taste: { body: 3, aroma: 3, sharp: 4 },
     tagline: "REGULAR / 8mg",
-    en: "A lighter edition based on the flavor profile of RALLY ROAD ORIGINAL. It combines moderate body and aroma with a smoother, cleaner finish.",
-    ja: "RALLY ROAD ORIGINALの風味をベースに、吸い心地を軽やかに仕上げたライトモデル。ほどよいコクと香りを備えた、バランスのよい味わいが特徴です。"
+    en: "A lighter edition based on the flavor profile of RALLY LOAD ORIGINAL. It combines moderate body and aroma with a smoother, cleaner finish.",
+    ja: "RALLY LOAD ORIGINALの風味をベースに、吸い心地を軽やかに仕上げたライトモデル。ほどよいコクと香りを備えた、バランスのよい味わいが特徴です。"
   },
 
   {
