@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" type="image/png" href="images/favicon.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NULLLATTE | HOME</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<div class="site">
+
+		<header class="header">
+
+			<div class="brand">
+				<img
+					src="images/coffee.gif"
+					alt="湯気の立つコーヒーカップ"
+					class="brand-icon"
+				>
+
+				<h1>NULLLATTE</h1>
+				<p class="brand-subtitle">
+					Little games, made with care.
+				</p>
+			</div>
+
+			<nav class="nav">
+				<a href="index.html">Home</a>
+				<a href="games.html">Games</a>
+				<a href="cast.html">Cast</a>
+				<a href="devlog.html">Devlog</a>
+			</nav>
+
+			<div class="language">
+				<button type="button">JP</button>
+				<span>/</span>
+				<button type="button">EN</button>
+			</div>
+
+		</header>
+
+		<main class="main">
+
+			<!-- FEATURED GAMES -->
+			<section class="games-section">
+				<h2>Featured Games</h2>
+
+				<div class="game-grid">
+
+					<article class="game-card">
+						<img src="images/winery.png" alt="Silver Vine Winery">
+						<h3>SILVER VINE WINERY</h3>
+						<p>A tiny, cozy winery.</p>
+
+						<div class="game-links">
+							<a href="https://unityroom.com/games/matatabi-winery"
+								target="_blank" rel="noopener noreferrer">unityroom ↗</a>
+							<a href="https://nulllatte.itch.io/silver-vine-winery"
+								target="_blank" rel="noopener noreferrer">itch.io ↗</a>
+						</div>
+					</article>
+
+					<article class="game-card">
+						<img src="images/ragna.png" alt="お姉さん、まだ寝てて。">
+						<h3>お姉さん、まだ寝てて。</h3>
+						<p>Make breakfast quietly. Don't wake her up!</p>
+
+						<div class="game-links">
+							<a href="https://unityroom.com/games/oneesan-still-sleeping"
+								target="_blank" rel="noopener noreferrer">unityroom · Mobile ↗</a>
+							<a href="https://nulllatte.itch.io/oneesan-still-sleeping"
+								target="_blank" rel="noopener noreferrer">itch.io · PC ↗</a>
+						</div>
+					</article>
+          <article class="game-card">
+            <img src="images/wordland.png" alt="ワードランド診断">
+            <h3>ワードランド診断</h3>
+            <p>What kind of amusement park ride are your words?</p>
+
+            <div class="game-links">
+              <a href="https://unityroom.com/games/wordland"
+                target="_blank" rel="noopener noreferrer">unityroom ↗</a>
+            </div>
+          </article>
+
+				</div>
+
+				<a class="home-more-link" href="games.html">
+					View All Games →
+				</a>
+			</section>
+
+			<!-- LATEST DEVLOG -->
+			<section class="home-section">
+				<h2>Latest Devlog</h2>
+
+				<div id="latest-devlog">
+					<article class="devlog-card">
+						<div class="devlog-meta">
+							<time datetime="2026-11-20">2026.11.20</time>
+							<span>NOTE</span>
+						</div>
+
+						<h3>CASTページ制作中！</h3>
+						<p>
+							キャラクターを並べるページを作っています。
+							分類は「お姉さん」と「それ以外」。
+						</p>
+					</article>
+				</div>
+
+				<a class="home-more-link" href="devlog.html">
+					View All Posts →
+				</a>
+			</section>
+
+			<!-- ABOUT -->
+			<section class="home-section home-about">
+				<h2>About</h2>
+
+				<p class="home-about-text">
+					小さなゲームを個人制作しています。
+					ドット絵やイラストを描いたり、ちょっと変わった遊びを考えたりしています。
+				</p>
+
+				<div class="home-social-links">
+					<a href="https://unityroom.com/users/nulllatte"
+						target="_blank" rel="noopener noreferrer">unityroom ↗</a>
+
+					<a href="https://nulllatte.itch.io/"
+						target="_blank" rel="noopener noreferrer">itch.io ↗</a>
+
+					<a href="https://x.com/nulllattte"
+						target="_blank" rel="noopener noreferrer">X ↗</a>
+				</div>
+			</section>
+
+		</main>
+
+		<footer>
+			© NULLLATTE — Made with care.
+		</footer>
+
+	</div>
+<script src="posts.js"></script>
+<script>
+	const latestContainer = document.getElementById("latest-devlog");
+	const latestPost = getSortedPosts()[0];
+
+	if (latestContainer && latestPost) {
+		latestContainer.replaceChildren(createPostCard(latestPost));
+	}
+</script>
+<script src="transition.js"></script>
+
+</body>
+</html>

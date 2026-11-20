@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" type="image/png" href="images/favicon.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NULLLATTE | GAMES</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="site">
+
+		<header class="header">
+			<div class="brand">
+				<img
+					src="images/coffee.gif"
+					alt="湯気の立つコーヒーカップ"
+					class="brand-icon"
+				>
+				<h1>NULLLATTE</h1>
+				<p class="brand-subtitle">
+					Little games, made with care.
+				</p>
+			</div>
+
+			<nav class="nav">
+				<a href="index.html">Home</a>
+				<a href="games.html">Games</a>
+				<a href="cast.html">Cast</a>
+				<a href="devlog.html">Devlog</a>
+			</nav>
+
+			<div class="language">
+				<button type="button">JP</button>
+				<span>/</span>
+				<button type="button">EN</button>
+			</div>
+		</header>
+
+		<main class="main">
+			<section class="games-section">
+				<h2>My Games</h2>
+
+				<!-- ビジュアル別フィルター -->
+				<div class="flavor-filters">
+					<button type="button" class="active" data-flavor="all">All</button>
+					<button type="button" data-flavor="pixel">Pixel Art</button>
+					<button type="button" data-flavor="pixel-illustration">Pixel Illustration</button>
+					<button type="button" data-flavor="digital-illustration">Digital Illustration</button>
+					<button type="button" data-flavor="typography">Typography</button>
+					<button type="button" data-flavor="3d">3D</button>
+				</div>
+
+				<!-- 作品一覧 -->
+				<div class="game-grid">
+
+					<!-- SILVER VINE WINERY -->
+					<div class="game-card" data-flavors="pixel">
+						<img src="images/winery.png" alt="Silver Vine Winery">
+						<h3>SILVER VINE WINERY</h3>
+						<p>A tiny, cozy winery.</p>
+
+						<div class="game-links">
+							<a href="https://unityroom.com/games/matatabi-winery"
+								target="_blank"
+								rel="noopener noreferrer">unityroom ↗</a>
+
+							<a href="https://nulllatte.itch.io/silver-vine-winery"
+								target="_blank"
+								rel="noopener noreferrer">itch.io ↗</a>
+						</div>
+					</div>
+
+					<!-- お姉さん、まだ寝てて。 -->
+					<div class="game-card" data-flavors="pixel-illustration">
+						<img src="images/ragna.png" alt="お姉さん、まだ寝てて。">
+						<h3>お姉さん、まだ寝てて。</h3>
+						<p>Make breakfast quietly. Don't wake her up!</p>
+
+						<div class="game-links">
+							<a href="https://unityroom.com/games/oneesan-still-sleeping"
+								target="_blank"
+								rel="noopener noreferrer">unityroom · Mobile ↗</a>
+
+							<a href="https://nulllatte.itch.io/oneesan-still-sleeping"
+								target="_blank"
+								rel="noopener noreferrer">itch.io · PC ↗</a>
+						</div>
+					</div>
+
+					<!-- ヤマカンアクマ -->
+					<div class="game-card" data-flavors="digital-illustration">
+						<img src="images/yamakan.png" alt="ヤマカンアクマ">
+						<h3>ヤマカンアクマ</h3>
+						<p>Study, rest, or trust a demon's predictions.</p>
+
+						<div class="game-links">
+							<a href="https://unityroom.com/games/yamakan-akuma"
+								target="_blank"
+								rel="noopener noreferrer">unityroom ↗</a>
+
+							<a href="https://nulllatte.itch.io/yamakan-akuma"
+								target="_blank"
+								rel="noopener noreferrer">itch.io ↗</a>
+						</div>
+					</div>
+					<!-- 検閲♡おしおきバレンタイン -->
+					<div class="game-card" data-flavors="typography">
+						<img src="images/oshioki.png" alt="検閲♡おしおきバレンタイン">
+						<h3>検閲♡おしおきバレンタイン</h3>
+						<p>Censor a grumpy maid boy's complaints in a cute music video.</p>
+
+						<div class="game-links">
+							<a href="https://unityroom.com/games/censor-valentine"
+								target="_blank"
+								rel="noopener noreferrer">unityroom ↗</a>
+						</div>
+					</div>
+					<!-- WAKE ME NOT -->
+					<div class="game-card" data-flavors="3d">
+						<img src="images/wake_me_not.png" alt="WAKE ME NOT">
+						<h3>WAKE ME NOT</h3>
+						<p>A tiny, unsettling 3D adventure at a sunset train station.</p>
+
+						<div class="game-links">
+							<a href="https://unityroom.com/games/wake-me-not"
+								target="_blank"
+								rel="noopener noreferrer">unityroom ↗</a>
+						</div>
+					</div>
+
+
+				</div>
+				<p class="games-more">More games will be added to this collection over time...
+					<small>過去作品は少しずつ追加していきます。</small>
+				</p>
+				<small>過去作品は少しずつ追加していきます。</small>
+			</section>
+		</main>
+
+		<footer>
+			© NULLLATTE — Made with care.
+		</footer>
+
+	</div>
+
+	<!-- ビジュアル別フィルター -->
+	<script>
+		const filters = document.querySelectorAll(".flavor-filters button");
+		const games = document.querySelectorAll(".game-card[data-flavors]");
+
+		filters.forEach(button => {
+			button.addEventListener("click", () => {
+				const flavor = button.dataset.flavor;
+
+				filters.forEach(b => b.classList.remove("active"));
+				button.classList.add("active");
+
+				games.forEach(game => {
+					const flavors = game.dataset.flavors.split(" ");
+					game.hidden = flavor !== "all" && !flavors.includes(flavor);
+				});
+			});
+		});
+	</script>
+
+	<!-- ページ遷移 -->
+	<script src="transition.js"></script>
+</body>
+</html>
