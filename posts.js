@@ -1,6 +1,13 @@
 
 const POSTS = [
 	{
+    date: "2026-11-21",
+    category: "note",
+    title: "PLAYGROUNDを公開しました！",
+    description: "ちいさな遊びと実験を集めるPLAYGROUNDを追加しました。効果音や会話送りアイコンを作れるWeb Toyを3つ公開中。無料で遊べます！",
+    url: "playground.html"
+	},
+	{
 		date: "2026-11-20",
 		category: "note",
 		title: "CASTページ制作中！",
@@ -49,7 +56,9 @@ function createPostCard(post) {
 		const link = document.createElement("a");
 		link.href = post.url;
 		link.className = "devlog-readmore";
-		link.textContent = "Read more →";
+		link.textContent = post.category === "note" && post.url === "playground.html"
+    	? "Explore →"
+    	: "Read more →";
 		article.append(link);
 	}
 
