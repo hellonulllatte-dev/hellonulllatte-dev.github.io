@@ -54,7 +54,47 @@
 .back-to-playground{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:7px 10px;border:1px solid #a37370;border-radius:999px;background:#ded0c7;color:#3a323c;text-decoration:none;font:10px MaruMonica,'Arial Rounded MT Bold',sans-serif;white-space:nowrap}
 .back-to-playground:focus-visible{outline:2px solid #6b5258;outline-offset:3px}
 @media(max-width:700px){.mastbar{margin:0 3px 9px}}
-</style></head><body><main><div class="mastbar"><div class="mast">NULLLATTE / PLAYGROUND</div><a class="back-to-playground" href="../playground.html" aria-label="PLAYGROUND一覧に戻る">← PLAYGROUND</a></div><section class="shop" id="shop"><div class="awning"></div><header class="head"><div><h1>NEXT MARK GALLERY</h1><p>さわって、おして、ながめて。</p></div><button class="take" id="takeBtn" title="お持ち帰り" aria-label="選択中のアイコンをお持ち帰り"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></svg></button></header><section class="gallery-wrap"><div class="gallery-scroll"><div class="gallery" id="gallery"></div></div></section></section><div class="foot">© NULLLATTE</div></main>
+
+/* Two matched galleries, four rows each: DOT (22) and SMOOTH (24). */
+.gallery{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  min-width:0;
+  align-items:start;
+}
+.gallery-group{min-width:0}
+.gallery-group + .gallery-group{border-left:2px solid #cca795;padding-left:15px}
+.gallery-label{font-size:14px;letter-spacing:.13em;text-align:center;color:#6b5258;margin:0 0 9px;line-height:1.3}
+.tile-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+.tile{height:74px}
+/* Unselected download: only NULLLATTE palette colors, no misleading hover. */
+.take:disabled,.take:disabled:hover{
+  color:#cca795;
+  background:#ded0c7;
+  border-color:#cca795;
+  cursor:default;
+  transform:none;
+}
+/* An enabled button rests on the same baseline as the other controls. */
+.take.ready{background:#d7c1b4;transform:none}
+.take:not(:disabled):hover{background:#d7c1b4;transform:translateY(-2px)}
+@media(max-width:700px){
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr));min-width:850px;gap:14px}
+  .gallery-group + .gallery-group{padding-left:12px}
+  .tile-grid{gap:5px}
+  .tile{height:68px}
+  .gallery-label{font-size:13px;margin-bottom:8px}
+}
+</style></head><body><main><div class="mastbar"><div class="mast">NULLLATTE / PLAYGROUND</div><a class="back-to-playground" href="../playground.html" aria-label="PLAYGROUND一覧に戻る">← PLAYGROUND</a></div><section class="shop" id="shop"><div class="awning"></div><header class="head"><div><h1>NEXT MARK GALLERY</h1><p>さわって、おして、ながめて。</p></div><button class="take" id="takeBtn" disabled title="お持ち帰り" aria-label="選択中のアイコンをお持ち帰り"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></svg></button></header><section class="gallery-wrap"><div class="gallery-scroll"><div class="gallery" id="gallery">
+  <section class="gallery-group" aria-labelledby="dot-heading">
+    <h2 class="gallery-label" id="dot-heading">DOT</h2>
+    <div class="tile-grid" id="dot-gallery"></div>
+  </section>
+  <section class="gallery-group" aria-labelledby="smooth-heading">
+    <h2 class="gallery-label" id="smooth-heading">SMOOTH</h2>
+    <div class="tile-grid" id="smooth-gallery"></div>
+  </section>
+</div></div></section></section><div class="foot">© NULLLATTE</div></main>
 <dialog class="dialog" id="fittingDialog"><div class="modalhead"><h2>YOUR LITTLE CHARM</h2><button class="close" id="closeDialog" aria-label="閉じる">×</button></div><div class="modalbody"><div class="previewrow"><div class="display" id="display"><div class="sample-dialog"><span id="previewName"></span><canvas id="largePreview" width="64" height="64"></canvas></div></div></div><div class="direction"><span>向き</span><div class="dirbuttons"><button data-dir="0" class="chosen">▼</button><button data-dir="1">▶</button><button data-dir="2">▲</button><button data-dir="3">◀</button></div></div><div class="palettebar">PALETTE</div><select id="palette"><option value="null">NULLLATTE</option><option value="mono">MONO</option><option value="candy">CANDY</option><option value="neon">NEON</option><option value="custom">CUSTOM</option></select><div class="swatches"><div class="swatch"><label>アイコン</label><div class="color-controls"><input id="colorMain" type="color" value="#a37370"><input id="hexMain" class="hexfield" maxlength="7" value="#a37370"></div></div><div class="swatch"><label>ふち・影</label><div class="color-controls"><input id="colorShade" type="color" value="#3a323c"><input id="hexShade" class="hexfield" maxlength="7" value="#3a323c"></div></div><div class="swatch"><label>背景</label><div class="color-controls"><input id="colorBg" type="color" value="#f5e9df"><input id="hexBg" class="hexfield" maxlength="7" value="#f5e9df"></div></div></div><div class="compact-sliders"><label class="sizeline">サイズ <input id="outputSize" type="range" min="16" max="128" step="8" value="64"><span id="sizeNum">64px</span></label><label class="speedline">動く速さ <input id="speed" type="range" min="0.6" max="1.8" step="0.1" value="1"><span id="speedNum">1.0×</span></label></div><div class="exports"><button class="export" id="pngBtn">↓ PNG</button><button class="export" id="sheetBtn">↓ SPRITESHEET</button><button class="export primary" id="gifBtn">↓ GIF</button></div><p class="status" id="msg"></p></div></dialog>
 <script>'use strict';const $=s=>document.querySelector(s);
 const defs=[['sankaku','さんかく','tri',1],['nagasankaku','ながさんかく','tall',1],['hiratasankaku','ひらたさんかく','flat',1],['smooth_sankaku','なめらかさんかく','tri',0],['smooth_nagasankaku','なめらかながさんかく','tall',0],['smooth_hiratasankaku','なめらかひらたさんかく','flat',0],['shirosankaku','しろさんかく','outline',1],['smooth_shirosankaku','なめらかしろさんかく','outline',0],['yama','やま','chevron',1],['smooth_yama','なめらかやま','chevron',0],['yajirushi','やじるし','down',1],['smooth_yajirushi','なめらかやじるし','down',0]];
@@ -66,8 +106,21 @@ const PRESETS={null:['#a37370','#3a323c','#f5e9df'],mono:['#383338','#17151a','#
 function parseHex(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
 function shape(g,type){g.beginPath();switch(type){case'tri':g.moveTo(2,4);g.lineTo(14,4);g.lineTo(8,14);g.closePath();break;case'tall':g.moveTo(5,2);g.lineTo(11,2);g.lineTo(8,15);g.closePath();break;case'flat':g.moveTo(1,5);g.lineTo(15,5);g.lineTo(8,11);g.closePath();break;case'outline':g.moveTo(2,4);g.lineTo(14,4);g.lineTo(8,14);g.closePath();g.lineWidth=1.6;g.lineJoin='miter';g.stroke();return;case'chevron':g.moveTo(2,4);g.lineTo(8,10);g.lineTo(14,4);g.lineTo(14,8);g.lineTo(8,14);g.lineTo(2,8);g.closePath();break;case'down':g.moveTo(6,1);g.lineTo(10,1);g.lineTo(10,8);g.lineTo(14,8);g.lineTo(8,15);g.lineTo(2,8);g.lineTo(6,8);g.closePath();break;case'circle':g.arc(8,8,5.5,0,Math.PI*2);break;case'square':g.rect(3,3,10,10);break;case'heart':g.moveTo(8,14);g.bezierCurveTo(3,11,0,7,2.5,4);g.bezierCurveTo(5,1,7,3,8,5);g.bezierCurveTo(10,1,14,2,14,5);g.bezierCurveTo(16,8,11,12,8,14);break;case'star':for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?3:7,x=8+Math.cos(a)*r,y=8+Math.sin(a)*r;i?g.lineTo(x,y):g.moveTo(x,y)}g.closePath();break;case'sparkle':g.moveTo(8,0);g.lineTo(10,6);g.lineTo(16,8);g.lineTo(10,10);g.lineTo(8,16);g.lineTo(6,10);g.lineTo(0,8);g.lineTo(6,6);g.closePath();break;case'diamond':g.moveTo(8,1);g.lineTo(15,8);g.lineTo(8,15);g.lineTo(1,8);g.closePath();break;}g.fill()}
 function drawIcon(c,item,phase,galleryMode=false){const w=c.canvas.width,h=c.canvas.height;c.clearRect(0,0,w,h);const native=item.pixel?24:96;const temp=item._tmp||(item._tmp=document.createElement('canvas'));temp.width=temp.height=native;const g=temp.getContext('2d');g.clearRect(0,0,native,native);g.save();g.scale(native/24,native/24);g.translate(12,12);const p=phase%1,peak=Math.sin(Math.PI*Math.min(1,p/.65)),wave=Math.sin(p*Math.PI*2);let move=0,alpha=1,rot=0,scale=1;switch(item.motion){case'bounce':move=-Math.max(0,peak)*2.4;break;case'blink':alpha=p<.28||p>.54?1:0;break;case'slideY':move=p<.6?3*(p/.6):3*(1-(p-.6)/.4);break;case'spin':rot=p*Math.PI*2;break;case'spark':scale=.82+.18*(.5+.5*wave);alpha=.65+.35*(.5+.5*wave);break}const dir=(item===selected&&($('#fittingDialog').open||renderingExport))?direction:0;g.rotate(dir*Math.PI/2);g.translate(0,item.pixel?Math.round(move):move);g.rotate(item.pixel?Math.round(rot/(Math.PI/2))*(Math.PI/2):rot);g.scale(item.pixel?1:scale,item.pixel?1:scale);g.globalAlpha=alpha;g.translate(-8,-8);g.save();g.translate(item.pixel?1:.7,item.pixel?1:.7);g.fillStyle=galleryMode?'#3a323c':shadeColor;g.strokeStyle=galleryMode?'#3a323c':shadeColor;shape(g,item.shape);g.restore();g.fillStyle=galleryMode?(item.galleryColor||'#a37370'):mainColor;g.strokeStyle=galleryMode?(item.galleryColor||'#a37370'):mainColor;shape(g,item.shape);g.restore();c.imageSmoothingEnabled=!item.pixel;c.drawImage(temp,0,0,w,h)}
-const gallery=$('#gallery');items.forEach(item=>{const b=document.createElement('button');b.type='button';b.className='tile'+(item.pixel?' pixel':'');b.innerHTML=item.pixel?'<canvas width="48" height="48"></canvas>':'<canvas width="64" height="64"></canvas>';b.setAttribute('aria-label',item.name);gallery.appendChild(b);item.btn=b;item.canvas=b.querySelector('canvas');b.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){item.hover=true;item.start=performance.now()}});b.addEventListener('pointerleave',()=>item.hover=false);b.addEventListener('click',()=>toggle(item));});
-function select(item){selected=item;items.forEach(x=>x.btn.classList.toggle('selected',x===item));$('#takeBtn').classList.add('ready')}
+// Match symbols left/right: same silhouette in the same column, same animation in each row.
+const matchedKeys=['sankaku','nagasankaku','hiratasankaku','shirosankaku','yama','yajirushi'];
+const findItem=(key,variant=null)=>items.find(it=>it.key===key&&(variant===null||it.name.endsWith(String(variant).padStart(2,'0'))));
+const dotItems=[],smoothItems=[];
+for(let variant=1;variant<=3;variant++)for(const key of matchedKeys){
+  dotItems.push(findItem(key,variant));
+  smoothItems.push(findItem('smooth_'+key,variant));
+}
+for(const key of ['maru','shikaku','heart_spark','star_spark'])dotItems.push(findItem(key));
+for(const key of ['smooth_maru','smooth_shikaku','heart','star','diamond','sparkle'])smoothItems.push(findItem(key));
+if(dotItems.includes(undefined)||smoothItems.includes(undefined)||new Set([...dotItems,...smoothItems]).size!==items.length){throw new Error('ギャラリーの並び順が不正です');}
+const drawGallery=(target,ordered)=>{for(const item of ordered){const b=document.createElement('button');b.type='button';b.className='tile'+(item.pixel?' pixel':'');b.innerHTML=item.pixel?'<canvas width="48" height="48"></canvas>':'<canvas width="64" height="64"></canvas>';b.setAttribute('aria-label',item.name);target.appendChild(b);item.btn=b;item.canvas=b.querySelector('canvas');b.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){item.hover=true;item.start=performance.now()}});b.addEventListener('pointerleave',()=>item.hover=false);b.addEventListener('click',()=>toggle(item));}};
+drawGallery($('#dot-gallery'),dotItems);
+drawGallery($('#smooth-gallery'),smoothItems);
+function select(item){selected=item;items.forEach(x=>x.btn.classList.toggle('selected',x===item));$('#takeBtn').disabled=false;$('#takeBtn').classList.add('ready')}
 function toggle(item){select(item);item.running=!item.running;if(item.running){let next=GALLERY_COLORS[galleryColorIndex++%GALLERY_COLORS.length];if(next===item.lastGalleryColor){next=GALLERY_COLORS[galleryColorIndex++%GALLERY_COLORS.length]}item.galleryColor=next;item.lastGalleryColor=next}else{item.galleryColor=null}item.start=performance.now()}
 let last=0;function tick(now){if(now-last>28){for(const it of items){const phase=(it.running||it.hover)?((now-it.start)/1200)%1:0;drawIcon(it.canvas.getContext('2d'),it,phase,true)}if($('#fittingDialog').open&&selected)drawIcon($('#largePreview').getContext('2d'),selected,(now/1300*speed)%1);last=now}requestAnimationFrame(tick)}requestAnimationFrame(tick);
 function openModal(){if(!selected)return;$('#previewName').textContent=selected.name;direction=0;document.querySelectorAll('[data-dir]').forEach(b=>b.classList.toggle('chosen',b.dataset.dir==='0'));$('#msg').textContent='';$('#fittingDialog').showModal()}
