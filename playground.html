@@ -13,6 +13,7 @@
 <link rel="icon" type="image/png" href="images/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NULLLATTE | PLAYGROUND</title>
+<meta name="description" content="Free interactive web toys by NULLLATTE. Play, customize, and use your creations in personal or commercial projects. 無料で遊べる小さなWeb Toyとゲーム素材。">
 <link rel="stylesheet" href="style.css">
 <style>
   /* Existing site font, scoped to PLAYGROUND content only. */
@@ -82,6 +83,32 @@
   }
   .next-mark-symbols span:nth-child(2) { color: #a37370; transform: translateY(-8px); }
   .next-mark-symbols span:nth-child(3) { color: #584540; }
+
+  /* Compact, bilingual usage notice; all colors from the NULLLATTE palette. */
+  .toy-usage {
+    max-width: 850px;
+    margin: 0 auto 26px;
+    padding: 13px 18px 14px;
+    border: 1px solid #cca795;
+    border-radius: 9px;
+    background: #ded0c7;
+    color: #3a323c;
+    text-align: center;
+    line-height: 1.65;
+  }
+  .toy-usage h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    letter-spacing: .07em;
+    color: #6b5258;
+  }
+  .toy-usage p { margin: 4px 0; font-size: 13px; }
+  .toy-usage .toy-usage-ja { font-size: 13px; }
+  @media(max-width: 600px) {
+    .toy-usage { padding: 11px 13px; margin-bottom: 22px; }
+    .toy-usage p { font-size: 12px; }
+    .toy-usage .toy-usage-ja { font-size: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -109,7 +136,12 @@
   <main class="main">
     <section class="games-section">
       <h2>PLAYGROUND</h2>
-      <p style="margin:0 0 26px;line-height:1.8;text-align:center">Little toys to click, play, and tinker with.<br><small>クリックして、さわって、遊べる小さな実験室。</small></p>
+      <p style="margin:0 0 17px;line-height:1.8;text-align:center">Little toys to click, play, and tinker with.<br><small>クリックして、さわって、遊べる小さな実験室。</small></p>
+      <section class="toy-usage" aria-labelledby="toyUsageTitle">
+        <h3 id="toyUsageTitle">FREE TO PLAY &amp; USE</h3>
+        <p lang="en">Play, customize, and use your creations in personal or commercial projects — for free.<br>You may use and modify them in games, videos, and apps. Please do not redistribute or sell the assets on their own.</p>
+        <p class="toy-usage-ja" lang="ja">無料で遊べます。作成した素材は、個人・商用を問わず作品にご利用いただけます。<br>ゲーム・動画・アプリでの利用、加工、商用利用は自由です。素材単体での再配布・販売はご遠慮ください。</p>
+      </section>
       <div class="game-grid">
         <!-- Web Toyを増やすときは、このカードを複製して追加 -->
         <a class="game-card toy-card" href="playground/mug_se_maker.html" aria-label="MUG SE MAKERを開く">
