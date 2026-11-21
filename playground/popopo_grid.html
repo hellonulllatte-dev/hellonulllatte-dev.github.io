@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ded0c7">
+<title>POPOPO GRID — NULLLATTE PLAYGROUND</title>
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<style>
+@font-face{font-family:MaruMonica;src:url('../fonts/MaruMonica.ttf') format('truetype');font-display:swap}
+:root{--black:#000000;--night:#23232e;--ink:#3a323c;--plum:#6b5258;--rose:#a37370;--coral:#c27f6f;--peach:#cca795;--paper:#d7c1b4;--cream:#ded0c7}
+*{box-sizing:border-box} html,body{height:100%} html{background:var(--paper)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:MaruMonica,ui-monospace,monospace;line-height:1.5;overflow-x:hidden}
+button,input{font:inherit;color:inherit} a{color:inherit;text-decoration:none}
+.site{max-width:850px;margin:0 auto;padding:12px 12px 18px}
+.site-top{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:0 3px 10px}
+.brand{font-size:12px;font-weight:900;letter-spacing:.14em}.subbrand{font-size:10px;color:var(--plum);letter-spacing:.07em;margin-top:4px}
+.back{font-size:10px;border:1px solid var(--rose);border-radius:999px;padding:7px 10px;background:var(--cream);white-space:nowrap}
+.app{border:3px solid var(--plum);border-radius:9px;overflow:hidden;background:var(--cream);box-shadow:0 8px 0 var(--plum)}
+.appbar{height:19px;border-bottom:3px solid var(--plum);background:var(--plum);overflow:hidden}
+.appbar svg{width:100%;height:16px;display:block}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 18px 11px;border-bottom:2px solid var(--peach)}
+.head h1{font-size:18px;line-height:1.2;letter-spacing:.12em;margin:0}.head p{font-size:10px;color:var(--plum);margin:5px 0 0}
+.head-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.head-btn,.icon-btn,.action{background:var(--cream);border:2px solid var(--rose);border-bottom-width:4px;border-radius:5px;padding:8px 11px;font-size:11px;font-weight:900;min-height:34px;white-space:nowrap;cursor:pointer}
+.head-btn.on{background:var(--paper)} .icon-btn{width:40px;min-width:40px;display:inline-flex;align-items:center;justify-content:center;padding:6px} .icon-btn svg{display:block;width:21px;height:21px;fill:none;stroke:var(--plum);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.head-btn:active,.icon-btn:active,.action:active,.modal-btn:active{transform:translateY(2px);border-bottom-width:2px}
+.content{padding:12px 18px 14px}
+.grid-heading{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:var(--plum);letter-spacing:.03em;margin-bottom:10px}
+.families{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.family{background:var(--card-bg);padding:8px;border:2px solid var(--plum);border-bottom-width:5px;border-radius:7px;min-width:0;transition:border-color .12s}
+.family.chosen{border-color:var(--night)}
+.family-head{display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:4px;color:var(--card-text)}
+.family-head h2{font-size:15px;letter-spacing:.05em;margin:0;line-height:1.2}.family-glyph{font-size:12px}
+.family-desc{text-align:center;color:var(--card-text);font-size:10px;min-height:16px;margin:0 0 7px}
+.pad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;touch-action:none;user-select:none;-webkit-user-select:none}
+.cell{aspect-ratio:1;border:0;border-radius:3px;background:var(--cream);box-shadow:inset 0 0 0 1px var(--paper),0 2px 0 var(--plum);padding:0;position:relative;touch-action:none;min-width:0;cursor:pointer}
+.cell:focus-visible{outline:3px solid var(--night);outline-offset:2px}.cell:hover{background:var(--paper)} .cell.visited{background:var(--peach)}
+.cell.selected{background:var(--night);box-shadow:inset 0 0 0 2px var(--plum),0 2px 0 var(--plum)}
+.cell.selected::after{content:"";position:absolute;width:20%;height:20%;background:var(--cream);border-radius:2px;left:40%;top:40%}
+/* 最新の音だけ、内側の四角を大きくしてグリッドの色にする。 */
+.cell.selected.latest::after{width:36%;height:36%;left:32%;top:32%;background:var(--card-bg)}
+.cell.pulse{transform:translateY(2px);box-shadow:inset 0 0 0 2px var(--plum)}
+.footer-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;margin-top:10px}
+.preview{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--paper);border:2px solid var(--rose);border-radius:6px;min-width:0}
+.preview-mark{width:38px;height:38px;background:var(--preview-color);border:2px solid var(--plum);border-radius:6px;display:grid;place-items:center;color:var(--preview-text);font-size:18px;flex:none}
+.preview-name{font-size:18px;line-height:1.1;letter-spacing:.04em}.preview-sub{font-size:10px;color:var(--plum);margin-top:2px}.preview-hint{font-size:10px;color:var(--plum)}
+.preview-actions{display:flex;gap:7px;flex-wrap:wrap}.action{border-color:var(--plum);background:var(--cream)} .action.primary{background:var(--coral)}
+.note{font-size:10px;color:var(--plum);margin:10px 0 0}
+.modal-backdrop{position:fixed;inset:0;background:rgba(35,35,46,.35);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal-backdrop.open{display:flex}
+.modal{width:min(460px,100%);background:var(--cream);border:3px solid var(--plum);border-radius:10px;overflow:hidden;box-shadow:0 10px 0 var(--plum)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--paper);border-bottom:2px solid var(--peach)}
+.modal-title{font-size:14px;letter-spacing:.08em}.close-btn{background:none;border:0;padding:0;font-size:22px;line-height:1;cursor:pointer}
+.modal-body{padding:14px}.modal-now{font-size:11px;color:var(--plum);margin-bottom:12px}
+.range-row{margin-bottom:14px}.range-label{display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-bottom:6px}
+.peak-note{margin-top:7px;font-size:10px;color:var(--plum);text-align:right}
+input[type=range]{width:100%;accent-color:var(--rose)}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}.modal-btn{background:var(--cream);border:2px solid var(--plum);border-bottom-width:4px;border-radius:5px;padding:10px 12px;font-size:11px;font-weight:900;cursor:pointer}.modal-btn.primary{background:var(--coral)}
+@media(max-width:730px){body{overflow-y:auto}.site{padding:10px 8px 20px}.head{padding:11px 12px 10px}.head h1{font-size:16px}.head p{font-size:10px}.head-btn,.icon-btn,.action{font-size:10px;padding:7px 8px;min-height:32px}.content{padding:12px 10px 14px}.families{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.grid-heading{font-size:9px;flex-wrap:wrap}.footer-row{grid-template-columns:1fr}.preview-name{font-size:16px}.site-top{padding-bottom:8px}.appbar{height:19px}}
+@media(max-width:390px){.families{grid-template-columns:1fr}.family{padding:7px}.pad{gap:2px}}
+@media(prefers-reduced-motion:reduce){.family{transition:none}}
+</style>
+</head>
+<body>
+<div class="site">
+  <div class="site-top"><div><div class="brand">NULLLATTE / PLAYGROUND</div><div class="subbrand">SMALL SOUNDS FOR SMALL GAMES.</div></div><a class="back" href="../playground.html">← PLAYGROUND</a></div>
+  <main class="app">
+    <div class="appbar" aria-hidden="true">
+      <svg viewBox="0 0 820 16" preserveAspectRatio="none" role="presentation">
+        <defs><pattern id="pop-pulse" width="76" height="16" patternUnits="userSpaceOnUse">
+          <rect x="5" y="7" width="6" height="2" fill="#a37370"/>
+          <rect x="17" y="5" width="6" height="6" fill="#cca795"/>
+          <rect x="29" y="2" width="6" height="12" fill="#c27f6f"/>
+          <rect x="41" y="5" width="6" height="6" fill="#cca795"/>
+          <rect x="53" y="7" width="6" height="2" fill="#a37370"/>
+        </pattern></defs>
+        <rect width="820" height="16" fill="url(#pop-pulse)"/>
+      </svg>
+    </div>
+    <header class="head">
+      <div><h1>POPOPO GRID</h1><p>おす　なぞる　あそぶ。</p></div>
+      <div class="head-actions"><button id="toggleSound" class="head-btn on" type="button">♪ ON</button><button id="reset" class="head-btn" type="button">↻ RESET</button></div>
+    </header>
+    <section class="content">
+      <div class="grid-heading"><span>↑ HIGH / 高くなる</span><span>← SOFT / まるい　　SHARP / くっきり →</span><span>↓ LOW / 低くなる</span></div>
+      <div class="families" id="families"></div>
+      <div class="footer-row">
+        <div class="preview"><div class="preview-mark" id="previewMark">●</div><div><div class="preview-name" id="previewName">POYO</div><div class="preview-sub" id="previewSub">まんなか × ふつう</div><div class="preview-hint" id="previewHint">ぷるんと弾む、まるい音</div></div></div>
+        <div class="preview-actions"><button class="action primary" id="replay" type="button">♪ ぽぽぽぽ</button><button class="action" id="center" type="button">♪ まんなか</button><button id="openDownload" class="icon-btn" type="button" aria-label="今の音をダウンロード" title="今の音をダウンロード"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m6.5 10 5.5 5.5 5.5-5.5"/><path d="M4 17v4h16v-4"/></svg></button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="downloadModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="downloadTitle">
+    <div class="modal-head">
+      <div class="modal-title" id="downloadTitle">DOWNLOAD</div>
+      <button type="button" class="close-btn" id="closeDownload" aria-label="閉じる">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-now" id="downloadNow">POYO / まんなか × ふつう</div>
+      <div class="range-row">
+        <div class="range-label"><span>音の大きさ</span><span id="volumeValue">80%</span></div>
+        <input type="range" id="volumeSlider" min="10" max="100" value="80" step="1">
+        <div class="peak-note">PEAK : <span id="peakValue">-12.0 dBFS</span></div>
+      </div>
+      <div class="modal-actions"><button type="button" class="modal-btn" id="previewOne">♪ ためす</button><button type="button" class="modal-btn primary" id="downloadWav">↓ WAV保存</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const FAMILIES = [
+    {id:'poyo', name:'POYO', caption:'ぷるん・ぽこん', glyph:'●', bg:'#cca795', text:'#3a323c', centerHz:280, hint:'ぷるんと弾む、まるい音'},
+    {id:'pico', name:'PICO', caption:'ピッ・ピコッ', glyph:'■', bg:'#d7c1b4', text:'#3a323c', centerHz:420, hint:'乾いた、8bitの電子音'},
+    {id:'kin', name:'KIN', caption:'キンッ・チリン', glyph:'✦', bg:'#a37370', text:'#ded0c7', centerHz:365, hint:'きらっと響く、金属の音'},
+    {id:'bubu', name:'BUBU', caption:'ぶぶっ・ぼぼっ', glyph:'◆', bg:'#6b5258', text:'#ded0c7', centerHz:205, hint:'低く鼻にかかった、ブーンと響く音'}
+  ];
+  const PITCH_WORDS = ['かなり高い','高め','ふつう','低め','かなり低い'];
+  const COLOR_WORDS = ['とてもまるい','まるい','ふつう','くっきり','かなりくっきり'];
+  const state = Object.fromEntries(FAMILIES.map(f => [f.id, {x:2,y:2,visited:new Set(['2,2'])}]));
+  const panel = document.querySelector('#families');
+  const previewMark = document.querySelector('#previewMark');
+  const previewName = document.querySelector('#previewName');
+  const previewSub = document.querySelector('#previewSub');
+  const previewHint = document.querySelector('#previewHint');
+  const toggle = document.querySelector('#toggleSound');
+  const modal = document.querySelector('#downloadModal');
+  const openDownload = document.querySelector('#openDownload');
+  const closeDownload = document.querySelector('#closeDownload');
+  const downloadNow = document.querySelector('#downloadNow');
+  const volumeSlider = document.querySelector('#volumeSlider');
+  const volumeValue = document.querySelector('#volumeValue');
+  const peakValue = document.querySelector('#peakValue');
+  // Per-family loudness trim: PICO sounds louder than the other voices.
+  // Apply the same correction to live preview and exported WAV.
+  const LOUDNESS = { poyo:1, pico:0.63, kin:1, bubu:1 };
+  let currentId = 'poyo';
+  let playing = true;
+  let audio = null;
+  const bufferCache = new Map();
+
+  function ensureAudio(){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return null;
+    if(!audio) audio = new AC();
+    if(audio.state === 'suspended') audio.resume();
+    return audio;
+  }
+  function currentVolume(){ return Number(volumeSlider.value) / 100; }
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+  function makeBufferForRate(sampleRate, family, x, y){
+    const key = `${sampleRate}:${family.id}:${x}:${y}`;
+    if(bufferCache.has(key)) return bufferCache.get(key);
+    const hz = family.centerHz * Math.pow(2, (2-y)*4/12);
+    const edge = x / 4;
+    const sharp = edge;
+    const soft = 1 - edge;
+    const dur = ({poyo:.132,pico:.084,kin:.162,bubu:.112})[family.id] + soft * .02;
+    const count = Math.max(1, Math.ceil(sampleRate * dur));
+    const out = new Float32Array(count);
+    let phase = 0;
+    const TWO_PI = Math.PI * 2;
+    for(let i=0;i<count;i++){
+      const t = i / sampleRate;
+      const u = t / dur;
+      let v = 0;
+      if(family.id==='poyo'){
+        const glide = .78 - sharp * .48;
+        const hzNow = hz * (1 + glide * Math.exp(-t * (32 + sharp * 10)));
+        phase += TWO_PI * hzNow / sampleRate;
+        const env = Math.min(1, t / .004) * Math.exp(-u * (2.6 + sharp * .85)) * (1-u);
+        const tone = Math.sin(phase) * (0.92 - sharp * .30)
+          + Math.sin(phase * 2) * (.07 + sharp * .28)
+          + Math.sin(phase * 3 + .25) * (sharp * .18);
+        v = tone * env * .49;
+      } else if(family.id==='pico'){
+        const hzNow = hz * (t < dur * (.50 - sharp * .12) ? 1.32 - sharp * .16 : 1);
+        phase += hzNow / sampleRate;
+        phase -= Math.floor(phase);
+        const duty = .62 - sharp * .47;
+        const pulse = phase < duty ? 1 : -1;
+        const env = (t < .0018 ? t / .0018 : 1) * (u < .70 ? 1 : Math.max(0, (1-u) / .30));
+        const bite = (phase < .5 ? 1 : -.7) * sharp * .18;
+        v = (pulse * (.86 - sharp * .12) + bite) * env * .28;
+      } else if(family.id==='kin'){
+        const attack = Math.min(1, t / .0015);
+        const decay = Math.exp(-u * (1.75 + sharp * 1.75));
+        const env = attack * decay * (1-u);
+        const fundamental = Math.sin(TWO_PI * hz * t) * (.90 - sharp * .42);
+        const round2 = Math.sin(TWO_PI * hz * 1.97 * t + .08) * (.14 + soft * .20);
+        const metal2 = Math.sin(TWO_PI * hz * 2.76 * t + .23) * (.06 + sharp * .62);
+        const metal3 = Math.sin(TWO_PI * hz * 4.95 * t + .71) * (sharp * .42);
+        const metal4 = Math.sin(TWO_PI * hz * 7.40 * t + .37) * (sharp * .22);
+        const transient = Math.sin(TWO_PI * hz * (8.4 + sharp * 2.2) * t) * Math.exp(-t * (80 + sharp * 70)) * (.03 + sharp * .14);
+        v = (fundamental + round2 + metal2 + metal3 + metal4 + transient) * env * .34;
+      } else if(family.id==='bubu'){
+        const hzNow = hz * (1 + (.16 + sharp * .14) * Math.exp(-t * 28));
+        phase += TWO_PI * hzNow / sampleRate;
+        const f1 = Math.sin(phase);
+        const f2 = Math.sin(phase * 2 + .21);
+        const f3 = Math.sin(phase * 3 + .46);
+        const f4 = Math.sin(phase * 4 + .18);
+        const f5 = Math.sin(phase * 5 + .52);
+        const nasal = .74 * f1 + (.10 + sharp * .18) * f2 + (.05 + sharp * .24) * f3 + sharp * .16 * f4 + sharp * .09 * f5;
+        const buzz = Math.tanh(nasal * (1.00 + sharp * 2.15));
+        const env = Math.min(1, t / .004) * Math.exp(-u * (1.35 + sharp * .62)) * (1-u);
+        v = buzz * env * .37;
+      }
+      out[i] = clamp(v, -.95, .95);
+    }
+    bufferCache.set(key, out);
+    return out;
+  }
+
+  function getRenderedSamples(familyId, x, y){
+    const family = FAMILIES.find(f=>f.id===familyId);
+    const sampleRate = 44100;
+    const raw = makeBufferForRate(sampleRate, family, x, y);
+    const gain = .75 * currentVolume() * LOUDNESS[family.id];
+    const scaled = new Float32Array(raw.length);
+    let peak = 0;
+    for(let i=0;i<raw.length;i++){
+      const s = raw[i] * gain;
+      scaled[i] = s;
+      const abs = Math.abs(s);
+      if(abs > peak) peak = abs;
+    }
+    return { sampleRate, scaled, peak };
+  }
+  function peakToDbfs(peak){
+    if(!(peak > 0)) return '-∞ dBFS';
+    return `${(20 * Math.log10(peak)).toFixed(1)} dBFS`;
+  }
+  function updatePeak(){
+    const s = state[currentId];
+    const { peak } = getRenderedSamples(currentId, s.x, s.y);
+    peakValue.textContent = peakToDbfs(peak);
+  }
+  function makeAudioBuffer(ac, family, x, y){
+    const data = makeBufferForRate(ac.sampleRate, family, x, y);
+    const buffer = ac.createBuffer(1, data.length, ac.sampleRate);
+    buffer.copyToChannel(data, 0, 0);
+    return buffer;
+  }
+  function playAt(familyId, x, y, when, gainScale=1){
+    if(!playing) return; const family=FAMILIES.find(f=>f.id===familyId); if(!family) return;
+    const ac=ensureAudio(); if(!ac) return;
+    const src=ac.createBufferSource(); const gain=ac.createGain();
+    src.buffer=makeAudioBuffer(ac, family, x, y); gain.gain.value=.75*gainScale*LOUDNESS[familyId];
+    src.connect(gain).connect(ac.destination); src.start(when ?? ac.currentTime);
+  }
+  function update(){
+    for(const family of FAMILIES){
+      const s=state[family.id]; const card=panel.querySelector(`[data-card="${family.id}"]`); if(!card) continue;
+      card.classList.toggle('chosen',currentId===family.id);
+      const cells=card.querySelectorAll('.cell');
+      for(const cell of cells){
+        const x=Number(cell.dataset.x), y=Number(cell.dataset.y);
+        const selected = s.x===x && s.y===y;
+        const latest = selected && currentId===family.id;
+        cell.classList.toggle('selected', selected);
+        cell.classList.toggle('latest', latest);
+        cell.classList.toggle('visited', s.visited.has(`${x},${y}`));
+        cell.setAttribute('aria-pressed', latest ? 'true' : 'false');
+      }
+    }
+    const s=state[currentId]; const family=FAMILIES.find(f=>f.id===currentId);
+    previewMark.textContent=family.glyph; previewMark.style.setProperty('--preview-color',family.bg); previewMark.style.setProperty('--preview-text',family.text);
+    previewName.textContent=family.name; previewSub.textContent=`${PITCH_WORDS[s.y]} × ${COLOR_WORDS[s.x]}`; previewHint.textContent=family.hint;
+    downloadNow.textContent=`${family.name} / ${PITCH_WORDS[s.y]} × ${COLOR_WORDS[s.x]}`;
+    volumeValue.textContent=`${volumeSlider.value}%`;
+    updatePeak();
+  }
+  function select(familyId,x,y,withSound=true){
+    const s=state[familyId]; currentId=familyId; s.x=x; s.y=y; s.visited.add(`${x},${y}`); update(); if(withSound) playAt(familyId,x,y,undefined,currentVolume());
+  }
+  for(const family of FAMILIES){
+    const card=document.createElement('section'); card.className='family'; card.dataset.card=family.id; card.style.setProperty('--card-bg',family.bg); card.style.setProperty('--card-text',family.text);
+    const h=document.createElement('div'); h.className='family-head'; h.innerHTML=`<span class="family-glyph" aria-hidden="true">${family.glyph}</span><h2>${family.name}</h2>`;
+    const desc=document.createElement('p'); desc.className='family-desc'; desc.textContent=family.caption;
+    const grid=document.createElement('div'); grid.className='pad';
+    for(let y=0;y<5;y++) for(let x=0;x<5;x++){
+      const cell=document.createElement('button'); cell.type='button'; cell.className='cell'; cell.dataset.x=x; cell.dataset.y=y;
+      cell.setAttribute('aria-label',`${family.name}: ${PITCH_WORDS[y]}、${COLOR_WORDS[x]}`); grid.appendChild(cell);
+    }
+    let dragging=false; let last='';
+    grid.addEventListener('pointerdown',ev=>{const cell=ev.target.closest('.cell'); if(!cell) return; ev.preventDefault(); dragging=true; last=`${cell.dataset.x},${cell.dataset.y}`; grid.setPointerCapture(ev.pointerId); select(family.id,Number(cell.dataset.x),Number(cell.dataset.y));});
+    grid.addEventListener('pointermove',ev=>{if(!dragging) return; const target=document.elementFromPoint(ev.clientX,ev.clientY); const cell=target?.closest('.cell'); if(!cell||!grid.contains(cell)) return; const key=`${cell.dataset.x},${cell.dataset.y}`; if(key===last) return; last=key; select(family.id,Number(cell.dataset.x),Number(cell.dataset.y));});
+    grid.addEventListener('pointerup',()=>dragging=false); grid.addEventListener('pointercancel',()=>dragging=false);
+    grid.addEventListener('click',ev=>{if(ev.detail!==0) return; const cell=ev.target.closest('.cell'); if(!cell) return; select(family.id,Number(cell.dataset.x),Number(cell.dataset.y));});
+    card.append(h,desc,grid); panel.appendChild(card);
+  }
+  document.querySelector('#replay').addEventListener('click',()=>{ if(!playing) return; const ac=ensureAudio(); if(!ac) return; const s=state[currentId], id=currentId, start=ac.currentTime+.008; for(let i=0;i<7;i++) playAt(id,s.x,s.y,start+i*.13,currentVolume()); });
+  document.querySelector('#center').addEventListener('click',()=>select(currentId,2,2));
+  document.querySelector('#reset').addEventListener('click',()=>{ for(const f of FAMILIES) state[f.id]={x:2,y:2,visited:new Set(['2,2'])}; currentId='poyo'; update(); });
+  toggle.addEventListener('click',()=>{ playing=!playing; toggle.textContent=playing?'♪ ON':'♪ OFF'; toggle.classList.toggle('on',playing); });
+  function openModal(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); update(); }
+  function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+  openDownload.addEventListener('click', openModal); closeDownload.addEventListener('click', closeModal); modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); }); document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+  volumeSlider.addEventListener('input', ()=>update());
+  document.querySelector('#previewOne').addEventListener('click', ()=>{ const s=state[currentId]; playAt(currentId,s.x,s.y,undefined,currentVolume()); });
+  function encodeWav(samples, sampleRate){
+    const buffer = new ArrayBuffer(44 + samples.length * 2); const view = new DataView(buffer);
+    const write = (off, str) => { for(let i=0;i<str.length;i++) view.setUint8(off+i, str.charCodeAt(i)); };
+    write(0,'RIFF'); view.setUint32(4,36 + samples.length*2,true); write(8,'WAVE'); write(12,'fmt '); view.setUint32(16,16,true); view.setUint16(20,1,true); view.setUint16(22,1,true); view.setUint32(24,sampleRate,true); view.setUint32(28,sampleRate*2,true); view.setUint16(32,2,true); view.setUint16(34,16,true); write(36,'data'); view.setUint32(40,samples.length*2,true);
+    let offset=44; for(let i=0;i<samples.length;i++,offset+=2){ const s=Math.max(-1,Math.min(1,samples[i])); view.setInt16(offset, s<0 ? s*0x8000 : s*0x7fff, true); }
+    return new Blob([buffer], {type:'audio/wav'});
+  }
+  document.querySelector('#downloadWav').addEventListener('click', ()=>{
+    const family = FAMILIES.find(f=>f.id===currentId); const s = state[currentId];
+    const { sampleRate, scaled } = getRenderedSamples(currentId, s.x, s.y);
+    const blob = encodeWav(scaled, sampleRate); const a = document.createElement('a'); const safe = `${family.name.toLowerCase()}_${s.x}-${s.y}`; a.href = URL.createObjectURL(blob); a.download = `popopo_${safe}.wav`; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 100);
+  });
+  update();
+})();
+</script>
+</body>
+</html>
