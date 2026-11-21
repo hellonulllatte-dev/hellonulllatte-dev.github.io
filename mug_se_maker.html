@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#ded0c7"><title>MUG SE MAKER — NULLLATTE PLAYGROUND</title><link rel="icon" type="image/png" href="../images/favicon.png">
+<style>
+@font-face{font-family:"MaruMonica";src:url("../fonts/MaruMonica.ttf") format("truetype");font-weight:normal;font-style:normal;font-display:swap;}
+
+:root{--ink:#3a323c;--deep:#23232e;--coffee:#6b5258;--rose:#a37370;--peach:#c27f6f;--latte:#cca795;--cream:#d7c1b4;--milk:#ded0c7;--line:#b9988b;--paper:#f0e2d6}*{box-sizing:border-box}html{background:#c9aa9b}body{margin:0;min-height:100svh;background:linear-gradient(155deg,#d7c1b4,#c5a69a);color:var(--ink);font-family:'MaruMonica',ui-monospace,monospace;padding:17px 12px 38px}main{max-width:850px;margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 3px 12px}.brand{font-size:12px;font-weight:900;letter-spacing:.14em}.sub{font-size:10px;opacity:.7;letter-spacing:.07em;margin-top:5px}.pill{font-size:10px;border:1px solid var(--rose);padding:7px 10px;border-radius:20px;background:#ded0c7;white-space:nowrap}.app{border:3px solid var(--coffee);border-radius:9px;background:var(--milk);box-shadow:0 8px 0 var(--coffee),0 17px 28px #42303425;overflow:hidden}.apphead{padding:18px 21px 15px;border-bottom:2px solid #c8aa9c;display:flex;justify-content:space-between;align-items:center;gap:12px}h1{font-size:22px;letter-spacing:.12em;margin:0}.apphead p{font-size:11px;color:var(--coffee);margin-top:7px}.topactions{display:flex;gap:7px}.btn{font-family:inherit;cursor:pointer;font-weight:900;letter-spacing:.04em;border:2px solid var(--rose);border-bottom-width:4px;border-radius:5px;background:#e9d9cd;color:var(--ink);padding:9px 12px;font-size:11px;min-height:37px}.btn:active{transform:translateY(2px);border-bottom-width:2px}.btn:focus-visible,.cupbtn:focus-visible,.historycup:focus-visible{outline:3px solid var(--peach);outline-offset:3px}.panel{padding:18px 21px 19px}.labelrow{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;font-weight:bold;letter-spacing:.11em;color:var(--coffee);margin-bottom:12px}.small{font-size:10px;opacity:.72;font-weight:400;letter-spacing:0}.cups{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px}.cupbtn{position:relative;display:flex;align-items:center;flex-direction:column;justify-content:space-between;gap:6px;padding:10px 3px 9px;min-height:128px;background:#ead9ce;border:2px solid #c2a49a;border-bottom:5px solid #b29489;border-radius:7px;cursor:pointer;color:var(--ink);font-family:inherit;touch-action:manipulation}.cupbtn.active{background:#f6e8dd;border-color:var(--coffee);border-bottom-color:var(--coffee)}.cupbtn img{width:min(100%,76px);aspect-ratio:1;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 6px 0 #5c40403d);transform:translateY(0);transition:transform .11s cubic-bezier(.2,1.7,.7,1),filter .11s;pointer-events:none}.cupbtn.down img{transform:translateY(5px) scale(1.03,.94);filter:drop-shadow(0 1px 0 #5c404035)}.cupbtn .name{font-weight:900;font-size:12px;white-space:nowrap}.cupbtn .dot{position:absolute;right:7px;top:6px;width:5px;height:5px;background:transparent;border-radius:50%}.cupbtn.active .dot{background:var(--peach)}.workbench{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.95fr) 90px;gap:13px;margin-top:19px;align-items:stretch}.sliders{border:2px solid #c5a69b;background:var(--paper);padding:15px 17px;border-radius:6px}.ctrl{margin:0 0 17px}.ctrl:last-child{margin-bottom:0}.ctrlhead{display:flex;justify-content:space-between;align-items:center;margin:0 0 7px;font-weight:bold;font-size:12px}.val{font-size:10px;color:var(--coffee);font-weight:400}.ends{display:flex;justify-content:space-between;font-size:10px;color:#80656b;margin-top:0}.rangewrap{position:relative;height:26px;display:flex;align-items:center}.rangewrap.magnet:before{content:'';position:absolute;left:50%;top:4px;height:18px;border-left:2px dotted var(--rose);pointer-events:none;opacity:.75;transform:translateX(-1px)}input[type=range]{width:100%;height:23px;accent-color:var(--coffee);margin:0;cursor:pointer;background:transparent;position:relative}input[type=range]:focus-visible{outline:2px solid var(--peach);outline-offset:3px}.monitor{display:flex;flex-direction:column;gap:10px;min-width:0}.screen{background:var(--ink);border:4px solid var(--coffee);border-radius:5px;min-height:161px;padding:12px 10px;color:#edd8c8}.monitor-title{font-size:11px;font-weight:900;letter-spacing:.1em;color:#d7c1b4}.scope{display:block;width:100%;height:85px;margin:8px 0 0}.sound-text{font-size:10px;color:#c6a99d;white-space:nowrap}.volbox{border:2px solid #c5a69b;border-radius:5px;padding:10px 11px;background:#f0e2d6}.volbox .ctrlhead{margin:0}.volbox .ends{margin-top:-2px}.export{width:100%;font-size:12px;background:var(--coffee);color:#fff4ec;border-color:var(--deep);padding:11px}.status{min-height:24px;color:var(--coffee);font-size:10px;line-height:1.4;text-align:center}.history{border:2px solid #c5a69b;border-radius:6px;padding:11px 5px 7px;background:#e8d7ca;display:flex;flex-direction:column;align-items:center;min-width:0}.history .labelrow{font-size:10px;letter-spacing:.04em;justify-content:center;margin-bottom:8px}.history-pile{position:relative;flex:1;width:100%;min-height:258px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}.historycup{position:absolute;left:50%;width:58px;height:58px;padding:0;transform:translateX(-50%);border:0;background:transparent;cursor:pointer;image-rendering:pixelated;transition:filter .14s ease}.historycup.new-cup{animation:cup-appear .16s ease-out both}@keyframes cup-appear{from{opacity:0}to{opacity:1}}.historycup{clip-path:inset(35% 0 18% 0)}.historycup img{display:block;width:100%;image-rendering:pixelated;pointer-events:none;filter:drop-shadow(0 2px 0 #5c404044)}.historycup.current img{filter:drop-shadow(0 1px 0 #5c404044) drop-shadow(0 0 5px #a37370)}.historycup:focus-visible{outline-offset:-9px}.history-empty{font-size:9px;color:#937671;text-align:center;align-self:center;line-height:1.7;padding:5px}.hist-foot{font-size:9px;color:var(--coffee);border-top:4px solid var(--coffee);padding-top:6px;width:88%;text-align:center}.shelfsection{padding:14px 21px 20px;border-top:2px solid #c8aa9c}.shelfhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.shelfhead .labelrow{margin:0}.shelfbox{background:#d7c1b4;border:2px solid var(--rose);border-radius:6px;overflow:hidden}.shelfbox canvas{width:100%;height:auto;display:block;image-rendering:pixelated;touch-action:none;cursor:grab}.shelfstatus{min-height:17px;font-size:10px;color:var(--coffee);margin-top:7px;text-align:right}.foot{padding:13px 21px;font-size:10px;line-height:1.6;color:var(--coffee);display:flex;justify-content:space-between;gap:15px;border-top:2px solid #c8aa9c}@media(max-width:730px){body{padding:10px 8px 27px}.apphead{padding:15px 12px 13px}h1{font-size:17px}.apphead p{font-size:10px}.btn{font-size:10px;padding:8px}.panel{padding:15px 10px}.cups{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.cupbtn{min-height:111px;padding:7px 2px}.cupbtn img{width:60px}.workbench{grid-template-columns:minmax(0,1fr) 76px;gap:9px}.sliders{grid-column:1;grid-row:1;padding:12px}.monitor{grid-column:1;grid-row:2}.history{grid-column:2;grid-row:1/3}.history-pile{min-height:258px}.historycup{width:58px;height:58px}.shelfsection{padding:13px 10px}.foot{padding:12px;font-size:9px}}@media(min-width:731px){.workbench .sliders,.workbench .monitor,.workbench .history{min-height:337px}.workbench .sliders{display:flex;flex-direction:column;justify-content:space-between;padding-top:17px;padding-bottom:22px}.workbench .sliders>.labelrow{margin-bottom:0}.workbench .sliders>.ctrl{margin:0}}@media(prefers-reduced-motion:reduce){.cupbtn img,.historycup{transition:none;animation:none}}
+</style></head><body><main><header><div><div class="brand">NULLLATTE / PLAYGROUND</div><div class="sub">SMALL SOUNDS FOR SMALL GAMES.</div></div><a class="pill" href="../playground.html" style="color:inherit;text-decoration:none" aria-label="PLAYGROUND一覧に戻る">← PLAYGROUND</a></header><div class="app"><div class="apphead"><div><h1>MUG SE MAKER</h1><p>マグを押して、好きな「カチッ」をつくろう。</p></div><div class="topactions"><button class="btn" id="mute" type="button" aria-label="音のオンオフ">♪ ON</button><button class="btn" id="reset" type="button" title="選択中のマグの音を初期状態へ">↻ RESET</button></div></div>
+<section class="panel" id="maker"><div class="labelrow">PICK A MUG <span class="small">PRESS TO LISTEN</span></div><div class="cups" id="cups"></div>
+<div class="workbench"><div class="sliders"><div class="labelrow">MAKE IT YOURS <span class="small" id="edit-label">カチッ</span></div><div class="ctrl"><div class="ctrlhead"><label for="soft">手ざわり</label><span class="val" id="soft-val">かたい</span></div><div class="rangewrap magnet"><input id="soft" type="range" min="0" max="100" step="1" aria-label="硬いから柔らかい"></div><div class="ends"><span>カチカチ</span><span>ふわふわ</span></div></div><div class="ctrl"><div class="ctrlhead"><label for="pitch">音の高さ</label><span class="val" id="pitch-val">まんなか</span></div><div class="rangewrap magnet"><input id="pitch" type="range" min="0" max="100" step="1" aria-label="低いから高い"></div><div class="ends"><span>低い</span><span>高い</span></div></div><div class="ctrl"><div class="ctrlhead"><label for="tail">音の余韻</label><span class="val" id="tail-val">短い</span></div><div class="rangewrap magnet"><input id="tail" type="range" min="0" max="100" step="1" aria-label="短いから長い"></div><div class="ends"><span>ぷちっ</span><span>ぽわん</span></div></div></div>
+<div class="monitor"><div class="screen"><div class="monitor-title">SOUND PREVIEW <span id="scope-num" style="float:right">カチッ</span></div><canvas id="scope" class="scope" width="430" height="125" aria-label="生成した音の波形"></canvas><div class="sound-text" id="sound-text">CLICK / READY</div></div><div class="volbox"><div class="ctrlhead"><label for="volume">音の大きさ</label><span class="val" id="volume-val">75%</span></div><div class="rangewrap"><input id="volume" type="range" min="0" max="100" step="1" aria-label="音の大きさ"></div><div class="ends"><span>小さめ</span><span>大きめ</span></div></div><button class="btn export" id="export" type="button">↓ WAV保存</button><div class="status" id="status" aria-live="polite"></div></div>
+<aside class="history"><div class="labelrow">HISTORY</div><div class="history-pile" id="history-pile"></div><div class="hist-foot" id="history-count">0 / 10</div></aside></div></section>
+<section class="shelfsection"><div class="shelfhead"><div class="labelrow">TEST ON THE SHELF <span class="small">DRAG · SNAP · STACK</span></div><button class="btn" id="shelf-reset" type="button">↻ RESET</button></div><div class="shelfbox"><canvas id="shelf-canvas" width="660" height="375" aria-label="棚2段。マグをドラッグし、各列に3個まで積み重ねられます"></canvas></div><div class="shelfstatus" id="shelf-label">選んだマグの音がそのまま鳴るよ</div></section><div class="foot"><span>NO MUSIC SKILLS REQUIRED. JUST CUPS.</span><span>32×32 PIXEL MUGS · WEB AUDIO · WAV</span></div></div></main>
+<script>
+(()=>{'use strict';
+const IMAGES=["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAAEJJREFUOI1jYBgFgw4woQBsCtiRABUUYLEFVQEWU9BNIKCAgWIFTFjcwIwEsMijKcASlkysSABrQBFSwEAgroY2AABJKAQrvbG2OgAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAAD9JREFUOI1jYBgFgw4woQBsCliQABUUYLEFVQEHBwe6CnQTCChgoFgBExY3cCABLPJoCrCEJeUhyUAgroY2AACt7wN1e3J9UwAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAAD9JREFUOI1jYBgFgw4woQBsCtiRABUUYLEFVQEHBwe6CnQTCChgoFgBExY3sCIBLPJoCrCEJeUhyUAgroY2AADJfQSVfVViqgAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAADxJREFUOI1jYBgFgw4woQBsCliQABUUYLEFVQEWU9BNIKCAgWIFTFjcwIYEsMijKcASlpSHJAOBuBraAAAtiwMdfLbYRgAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAADxJREFUOI1jYBgFgw4woQBsCpiRABUUYLEFVQEWU9BNIKCAgWIFTFjcwIYEsMijKcASlpSHJAOBuBraAABKDwKbCLjC2gAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAADxJREFUOI1jYBgFgw4woQBsCliRABUUYLEFVQEWU9BNIKCAgWIFTFjcwIYEsMijKcASlpSHJAOBuBraAAARBwOfUhsEJAAAAABJRU5ErkJggg=="];
+const defs=[
+{name:'カチッ',en:'KACHI',soft:14,pitch:70,tail:11,volume:74},
+{name:'コクッ',en:'KOKU',soft:43,pitch:32,tail:20,volume:76},
+{name:'ポチッ',en:'POCHI',soft:47,pitch:76,tail:9,volume:68},
+{name:'コンッ',en:'KON',soft:44,pitch:43,tail:24,volume:75},
+{name:'コトッ',en:'KOTO',soft:57,pitch:22,tail:27,volume:77},
+{name:'カタッ',en:'KATA',soft:24,pitch:50,tail:19,volume:75}];
+const $=sel=>document.querySelector(sel),clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SR=32000,STORE='nulllatte_mug_se_v4',COUNT_STORE='nulllatte_mug_se_counters_v1';
+const fresh=i=>({soft:defs[i].soft,pitch:defs[i].pitch,tail:defs[i].tail,volume:defs[i].volume});
+let settings=defs.map((_,i)=>fresh(i)),history=[],historyActive=-1,selected=0,ctx=null,soundOn=true,voices=[],historySeq=0;
+let soundCounters=Array(6).fill(0),currentSoundKey=null;
+const validSettings=(item,i)=>Object.fromEntries(['soft','pitch','tail','volume'].map(k=>[k,Number.isFinite(Number(item?.[k]))?clamp(Math.round(Number(item[k])),0,100):fresh(i)[k]]));
+try{
+ const saved=JSON.parse(localStorage.getItem(STORE));
+ const old=JSON.parse(localStorage.getItem('nulllatte_mug_se_v3')) || JSON.parse(localStorage.getItem('nulllatte_mug_se_v2'));
+ const data=saved||old;
+ if(data&&Array.isArray(data.settings)&&data.settings.length===6){settings=data.settings.map(validSettings);if(!saved)settings[3]=fresh(3)}
+ const counters=JSON.parse(localStorage.getItem(COUNT_STORE));
+ if(Array.isArray(counters)&&counters.length===6) soundCounters=counters.map(v=>Number.isSafeInteger(v)&&v>=0?v:0);
+ // v2の編集履歴は「聴いた音」ではないため引き継がない。
+ // HISTORY is session-only: start empty on every new page load.
+}catch{}
+const copy=s=>({...s});const equal=(a,b)=>['soft','pitch','tail','volume'].every(k=>a[k]===b[k]);
+function persist(){try{localStorage.setItem(STORE,JSON.stringify({settings}));localStorage.setItem(COUNT_STORE,JSON.stringify(soundCounters))}catch{}}
+function newSoundKey(id){const count=++soundCounters[id];persist();return `${defs[id].en.toLowerCase()}_${String(count).padStart(3,'0')}`}
+function selectedKey(){if(historyActive>=0){const e=history[historyActive];if(e&&e.id===selected&&equal(e.s,settings[selected]))return e.key}return currentSoundKey&&currentSoundKey.id===selected&&equal(currentSoundKey.s,settings[selected])?currentSoundKey.key:null}
+const cupEl=$('#cups');IMAGES.forEach((url,i)=>{let b=document.createElement('button');b.type='button';b.className='cupbtn';b.innerHTML=`<span class="dot"></span><img src="${url}" draggable="false" alt=""><span class="name">${defs[i].name}</span>`;b.setAttribute('aria-label',`${defs[i].name}を選んで試聴`);b.addEventListener('pointerdown',()=>b.classList.add('down'));['pointerleave','pointercancel','pointerup'].forEach(t=>b.addEventListener(t,()=>b.classList.remove('down')));b.addEventListener('click',()=>{select(i);play(settings[i],i);addHistory(i,settings[i])});cupEl.append(b)});
+function select(i){selected=i;[...cupEl.children].forEach((b,j)=>{b.classList.toggle('active',j===i);b.setAttribute('aria-pressed',j===i?'true':'false')});$('#edit-label').textContent=defs[i].name;$('#scope-num').textContent=defs[i].name;for(const k of ['soft','pitch','tail','volume'])$('#'+k).value=settings[i][k];labels();renderHistory();drawScope()}
+function labels(){const s=settings[selected];$('#soft-val').textContent=s.soft<35?'かたい':s.soft>65?'やわらかい':'ほどよい';$('#pitch-val').textContent=s.pitch<35?'ひくめ':s.pitch>65?'たかめ':'まんなか';$('#tail-val').textContent=s.tail<35?'短い':s.tail>65?'長め':'ほどよい';$('#volume-val').textContent=s.volume+'%';$('#sound-text').textContent=Math.round(duration(selected,s)*1000)+'ms'}
+// HISTORYは全6種共通、最大10件の試聴ログ。編集操作では保存しない。
+function addHistory(id,sound){
+ const last=history[history.length-1];
+ if(last&&last.id===id&&equal(last.s,sound)){
+  historyActive=history.length-1;currentSoundKey={id,s:copy(sound),key:last.key};renderHistory();return;
+ }
+ // Replaying a sound retrieved from HISTORY keeps its original name.
+ const key=selectedKey()||newSoundKey(id);
+ const snapshot={id,s:copy(sound),uid:++historySeq,key};
+ history.push(snapshot);
+ currentSoundKey={id,s:copy(sound),key};
+ if(history.length>10)history.shift();
+ historyActive=history.length-1;
+ persist();renderHistory();
+}
+// HISTORYは既存DOMを維持。新しく追加したマグだけが静かに表示される。
+const historyNodes=new Map();
+function renderHistory(){
+ const box=$('#history-pile');
+ $('#history-count').textContent=`${history.length} / 10`;
+ const visible=new Set(history.map(e=>e.uid));
+ for(const [key,node] of historyNodes){
+  if(!visible.has(key)){node.remove();historyNodes.delete(key)}
+ }
+ // Align the actual painted bottom of the sprite just above the brown shelf rule.
+ const BASE=-7,STEP=22;
+ history.forEach((entry,i)=>{
+  let b=historyNodes.get(entry.uid);
+  if(!b){
+   b=document.createElement('button');b.type='button';b.className='historycup new-cup';
+   b.title=`${entry.key} · 押して復元`;
+   b.setAttribute('aria-label',`${entry.key} の試聴履歴を復元`);
+   const img=document.createElement('img');img.src=IMAGES[entry.id];img.alt='';b.append(img);
+   b.addEventListener('click',()=>{
+    const pos=history.findIndex(e=>e.uid===entry.uid);
+    if(pos<0)return;
+    selected=entry.id;settings[selected]=copy(entry.s);historyActive=pos;
+    currentSoundKey={id:selected,s:copy(entry.s),key:entry.key};
+    select(selected);persist();play(settings[selected],selected);
+    $('#status').textContent=entry.key;
+   });
+   historyNodes.set(entry.uid,b);box.append(b);
+   b.addEventListener('animationend',()=>b.classList.remove('new-cup'),{once:true});
+  }
+  b.style.bottom=`${BASE+i*STEP}px`;
+  // Lower cup overlaps the bottom of upper cup (like a nested physical stack).
+  b.style.zIndex=String(history.length-i);
+  b.classList.toggle('current',i===historyActive);
+  b.setAttribute('aria-pressed',i===historyActive?'true':'false');
+ });
+}
+// 目盛りの50に近づいた時だけスナップ。中央からのドラッグも自由。
+const snapMemory={};const knobs=['soft','pitch','tail','volume'];
+knobs.forEach(k=>{const el=$('#'+k);
+ el.addEventListener('input',()=>{
+  let v=Number(el.value);
+  if(k!=='volume'){
+   const was=snapMemory[k]===true;
+   if(!was&&Math.abs(v-50)<=2){v=50;snapMemory[k]=true;playTick()}
+   else if(was&&Math.abs(v-50)>4)snapMemory[k]=false;
+   if(was&&Math.abs(v-50)<=4)v=50;
+  }
+  el.value=v;settings[selected][k]=v;
+  historyActive=-1;labels();drawScope();renderHistory();persist();
+ });
+});
+// 音は単純なピッチ変更ではなく、各プリセットが異なる打撃・共鳴構造を持つ。
+function duration(id,s){const tail=s.tail/100;return clamp([.045,.075,.035,.070,.100,.065][id]+tail*[.135,.125,.105,.155,.155,.150][id],.025,.28)}
+function makeSound(id,s=settings[id]){const dur=duration(id,s),n=Math.ceil((dur+.008)*SR),out=new Float32Array(n),soft=s.soft/100,hi=s.pitch/100;
+ const f0=[840,320,1170,350,215,630][id]*Math.pow(2,(hi-defs[id].pitch)/55);
+ const decay=dur*(.24+soft*.18),attack=.00025+soft*.0035;
+ let seed=214331+id*311;const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)|0;return (seed>>>0)/4294967296*2-1};
+ let noiseLp=0,phase=0,phaseB=0,phaseC=0;let peak=0;
+ for(let i=0;i<n;i++){let t=i/SR;let f=f0,body=0,click=0;
+ if(id===0){f=f0*(.58+.84*Math.exp(-t/.010));}
+ if(id===1){f=f0*(.72+.60*Math.exp(-t/.026));}
+ if(id===2){f=f0*(.78+.4*Math.exp(-t/.007));}
+ if(id===3){f=f0*(.80+.42*Math.exp(-t/.014));}
+ if(id===4){f=f0*(.82+.32*Math.exp(-t/.023));}
+ if(id===5){f=f0*(.73+.52*Math.exp(-t/.011));}
+ f=clamp(f,45,7400);phase+=f/SR;phaseB+=f*(id===4?1.41:2.07)/SR;phaseC+=f*3.1/SR;
+ const sn=Math.sin(2*Math.PI*phase),harm=Math.sin(2*Math.PI*phaseB),hiHarm=Math.sin(2*Math.PI*phaseC);
+ noiseLp+=(rnd()-noiseLp)*(.22+.62*(1-soft));const bright=(1-soft);
+ switch(id){
+ case 0:body=.36*sn+.47*harm+.17*hiHarm;click=noiseLp*.82*Math.exp(-t/.0045);break; // 鋭い乾いたクリック
+ case 1:body=.80*sn+.17*harm;click=noiseLp*.21*Math.exp(-t/.008);break; // 丸い低音
+ case 2:body=.62*sn+.27*harm+.09*hiHarm;click=noiseLp*.35*Math.exp(-t/.003);break; // 小さい軽いクリック
+ case 3:{// KON: dry preliminary tap followed by a heavier, hollow second contact.
+   const onset=.032+(.5-soft)*.006;
+   const second=t>=onset?Math.exp(-(t-onset)/(.023+soft*.016)):0;
+   const primary=Math.exp(-t/(.010+soft*.006));
+   body=(.34*sn+.12*harm)*primary+(.83*sn+.14*harm)*second;
+   click=noiseLp*(.45*Math.exp(-t/.0035)+.21*second);break;}
+ case 4:body=.75*sn+.20*harm+.04*hiHarm;click=noiseLp*.32*Math.exp(-t/.012);break; // 重めの木質感
+ case 5:{const two=t>=.025&&t<.061?Math.exp(-(t-.025)/.010):0;body=.54*sn+.32*harm;click=noiseLp*(.65*Math.exp(-t/.004)+.75*two);body+=.40*two*harm;break;} // 二段式のカタッ
+ }
+ const env=(1-Math.exp(-t/attack))*Math.exp(-t/decay)*clamp((dur-t)/.012,0,1);
+ const v=(body*(.55+soft*.42)+click*bright)*env;
+ out[i]=v;peak=Math.max(peak,Math.abs(v));
+ }
+ const scale=(.79/Math.max(.0001,peak))*(s.volume/100);
+ for(let i=0;i<n;i++)out[i]=clamp(out[i]*scale,-1,1);return out}
+function audio(){try{ctx??=new (window.AudioContext||window.webkitAudioContext)();if(ctx.state==='suspended')ctx.resume();return ctx}catch{return null}}
+function sendAudio(data,vol=1){if(!soundOn)return;const a=audio();if(!a)return;const buffer=a.createBuffer(1,data.length,SR);buffer.copyToChannel(data,0);const src=a.createBufferSource(),gain=a.createGain();src.buffer=buffer;gain.gain.value=vol;src.connect(gain);gain.connect(a.destination);src.start();voices.push(src);src.onended=()=>voices=voices.filter(v=>v!==src);if(voices.length>9){try{voices.shift().stop()}catch{}}}
+function play(s=settings[selected],id=selected){sendAudio(makeSound(id,s))}
+let lastTick=0;function playTick(){if(!soundOn)return;const now=performance.now();if(now-lastTick<100)return;lastTick=now;const a=audio();if(!a)return;const osc=a.createOscillator(),g=a.createGain();osc.type='sine';osc.frequency.setValueAtTime(680,a.currentTime);osc.frequency.exponentialRampToValueAtTime(440,a.currentTime+.014);g.gain.setValueAtTime(.0001,a.currentTime);g.gain.exponentialRampToValueAtTime(.045,a.currentTime+.002);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.022);osc.connect(g).connect(a.destination);osc.start();osc.stop(a.currentTime+.025)}
+function drawScope(){const canvas=$('#scope'),g=canvas.getContext('2d'),w=canvas.width,h=canvas.height,data=makeSound(selected);g.fillStyle='#3a323c';g.fillRect(0,0,w,h);g.strokeStyle='#725c62';g.lineWidth=1;g.beginPath();g.moveTo(0,h/2);g.lineTo(w,h/2);g.stroke();g.strokeStyle='#e4b7a1';g.lineWidth=2;g.beginPath();for(let x=0;x<w;x++){const index=Math.floor(x/w*(data.length-1)),y=h/2-data[index]*h*.44;x===0?g.moveTo(x,y):g.lineTo(x,y)}g.stroke()}
+function wav(data){const b=new ArrayBuffer(44+data.length*2),v=new DataView(b);function str(p,s){for(let i=0;i<s.length;i++)v.setUint8(p+i,s.charCodeAt(i))}str(0,'RIFF');v.setUint32(4,36+data.length*2,true);str(8,'WAVE');str(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,SR,true);v.setUint32(28,SR*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);str(36,'data');v.setUint32(40,data.length*2,true);for(let i=0;i<data.length;i++){const a=clamp(data[i],-1,1);v.setInt16(44+i*2,a<0?a*32768:a*32767,true)}return new Blob([b],{type:'audio/wav'})}
+$('#export').addEventListener('click',()=>{const key=selectedKey()||newSoundKey(selected);currentSoundKey={id:selected,s:copy(settings[selected]),key};const blob=wav(makeSound(selected)),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${key}.wav`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);$('#status').textContent='WAVを書き出したよ'});
+$('#mute').addEventListener('click',()=>{soundOn=!soundOn;$('#mute').textContent=soundOn?'♪ ON':'♪ OFF';$('#mute').setAttribute('aria-pressed',soundOn?'true':'false')});
+$('#reset').addEventListener('click',()=>{settings[selected]=fresh(selected);historyActive=-1;select(selected);persist();$('#status').textContent='初期の音に戻したよ'});
+// SHELF: 棚2段＋トレイ。全カップをドラッグ可能、スタック上限3。
+const sc=$('#shelf-canvas'),sg=sc.getContext('2d'),SX=[78,179,280,381,482,583],SY=[165,345],STEP=36,SIZE=92,MAX=3,SHELF_CLEAR=0;
+const pics=IMAGES.map(src=>{const im=new Image();im.src=src;return im});let stacks=[],drag=null,hover=null,particles=[];
+function resetShelf(){stacks=Array.from({length:2},()=>Array.from({length:6},()=>[]));for(let i=0;i<6;i++)stacks[1][i]=[i];drag=null;hover=null;particles=[]}
+function loc(r,c,l){return{x:SX[c],bottom:SY[r]-SHELF_CLEAR-l*STEP}}
+function cup(id,x,bottom,ghost=false){const im=pics[id];if(!im.complete||!im.naturalWidth)return;sg.globalAlpha=ghost?.43:1;sg.imageSmoothingEnabled=false;sg.drawImage(im,Math.round(x-SIZE/2),Math.round(bottom-SIZE*26/32),SIZE,SIZE);sg.globalAlpha=1}
+function board(){sg.fillStyle='#ded0c7';sg.fillRect(0,0,660,375);sg.fillStyle='#cca795';for(let y=20;y<375;y+=29)for(let x=20;x<660;x+=29)sg.fillRect(x,y,2,2);sg.fillStyle='#6b5258';sg.font='11px MaruMonica, monospace';sg.fillText('MUG SHELF',22,21);
+ for(let r=0;r<2;r++){const y=SY[r];sg.fillStyle='#3a323c';sg.fillRect(22,y+8,616,9);sg.fillStyle='#6b5258';sg.fillRect(18,y+2,624,9);sg.fillStyle='#a37370';sg.fillRect(18,y+2,624,3)}
+ // 接地ポイントのプレビュー
+ if(hover&&drag){const p=loc(hover.r,hover.c,hover.n);sg.save();sg.setLineDash([4,4]);sg.strokeStyle='#a37370';sg.lineWidth=2;sg.strokeRect(p.x-31,p.bottom-37,62,42);sg.restore();}
+ // 重なり順が肝。スタック内の上段を先に、下段を後から描画することで、上のマグの底が下の飲み口に入る。
+ for(let r=0;r<2;r++)for(let c=0;c<6;c++){const ids=stacks[r][c];for(let l=ids.length-1;l>=0;l--){if(drag&&drag.r===r&&drag.c===c&&l>=drag.l)continue;const p=loc(r,c,l);cup(ids[l],p.x,p.bottom)}}
+ if(drag){for(let i=drag.ids.length-1;i>=0;i--)cup(drag.ids[i],drag.x,drag.bottom-i*STEP)}
+ particles.forEach(p=>{p.life--;sg.globalAlpha=Math.max(0,p.life/19);sg.lineWidth=2;sg.strokeStyle='#c27f6f';sg.beginPath();sg.ellipse(p.x,p.y,12+(19-p.life)*1.4,3+(19-p.life)*.4,0,0,Math.PI*2);sg.stroke();sg.globalAlpha=1});particles=particles.filter(p=>p.life>0);requestAnimationFrame(board)}
+function coord(e){const r=sc.getBoundingClientRect();return{x:(e.clientX-r.left)*660/r.width,y:(e.clientY-r.top)*375/r.height}}
+function hit(p){let best=null,dist=1e9;for(let r=0;r<2;r++)for(let c=0;c<6;c++)for(let l=0;l<stacks[r][c].length;l++){const q=loc(r,c,l),dx=Math.abs(p.x-q.x),dy=p.y-q.bottom;if(dx>30||dy< -48||dy>8)continue;const d=Math.abs(dy+19)+dx*.3-l*.4;if(d<dist){dist=d;best={r,c,l,...q}}}return best}
+function target(){if(!drag)return null;let best=null,bestcost=Infinity;for(let r=0;r<2;r++)for(let c=0;c<6;c++){const removed=drag.r===r&&drag.c===c?drag.ids.length:0;const n=stacks[r][c].length-removed;if(n+drag.ids.length>MAX)continue;const dx=Math.abs(drag.x-SX[c]),dy=Math.abs(drag.bottom-(SY[r]-SHELF_CLEAR-STEP*n)),cost=dx*.8+dy;if(dx<50&&dy<69&&cost<bestcost){best={r,c,n};bestcost=cost}}return best}
+sc.addEventListener('pointerdown',e=>{if(drag)return;const p=coord(e),h=hit(p);if(!h)return;drag={r:h.r,c:h.c,l:h.l,ids:stacks[h.r][h.c].slice(h.l),x:h.x,bottom:h.bottom,offX:h.x-p.x,offY:h.bottom-p.y,pid:e.pointerId};sc.setPointerCapture(e.pointerId);e.preventDefault()});
+sc.addEventListener('pointermove',e=>{if(!drag||drag.pid!==e.pointerId)return;const p=coord(e);drag.x=p.x+drag.offX;drag.bottom=p.y+drag.offY;hover=target();e.preventDefault()});
+function finish(e,cancel=false){if(!drag||drag.pid!==e.pointerId)return;const p=coord(e);drag.x=p.x+drag.offX;drag.bottom=p.y+drag.offY;const t=cancel?null:target();if(t){const same=t.r===drag.r&&t.c===drag.c&&t.n===drag.l;stacks[drag.r][drag.c].splice(drag.l,drag.ids.length);stacks[t.r][t.c].push(...drag.ids);if(!same){const q=loc(t.r,t.c,t.n);particles.push({x:q.x,y:q.bottom,life:19});play(settings[selected],selected)}}drag=null;hover=null;e.preventDefault()}
+sc.addEventListener('pointerup',e=>finish(e));sc.addEventListener('pointercancel',e=>finish(e,true));window.addEventListener('blur',()=>{if(drag){drag=null;hover=null}});$('#shelf-reset').addEventListener('click',resetShelf);
+select(0);resetShelf();requestAnimationFrame(board);
+})();
+</script></body></html>
