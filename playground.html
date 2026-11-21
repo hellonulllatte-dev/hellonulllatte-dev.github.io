@@ -44,6 +44,44 @@
   @media (prefers-reduced-motion: reduce) {
     a.toy-card { transition: none; }
   }
+
+  /* NEXT MARK GALLERY: reproduce the MUG PNG's frame geometry.
+     The MUG thumbnail is 900x510: background margins are part of the image.
+     SVG uses the same viewBox, so the frame scales exactly with the thumbnail. */
+  .next-mark-thumb {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #ded0c7;
+  }
+  .next-mark-thumb svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .next-mark-symbols {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 20px);
+    white-space: nowrap;
+    color: #78575e;
+    pointer-events: none;
+  }
+  .next-mark-symbols span {
+    font-family: sans-serif;
+    font-size: clamp(24px, 3vw, 42px);
+    line-height: 1;
+  }
+  .next-mark-symbols span:nth-child(2) { color: #a37370; transform: translateY(-8px); }
+  .next-mark-symbols span:nth-child(3) { color: #584540; }
 </style>
 </head>
 <body>
@@ -78,6 +116,19 @@
           <img src="images/mug_se_maker_thumb.png" alt="カラフルなドット絵のマグカップが並ぶ MUG SE MAKER">
           <h3>MUG SE MAKER</h3>
           <p>Make tiny button sounds with six pixel mugs. Listen, tweak, and export WAV files.</p>
+        </a>
+        <a class="game-card toy-card" href="playground/next_mark_gallery.html" aria-label="NEXT MARK GALLERYを開く">
+          <div class="next-mark-thumb" aria-hidden="true">
+            <svg viewBox="0 0 900 510" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <rect width="900" height="510" fill="#ded0c7"/>
+              <rect x="33.5" y="29.5" width="834" height="451.5" rx="20" fill="#e9d9ce" stroke="#6b5258" stroke-width="7"/>
+              <rect x="37" y="370" width="827" height="6" fill="#a37370"/>
+              <rect x="37" y="376" width="827" height="10" fill="#6b5258"/>
+            </svg>
+            <div class="next-mark-symbols"><span>▶</span><span>◆</span><span>✦</span><span>▼</span></div>
+          </div>
+          <h3>NEXT MARK GALLERY</h3>
+          <p>さわって、おして、ながめて。</p>
         </a>
       </div>
       <p class="games-more">More little toys coming soon...<small>小さな遊びを、少しずつ追加していきます。</small></p>
