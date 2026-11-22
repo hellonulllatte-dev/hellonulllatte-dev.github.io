@@ -115,13 +115,14 @@ input[type=range]{width:100%;accent-color:var(--rose)}
 (() => {
   'use strict';
   const FAMILIES = [
-    {id:'poyo', name:'POYO', caption:'ぷるん・ぽこん', glyph:'●', bg:'#cca795', text:'#3a323c', centerHz:280, hint:'ぷるんと弾む、まるい音'},
-    {id:'pico', name:'PICO', caption:'ピッ・ピコッ', glyph:'■', bg:'#d7c1b4', text:'#3a323c', centerHz:420, hint:'乾いた、8bitの電子音'},
-    {id:'kin', name:'KIN', caption:'キンッ・チリン', glyph:'✦', bg:'#a37370', text:'#ded0c7', centerHz:365, hint:'きらっと響く、金属の音'},
-    {id:'bubu', name:'BUBU', caption:'ぶぶっ・ぼぼっ', glyph:'◆', bg:'#6b5258', text:'#ded0c7', centerHz:205, hint:'低く鼻にかかった、ブーンと響く音'}
+    {id:'poyo', name:'POYO', caption:{ja:'ぷるん・ぽこん',en:'bouncy and round'}, glyph:'●', bg:'#cca795', text:'#3a323c', centerHz:280, hint:{ja:'ぷるんと弾む、まるい音',en:'A round, bouncy sound'}},
+    {id:'pico', name:'PICO', caption:{ja:'ピッ・ピコッ',en:'bright pixel beeps'}, glyph:'■', bg:'#d7c1b4', text:'#3a323c', centerHz:420, hint:{ja:'乾いた、8bitの電子音',en:'A dry 8-bit electronic sound'}},
+    {id:'kin', name:'KIN', caption:{ja:'キンッ・チリン',en:'clear metallic chimes'}, glyph:'✦', bg:'#a37370', text:'#ded0c7', centerHz:365, hint:{ja:'きらっと響く、金属の音',en:'A sparkling metallic sound'}},
+    {id:'bubu', name:'BUBU', caption:{ja:'ぶぶっ・ぼぼっ',en:'low nasal buzzes'}, glyph:'◆', bg:'#6b5258', text:'#ded0c7', centerHz:205, hint:{ja:'低く鼻にかかった、ブーンと響く音',en:'A low, nasal buzzing sound'}}
   ];
-  const PITCH_WORDS = ['かなり高い','高め','ふつう','低め','かなり低い'];
-  const COLOR_WORDS = ['とてもまるい','まるい','ふつう','くっきり','かなりくっきり'];
+  const PITCH_WORDS = {ja:['かなり高い','高め','ふつう','低め','かなり低い'],en:['very high','high','medium','low','very low']};
+  const COLOR_WORDS = {ja:['とてもまるい','まるい','ふつう','くっきり','かなりくっきり'],en:['very soft','soft','medium','sharp','very sharp']};
+  const language=()=>window.NulllatteI18n?.language==='en'?'en':'ja';
   const state = Object.fromEntries(FAMILIES.map(f => [f.id, {x:2,y:2,visited:new Set(['2,2'])}]));
   const panel = document.querySelector('#families');
   const previewMark = document.querySelector('#previewMark');
@@ -271,8 +272,9 @@ input[type=range]{width:100%;accent-color:var(--rose)}
     }
     const s=state[currentId]; const family=FAMILIES.find(f=>f.id===currentId);
     previewMark.textContent=family.glyph; previewMark.style.setProperty('--preview-color',family.bg); previewMark.style.setProperty('--preview-text',family.text);
-    previewName.textContent=family.name; previewSub.textContent=`${PITCH_WORDS[s.y]} × ${COLOR_WORDS[s.x]}`; previewHint.textContent=family.hint;
-    downloadNow.textContent=`${family.name} / ${PITCH_WORDS[s.y]} × ${COLOR_WORDS[s.x]}`;
+    const lang=language();
+    previewName.textContent=family.name; previewSub.textContent=`${PITCH_WORDS[lang][s.y]} × ${COLOR_WORDS[lang][s.x]}`; previewHint.textContent=family.hint[lang];
+    downloadNow.textContent=`${family.name} / ${PITCH_WORDS[lang][s.y]} × ${COLOR_WORDS[lang][s.x]}`;
     volumeValue.textContent=`${volumeSlider.value}%`;
     updatePeak();
   }
@@ -282,11 +284,11 @@ input[type=range]{width:100%;accent-color:var(--rose)}
   for(const family of FAMILIES){
     const card=document.createElement('section'); card.className='family'; card.dataset.card=family.id; card.style.setProperty('--card-bg',family.bg); card.style.setProperty('--card-text',family.text);
     const h=document.createElement('div'); h.className='family-head'; h.innerHTML=`<span class="family-glyph" aria-hidden="true">${family.glyph}</span><h2>${family.name}</h2>`;
-    const desc=document.createElement('p'); desc.className='family-desc'; desc.textContent=family.caption;
+    const desc=document.createElement('p'); desc.className='family-desc'; desc.textContent=family.caption[language()];
     const grid=document.createElement('div'); grid.className='pad';
     for(let y=0;y<5;y++) for(let x=0;x<5;x++){
       const cell=document.createElement('button'); cell.type='button'; cell.className='cell'; cell.dataset.x=x; cell.dataset.y=y;
-      cell.setAttribute('aria-label',`${family.name}: ${PITCH_WORDS[y]}、${COLOR_WORDS[x]}`); grid.appendChild(cell);
+      const lang=language(); cell.setAttribute('aria-label',`${family.name}: ${PITCH_WORDS[lang][y]}, ${COLOR_WORDS[lang][x]}`); grid.appendChild(cell);
     }
     let dragging=false; let last='';
     grid.addEventListener('pointerdown',ev=>{const cell=ev.target.closest('.cell'); if(!cell) return; ev.preventDefault(); dragging=true; last=`${cell.dataset.x},${cell.dataset.y}`; grid.setPointerCapture(ev.pointerId); select(family.id,Number(cell.dataset.x),Number(cell.dataset.y));});
@@ -316,8 +318,18 @@ input[type=range]{width:100%;accent-color:var(--rose)}
     const { sampleRate, scaled } = getRenderedSamples(currentId, s.x, s.y);
     const blob = encodeWav(scaled, sampleRate); const a = document.createElement('a'); const safe = `${family.name.toLowerCase()}_${s.x}-${s.y}`; a.href = URL.createObjectURL(blob); a.download = `popopo_${safe}.wav`; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 100);
   });
+  window.addEventListener('nulllatte:languagechange',()=>{
+    const lang=language();
+    for(const family of FAMILIES){
+      const card=panel.querySelector(`[data-card="${family.id}"]`); if(!card) continue;
+      card.querySelector('.family-desc').textContent=family.caption[lang];
+      card.querySelectorAll('.cell').forEach(cell=>cell.setAttribute('aria-label',`${family.name}: ${PITCH_WORDS[lang][Number(cell.dataset.y)]}, ${COLOR_WORDS[lang][Number(cell.dataset.x)]}`));
+    }
+    update();
+  });
   update();
 })();
 </script>
+<script src="../i18n.js"></script>
 </body>
 </html>

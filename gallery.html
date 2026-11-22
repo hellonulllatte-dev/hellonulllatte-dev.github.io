@@ -18,7 +18,24 @@
   <div class="language"><button type="button">JP</button><span>/</span><button type="button">EN</button></div>
 </header>
 <main class="main goods-main">
-  <section class="goods-intro"><p class="goods-eyebrow">NULLLATTE / COLLECTION</p><h2>FICTIONAL GOODS</h2><p>Things that don't exist, lovingly packaged.</p><p class="goods-intro-ja">存在しない商品の、小さなパッケージギャラリー。</p></section>
+
+<section class="goods-intro">
+  <p class="goods-eyebrow">NULLLATTE / COLLECTION</p>
+
+  <h2>GALLERY</h2>
+
+  <h3 class="goods-collection-title">
+    FICTIONAL GOODS
+  </h3>
+
+  <p lang="en">
+    Things that don't exist, lovingly packaged.
+  </p>
+
+  <p class="goods-intro-ja" lang="ja">
+    存在しない商品の、小さなパッケージギャラリー。
+  </p>
+</section>
   <div class="goods-filters" role="group" aria-label="Filter products"><button class="goods-filter active" type="button" data-filter="all" aria-pressed="true">ALL</button><button class="goods-filter" type="button" data-filter="cigarettes" aria-pressed="false">CIGARETTES</button><button class="goods-filter" type="button" data-filter="drinks" aria-pressed="false">DRINKS</button></div>
   <section class="goods-category" data-category="cigarettes" aria-labelledby="cigarettes-heading"><div class="goods-heading"><h3 id="cigarettes-heading">CIGARETTES</h3><span>FICTIONAL PACKAGES</span></div><div class="goods-grid" id="cigarette-grid"></div></section>
   <section class="goods-category" data-category="drinks" aria-labelledby="drinks-heading"><div class="goods-heading"><h3 id="drinks-heading">DRINKS</h3><span>FICTIONAL CANS</span></div><div class="goods-grid" id="drink-grid"></div></section>
@@ -26,7 +43,8 @@
 </main>
 <footer>© NULLLATTE — Made with care.</footer>
 </div>
-<dialog class="goods-dialog" id="goods-dialog" aria-labelledby="dialog-name"><button class="goods-close" id="dialog-close" type="button" aria-label="Close">×</button><div class="goods-dialog-inner"><div class="goods-dialog-visual" id="dialog-visual"></div><div class="goods-dialog-copy"><span class="goods-dialog-kind" id="dialog-kind"></span><h3 id="dialog-name"></h3><p class="goods-dialog-en" id="dialog-en"></p><p id="dialog-ja"></p></div></div></dialog>
+<dialog class="goods-dialog" id="goods-dialog" aria-labelledby="dialog-name"><button class="goods-close" id="dialog-close" type="button" aria-label="Close">×</button><div class="goods-dialog-inner"><div class="goods-dialog-visual" id="dialog-visual"></div><div class="goods-dialog-copy"><span class="goods-dialog-kind" id="dialog-kind"></span><h3 id="dialog-name"></h3><p class="goods-dialog-en" id="dialog-en"></p><p id="dialog-ja" hidden></p></div></div></dialog>
+<script src="i18n.js"></script>
 <script src="gallery.js"></script>
 <script src="transition.js"></script>
 </body>

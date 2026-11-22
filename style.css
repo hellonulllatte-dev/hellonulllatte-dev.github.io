@@ -91,6 +91,18 @@ a:hover {
   cursor: pointer;
 }
 
+.language button.active,
+.language button[aria-pressed="true"] {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+html[lang="ja"] [lang="en"],
+html[lang="en"] [lang="ja"] {
+  display: none !important;
+}
+
 .language button:hover {
   color: var(--accent);
 }
@@ -1483,4 +1495,218 @@ body.page-leaving {
     height: 110px;
     margin-top: 32px;
   }
+}
+
+/* JP / EN セグメント切替 */
+.header .language {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: fit-content;
+  height: auto;
+  margin: 14px auto 18px;
+  padding: 3px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.header .language span {
+  display: none;
+}
+
+.header .language button {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 18px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.header .language button.active,
+.header .language button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.header .language button:hover:not(.active) {
+  background: rgba(120, 87, 94, 0.12);
+}
+
+.header .language {
+  margin: 10px auto 14px;
+  padding: 2px;
+}
+
+.header .language button {
+  min-width: 40px;
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+/* ヘッダーを配置の基準にする */
+.header {
+  position: relative;
+}
+
+/* JP / ENを右上に配置 */
+.header .language {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+
+  width: fit-content;
+  height: auto;
+  margin: 0;
+  padding: 2px;
+
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+}
+
+/* ボタンをコンパクトに */
+.header .language button {
+  min-width: 36px;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+/* モバイルでは端に寄せる */
+@media (max-width: 600px) {
+  .header .language {
+    top: 8px;
+    right: 8px;
+  }
+
+  .header .language button {
+    min-width: 32px;
+    padding: 4px 6px;
+  }
+}
+
+/* ==================================
+   JP / EN スライドアニメーション
+   ================================== */
+
+/* トグル本体 */
+.header .language {
+  position: absolute;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* スライドするピンクの背景 */
+.header .language::before {
+  content: "";
+  position: absolute;
+
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+
+  width: calc((100% - 4px) / 2);
+  border-radius: 999px;
+
+  background: var(--accent);
+
+  transform: translateX(0);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* EN選択中は右にスライド */
+.header .language:has(button:last-of-type.active)::before,
+.header .language:has(button:last-of-type[aria-pressed="true"])::before {
+  transform: translateX(100%);
+}
+
+/* ボタンはスライド背景より手前 */
+.header .language button {
+  position: relative;
+  z-index: 1;
+
+  min-width: 36px;
+  background: transparent !important;
+  text-decoration: none !important;
+
+  transition: color 150ms ease;
+}
+
+/* 選択中の文字 */
+.header .language button.active,
+.header .language button[aria-pressed="true"] {
+  color: #ffffff;
+}
+
+/* 非選択中の文字 */
+.header .language button:not(.active):not([aria-pressed="true"]) {
+  color: var(--text);
+}
+
+/* 非選択中のホバー */
+.header .language button:hover:not(.active) {
+  background: transparent !important;
+  color: var(--accent);
+}
+
+/* 動きを減らす設定を尊重 */
+@media (prefers-reduced-motion: reduce) {
+  .header .language::before,
+  .header .language button {
+    transition: none;
+  }
+}
+.cast-image {
+  width: 224px;
+  height: 224px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #e7d8cf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cast-image img {
+  width: 192px;
+  height: 192px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+}
+
+/* 現在開いているページ */
+.nav a[aria-current="page"] {
+  background: #78575e;
+  color: #fff5ed;
+}
+
+/* 現在のページはホバーしても色を維持 */
+.nav a[aria-current="page"]:hover {
+  background: #78575e;
+  color: #fff5ed;
+}
+
+/* GALLERY内のコレクション見出し */
+.goods-collection-title {
+  margin: 18px 0 16px;
+  font-size: 20px;
+  font-weight: normal;
+  letter-spacing: 0.08em;
+  color: var(--text);
 }

@@ -212,6 +212,11 @@ const dialogName = document.getElementById('dialog-name');
 const dialogKind = document.getElementById('dialog-kind');
 const dialogEn = document.getElementById('dialog-en');
 const dialogJa = document.getElementById('dialog-ja');
+let selectedProduct = null;
+
+function galleryLanguage() {
+  return window.NulllatteI18n?.language === 'en' ? 'en' : 'ja';
+}
 
 // Additional catalogue information is displayed for cigarettes only.
 // Injected here so the user's customized gallery.css does not need to be replaced.
@@ -324,10 +329,11 @@ function renderCigaretteDetails(product) {
 
   const specs = document.createElement('div');
   specs.className = 'goods-cigarette-specs';
+  const lang = galleryLanguage();
   for (const [label, value] of [
     ['TAR', `${product.tar}mg`],
     ['NICOTINE', `${product.nicotine}mg`],
-    ['CONTENTS', `${product.contents}本`],
+    ['CONTENTS', lang === 'en' ? `${product.contents} sticks` : `${product.contents}本`],
     ['PRICE', `${product.price}G`]
   ]) {
     const spec = document.createElement('div');
@@ -394,14 +400,17 @@ function makeVisual(product) {
 }
 
 function showProduct(product) {
+  selectedProduct = product;
   dialogVisual.replaceChildren(makeVisual(product));
   dialogName.textContent = product.name;
   dialogKind.textContent = product.category === 'drinks' ? 'FICTIONAL DRINK' : 'FICTIONAL CIGARETTE';
   renderCigaretteDetails(product);
   // Collapse blank lines so drinks retain the compact modal layout.
-  dialogEn.textContent = product.en ? product.en.trim().replace(/\n\s*\n/g, '\n') : 'Description coming soon.';
-  dialogJa.textContent = product.ja ? product.ja.trim().replace(/\n\s*\n/g, '\n') : '商品説明は準備中です。';
-  dialog.showModal();
+  const lang = galleryLanguage();
+  const copy = product[lang] || product.en || product.ja;
+  dialogEn.textContent = copy ? copy.trim().replace(/\n\s*\n/g, '\n') : (lang === 'en' ? 'Description coming soon.' : '商品説明は準備中です。');
+  dialogJa.textContent = '';
+  if (!dialog.open) dialog.showModal();
 }
 
 for (const product of products) {
@@ -415,18 +424,34 @@ for (const product of products) {
   const title = document.createElement('h4');
   title.textContent = product.name;
   const subtitle = document.createElement('p');
-  subtitle.textContent = product.tagline || product.en || 'View package details';
+  let featureNote = null;
+  const updateCardLanguage = () => {
+    const lang = galleryLanguage();
+    subtitle.textContent = lang === 'en'
+      ? (product.tagline || product.en || 'View package details')
+      : (product.ja || '商品詳細を見る').trim().split(/\n/)[0];
+    if (featureNote) featureNote.textContent = lang === 'en'
+      ? `Featured character: ${product.featuredBy}`
+      : `作中愛用キャラクター：${product.featuredBy}`;
+  };
+  updateCardLanguage();
   card.append(art, title, subtitle);
   // Only the five known in-story favorites receive a subtle listing note.
   if (product.category === 'cigarettes' && product.featuredBy) {
-    const featureNote = document.createElement('small');
+    featureNote = document.createElement('small');
     featureNote.className = 'goods-featured-note';
-    featureNote.textContent = `作中愛用キャラクター：${product.featuredBy}`;
+    updateCardLanguage();
     card.append(featureNote);
   }
   card.addEventListener('click', () => showProduct(product));
   grid.append(card);
+  card._updateLanguage = updateCardLanguage;
 }
+
+window.addEventListener('nulllatte:languagechange', () => {
+  document.querySelectorAll('.goods-card').forEach(card => card._updateLanguage?.());
+  if (selectedProduct && dialog.open) showProduct(selectedProduct);
+});
 
 for (const button of document.querySelectorAll('.goods-filter')) {
   button.addEventListener('click', () => {

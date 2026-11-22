@@ -14,16 +14,19 @@
 (()=>{'use strict';
 const IMAGES=["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAAEJJREFUOI1jYBgFgw4woQBsCtiRABUUYLEFVQEWU9BNIKCAgWIFTFjcwIwEsMijKcASlkysSABrQBFSwEAgroY2AABJKAQrvbG2OgAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAAD9JREFUOI1jYBgFgw4woQBsCliQABUUYLEFVQEHBwe6CnQTCChgoFgBExY3cCABLPJoCrCEJeUhyUAgroY2AACt7wN1e3J9UwAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAAD9JREFUOI1jYBgFgw4woQBsCtiRABUUYLEFVQEHBwe6CnQTCChgoFgBExY3sCIBLPJoCrCEJeUhyUAgroY2AADJfQSVfVViqgAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAADxJREFUOI1jYBgFgw4woQBsCliQABUUYLEFVQEWU9BNIKCAgWIFTFjcwIYEsMijKcASlpSHJAOBuBraAAAtiwMdfLbYRgAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAADxJREFUOI1jYBgFgw4woQBsCpiRABUUYLEFVQEWU9BNIKCAgWIFTFjcwIYEsMijKcASlpSHJAOBuBraAABKDwKbCLjC2gAAAABJRU5ErkJggg==", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAABtQTFRFAAAAIyMuOjI8a1JYo3Nwwn9vzKeV18G03tDHwb4JfwAAAAl0Uk5TAP//////////NwKb1AAAADxJREFUOI1jYBgFgw4woQBsCliRABUUYLEFVQEWU9BNIKCAgWIFTFjcwIYEsMijKcASlpSHJAOBuBraAAARBwOfUhsEJAAAAABJRU5ErkJggg=="];
 const defs=[
-{name:'カチッ',en:'KACHI',soft:14,pitch:70,tail:11,volume:74},
-{name:'コクッ',en:'KOKU',soft:43,pitch:32,tail:20,volume:76},
-{name:'ポチッ',en:'POCHI',soft:47,pitch:76,tail:9,volume:68},
-{name:'コンッ',en:'KON',soft:44,pitch:43,tail:24,volume:75},
-{name:'コトッ',en:'KOTO',soft:57,pitch:22,tail:27,volume:77},
-{name:'カタッ',en:'KATA',soft:24,pitch:50,tail:19,volume:75}];
+{name:'カチッ',labelEn:'CLICK',en:'KACHI',soft:14,pitch:70,tail:11,volume:74},
+{name:'コクッ',labelEn:'TOK',en:'KOKU',soft:43,pitch:32,tail:20,volume:76},
+{name:'ポチッ',labelEn:'POP',en:'POCHI',soft:47,pitch:76,tail:9,volume:68},
+{name:'コンッ',labelEn:'KNOCK',en:'KON',soft:44,pitch:43,tail:24,volume:75},
+{name:'コトッ',labelEn:'TUK',en:'KOTO',soft:57,pitch:22,tail:27,volume:77},
+{name:'カタッ',labelEn:'CLACK',en:'KATA',soft:24,pitch:50,tail:19,volume:75}];
 const $=sel=>document.querySelector(sel),clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SR=32000,STORE='nulllatte_mug_se_v4',COUNT_STORE='nulllatte_mug_se_counters_v1';
 const fresh=i=>({soft:defs[i].soft,pitch:defs[i].pitch,tail:defs[i].tail,volume:defs[i].volume});
 let settings=defs.map((_,i)=>fresh(i)),history=[],historyActive=-1,selected=0,ctx=null,soundOn=true,voices=[],historySeq=0;
 let soundCounters=Array(6).fill(0),currentSoundKey=null;
+const isEnglish=()=>window.NulllatteI18n?.language==='en';
+const ui=value=>window.NulllatteI18n?.t(value)||value;
+const mugLabel=i=>isEnglish()?defs[i].labelEn:defs[i].name;
 const validSettings=(item,i)=>Object.fromEntries(['soft','pitch','tail','volume'].map(k=>[k,Number.isFinite(Number(item?.[k]))?clamp(Math.round(Number(item[k])),0,100):fresh(i)[k]]));
 try{
  const saved=JSON.parse(localStorage.getItem(STORE));
@@ -39,9 +42,10 @@ const copy=s=>({...s});const equal=(a,b)=>['soft','pitch','tail','volume'].every
 function persist(){try{localStorage.setItem(STORE,JSON.stringify({settings}));localStorage.setItem(COUNT_STORE,JSON.stringify(soundCounters))}catch{}}
 function newSoundKey(id){const count=++soundCounters[id];persist();return `${defs[id].en.toLowerCase()}_${String(count).padStart(3,'0')}`}
 function selectedKey(){if(historyActive>=0){const e=history[historyActive];if(e&&e.id===selected&&equal(e.s,settings[selected]))return e.key}return currentSoundKey&&currentSoundKey.id===selected&&equal(currentSoundKey.s,settings[selected])?currentSoundKey.key:null}
-const cupEl=$('#cups');IMAGES.forEach((url,i)=>{let b=document.createElement('button');b.type='button';b.className='cupbtn';b.innerHTML=`<span class="dot"></span><img src="${url}" draggable="false" alt=""><span class="name">${defs[i].name}</span>`;b.setAttribute('aria-label',`${defs[i].name}を選んで試聴`);b.addEventListener('pointerdown',()=>b.classList.add('down'));['pointerleave','pointercancel','pointerup'].forEach(t=>b.addEventListener(t,()=>b.classList.remove('down')));b.addEventListener('click',()=>{select(i);play(settings[i],i);addHistory(i,settings[i])});cupEl.append(b)});
-function select(i){selected=i;[...cupEl.children].forEach((b,j)=>{b.classList.toggle('active',j===i);b.setAttribute('aria-pressed',j===i?'true':'false')});$('#edit-label').textContent=defs[i].name;$('#scope-num').textContent=defs[i].name;for(const k of ['soft','pitch','tail','volume'])$('#'+k).value=settings[i][k];labels();renderHistory();drawScope()}
-function labels(){const s=settings[selected];$('#soft-val').textContent=s.soft<35?'かたい':s.soft>65?'やわらかい':'ほどよい';$('#pitch-val').textContent=s.pitch<35?'ひくめ':s.pitch>65?'たかめ':'まんなか';$('#tail-val').textContent=s.tail<35?'短い':s.tail>65?'長め':'ほどよい';$('#volume-val').textContent=s.volume+'%';$('#sound-text').textContent=Math.round(duration(selected,s)*1000)+'ms'}
+const cupEl=$('#cups');IMAGES.forEach((url,i)=>{let b=document.createElement('button');b.type='button';b.className='cupbtn';b.innerHTML=`<span class="dot"></span><img src="${url}" draggable="false" alt=""><span class="name">${mugLabel(i)}</span>`;b.setAttribute('aria-label',isEnglish()?`Select and preview ${mugLabel(i)}`:`${defs[i].name}を選んで試聴`);b.addEventListener('pointerdown',()=>b.classList.add('down'));['pointerleave','pointercancel','pointerup'].forEach(t=>b.addEventListener(t,()=>b.classList.remove('down')));b.addEventListener('click',()=>{select(i);play(settings[i],i);addHistory(i,settings[i])});cupEl.append(b)});
+function updateCupLanguage(){[...cupEl.children].forEach((b,i)=>{b.querySelector('.name').textContent=mugLabel(i);b.setAttribute('aria-label',isEnglish()?`Select and preview ${mugLabel(i)}`:`${defs[i].name}を選んで試聴`)})}
+function select(i){selected=i;[...cupEl.children].forEach((b,j)=>{b.classList.toggle('active',j===i);b.setAttribute('aria-pressed',j===i?'true':'false')});$('#edit-label').textContent=mugLabel(i);$('#scope-num').textContent=mugLabel(i);for(const k of ['soft','pitch','tail','volume'])$('#'+k).value=settings[i][k];labels();renderHistory();drawScope()}
+function labels(){const s=settings[selected];$('#soft-val').textContent=ui(s.soft<35?'かたい':s.soft>65?'やわらかい':'ほどよい');$('#pitch-val').textContent=ui(s.pitch<35?'ひくめ':s.pitch>65?'たかめ':'まんなか');$('#tail-val').textContent=ui(s.tail<35?'短い':s.tail>65?'長め':'ほどよい');$('#volume-val').textContent=s.volume+'%';$('#sound-text').textContent=Math.round(duration(selected,s)*1000)+'ms'}
 // HISTORYは全6種共通、最大10件の試聴ログ。編集操作では保存しない。
 function addHistory(id,sound){
  const last=history[history.length-1];
@@ -72,8 +76,8 @@ function renderHistory(){
   let b=historyNodes.get(entry.uid);
   if(!b){
    b=document.createElement('button');b.type='button';b.className='historycup new-cup';
-   b.title=`${entry.key} · 押して復元`;
-   b.setAttribute('aria-label',`${entry.key} の試聴履歴を復元`);
+   b.title=isEnglish()?`${entry.key} · Restore`:`${entry.key} · 押して復元`;
+   b.setAttribute('aria-label',isEnglish()?`Restore preview history ${entry.key}`:`${entry.key} の試聴履歴を復元`);
    const img=document.createElement('img');img.src=IMAGES[entry.id];img.alt='';b.append(img);
    b.addEventListener('click',()=>{
     const pos=history.findIndex(e=>e.uid===entry.uid);
@@ -86,6 +90,8 @@ function renderHistory(){
    historyNodes.set(entry.uid,b);box.append(b);
    b.addEventListener('animationend',()=>b.classList.remove('new-cup'),{once:true});
   }
+  b.title=isEnglish()?`${entry.key} · Restore`:`${entry.key} · 押して復元`;
+  b.setAttribute('aria-label',isEnglish()?`Restore preview history ${entry.key}`:`${entry.key} の試聴履歴を復元`);
   b.style.bottom=`${BASE+i*STEP}px`;
   // Lower cup overlaps the bottom of upper cup (like a nested physical stack).
   b.style.zIndex=String(history.length-i);
@@ -150,9 +156,9 @@ function play(s=settings[selected],id=selected){sendAudio(makeSound(id,s))}
 let lastTick=0;function playTick(){if(!soundOn)return;const now=performance.now();if(now-lastTick<100)return;lastTick=now;const a=audio();if(!a)return;const osc=a.createOscillator(),g=a.createGain();osc.type='sine';osc.frequency.setValueAtTime(680,a.currentTime);osc.frequency.exponentialRampToValueAtTime(440,a.currentTime+.014);g.gain.setValueAtTime(.0001,a.currentTime);g.gain.exponentialRampToValueAtTime(.045,a.currentTime+.002);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.022);osc.connect(g).connect(a.destination);osc.start();osc.stop(a.currentTime+.025)}
 function drawScope(){const canvas=$('#scope'),g=canvas.getContext('2d'),w=canvas.width,h=canvas.height,data=makeSound(selected);g.fillStyle='#3a323c';g.fillRect(0,0,w,h);g.strokeStyle='#725c62';g.lineWidth=1;g.beginPath();g.moveTo(0,h/2);g.lineTo(w,h/2);g.stroke();g.strokeStyle='#e4b7a1';g.lineWidth=2;g.beginPath();for(let x=0;x<w;x++){const index=Math.floor(x/w*(data.length-1)),y=h/2-data[index]*h*.44;x===0?g.moveTo(x,y):g.lineTo(x,y)}g.stroke()}
 function wav(data){const b=new ArrayBuffer(44+data.length*2),v=new DataView(b);function str(p,s){for(let i=0;i<s.length;i++)v.setUint8(p+i,s.charCodeAt(i))}str(0,'RIFF');v.setUint32(4,36+data.length*2,true);str(8,'WAVE');str(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,SR,true);v.setUint32(28,SR*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);str(36,'data');v.setUint32(40,data.length*2,true);for(let i=0;i<data.length;i++){const a=clamp(data[i],-1,1);v.setInt16(44+i*2,a<0?a*32768:a*32767,true)}return new Blob([b],{type:'audio/wav'})}
-$('#export').addEventListener('click',()=>{const key=selectedKey()||newSoundKey(selected);currentSoundKey={id:selected,s:copy(settings[selected]),key};const blob=wav(makeSound(selected)),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${key}.wav`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);$('#status').textContent='WAVを書き出したよ'});
+$('#export').addEventListener('click',()=>{const key=selectedKey()||newSoundKey(selected);currentSoundKey={id:selected,s:copy(settings[selected]),key};const blob=wav(makeSound(selected)),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${key}.wav`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);$('#status').textContent=ui('WAVを書き出したよ')});
 $('#mute').addEventListener('click',()=>{soundOn=!soundOn;$('#mute').textContent=soundOn?'♪ ON':'♪ OFF';$('#mute').setAttribute('aria-pressed',soundOn?'true':'false')});
-$('#reset').addEventListener('click',()=>{settings[selected]=fresh(selected);historyActive=-1;select(selected);persist();$('#status').textContent='初期の音に戻したよ'});
+$('#reset').addEventListener('click',()=>{settings[selected]=fresh(selected);historyActive=-1;select(selected);persist();$('#status').textContent=ui('初期の音に戻したよ')});
 // SHELF: 棚2段＋トレイ。全カップをドラッグ可能、スタック上限3。
 const sc=$('#shelf-canvas'),sg=sc.getContext('2d'),SX=[78,179,280,381,482,583],SY=[165,345],STEP=36,SIZE=92,MAX=3,SHELF_CLEAR=0;
 const pics=IMAGES.map(src=>{const im=new Image();im.src=src;return im});let stacks=[],drag=null,hover=null,particles=[];
@@ -174,6 +180,7 @@ sc.addEventListener('pointerdown',e=>{if(drag)return;const p=coord(e),h=hit(p);i
 sc.addEventListener('pointermove',e=>{if(!drag||drag.pid!==e.pointerId)return;const p=coord(e);drag.x=p.x+drag.offX;drag.bottom=p.y+drag.offY;hover=target();e.preventDefault()});
 function finish(e,cancel=false){if(!drag||drag.pid!==e.pointerId)return;const p=coord(e);drag.x=p.x+drag.offX;drag.bottom=p.y+drag.offY;const t=cancel?null:target();if(t){const same=t.r===drag.r&&t.c===drag.c&&t.n===drag.l;stacks[drag.r][drag.c].splice(drag.l,drag.ids.length);stacks[t.r][t.c].push(...drag.ids);if(!same){const q=loc(t.r,t.c,t.n);particles.push({x:q.x,y:q.bottom,life:19});play(settings[selected],selected)}}drag=null;hover=null;e.preventDefault()}
 sc.addEventListener('pointerup',e=>finish(e));sc.addEventListener('pointercancel',e=>finish(e,true));window.addEventListener('blur',()=>{if(drag){drag=null;hover=null}});$('#shelf-reset').addEventListener('click',resetShelf);
+window.addEventListener('nulllatte:languagechange',()=>{updateCupLanguage();select(selected)});
 select(0);resetShelf();requestAnimationFrame(board);
 })();
-</script></body></html>
+</script><script src="../i18n.js"></script></body></html>
