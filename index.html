@@ -2,171 +2,466 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<link rel="icon" type="image/png" href="images/favicon.png">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>NULLLATTE | HOME</title>
-	<link rel="stylesheet" href="style.css">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DZBDZFFZ6J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NULLLATTE | HOME</title>
+  <link rel="stylesheet" href="style.css">
 
-  gtag('config', 'G-DZBDZFFZ6J');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZBDZFFZ6J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DZBDZFFZ6J');
+  </script>
 </head>
 
 <body>
+  <div class="site">
 
-	<div class="site">
+    <header class="header">
+      <div class="brand">
+        <img
+          src="images/coffee.gif"
+          alt="湯気の立つコーヒーカップ"
+          class="brand-icon"
+        >
+        <h1>NULLLATTE</h1>
+        <p class="brand-subtitle">
+          Little games, made with care.
+        </p>
+      </div>
 
-		<header class="header">
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="games.html">Games</a>
+        <a href="cast.html">Cast</a>
+        <a href="devlog.html">Devlog</a>
+        <a href="gallery.html">GALLERY</a>
+        <a href="playground.html">PLAYGROUND</a>
+      </nav>
 
-			<div class="brand">
-				<img
-					src="images/coffee.gif"
-					alt="湯気の立つコーヒーカップ"
-					class="brand-icon"
-				>
+      <div class="language">
+        <button type="button">JP</button>
+        <span>/</span>
+        <button type="button">EN</button>
+      </div>
+    </header>
 
-				<h1>NULLLATTE</h1>
-				<p class="brand-subtitle">
-					Little games, made with care.
-				</p>
-			</div>
+    <main class="main">
 
-			<nav class="nav">
-				<a href="index.html">Home</a>
-				<a href="games.html">Games</a>
-				<a href="cast.html">Cast</a>
-				<a href="devlog.html">Devlog</a>
-        	<a href="gallery.html">GALLERY</a>
-			<a href="playground.html">PLAYGROUND</a>
-			</nav>
+      <!-- FEATURED GAMES -->
+      <section class="games-section">
+        <h2>Featured Games</h2>
 
-			<div class="language">
-				<button type="button">JP</button>
-				<span>/</span>
-				<button type="button">EN</button>
-			</div>
+        <div class="game-grid">
 
-		</header>
+          <article class="game-card">
+            <img src="images/winery.png" alt="Silver Vine Winery">
+            <h3>SILVER VINE WINERY</h3>
+            <p>A tiny, cozy winery.</p>
 
-		<main class="main">
+            <div class="game-links">
+              <a
+                href="https://unityroom.com/games/matatabi-winery"
+                target="_blank"
+                rel="noopener noreferrer"
+              >unityroom ↗</a>
 
-			<!-- FEATURED GAMES -->
-			<section class="games-section">
-				<h2>Featured Games</h2>
+              <a
+                href="https://nulllatte.itch.io/silver-vine-winery"
+                target="_blank"
+                rel="noopener noreferrer"
+              >itch.io ↗</a>
+            </div>
+          </article>
 
-				<div class="game-grid">
+          <article class="game-card">
+            <img src="images/ragna.png" alt="お姉さん、まだ寝てて。">
+            <h3>お姉さん、まだ寝てて。</h3>
+            <p>Make breakfast quietly. Don't wake her up!</p>
 
-					<article class="game-card">
-						<img src="images/winery.png" alt="Silver Vine Winery">
-						<h3>SILVER VINE WINERY</h3>
-						<p>A tiny, cozy winery.</p>
+            <div class="game-links">
+              <a
+                href="https://unityroom.com/games/oneesan-still-sleeping"
+                target="_blank"
+                rel="noopener noreferrer"
+              >unityroom · Mobile ↗</a>
 
-						<div class="game-links">
-							<a href="https://unityroom.com/games/matatabi-winery"
-								target="_blank" rel="noopener noreferrer">unityroom ↗</a>
-							<a href="https://nulllatte.itch.io/silver-vine-winery"
-								target="_blank" rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</article>
+              <a
+                href="https://nulllatte.itch.io/oneesan-still-sleeping"
+                target="_blank"
+                rel="noopener noreferrer"
+              >itch.io · PC ↗</a>
+            </div>
+          </article>
 
-					<article class="game-card">
-						<img src="images/ragna.png" alt="お姉さん、まだ寝てて。">
-						<h3>お姉さん、まだ寝てて。</h3>
-						<p>Make breakfast quietly. Don't wake her up!</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/oneesan-still-sleeping"
-								target="_blank" rel="noopener noreferrer">unityroom · Mobile ↗</a>
-							<a href="https://nulllatte.itch.io/oneesan-still-sleeping"
-								target="_blank" rel="noopener noreferrer">itch.io · PC ↗</a>
-						</div>
-					</article>
           <article class="game-card">
             <img src="images/wordland.png" alt="ワードランド診断">
             <h3>ワードランド診断</h3>
             <p>What kind of amusement park ride are your words?</p>
 
             <div class="game-links">
-              <a href="https://unityroom.com/games/wordland"
-                target="_blank" rel="noopener noreferrer">unityroom ↗</a>
+              <a
+                href="https://unityroom.com/games/wordland"
+                target="_blank"
+                rel="noopener noreferrer"
+              >unityroom ↗</a>
             </div>
           </article>
 
-				</div>
+        </div>
 
-				<a class="home-more-link" href="games.html">
-					View All Games →
-				</a>
-			</section>
+        <a class="home-more-link" href="games.html">
+          View All Games →
+        </a>
+      </section>
 
-			<!-- LATEST DEVLOG -->
-			<section class="home-section">
-				<h2>Latest Devlog</h2>
+      <!-- LATEST DEVLOG -->
+      <section class="home-section">
+        <h2>Latest Devlog</h2>
 
-				<div id="latest-devlog">
-					<article class="devlog-card">
-						<div class="devlog-meta">
-							<time datetime="2026-11-20">2026.11.20</time>
-							<span>NOTE</span>
-						</div>
+        <div id="latest-devlog">
+          <article class="devlog-card">
+            <div class="devlog-meta">
+              <time datetime="2026-11-20">2026.11.20</time>
+              <span>NOTE</span>
+            </div>
 
-						<h3>CASTページ制作中！</h3>
-						<p>
-							キャラクターを並べるページを作っています。
-							分類は「お姉さん」と「それ以外」。
-						</p>
-					</article>
-				</div>
+            <h3>CASTページ制作中！</h3>
+            <p>
+              キャラクターを並べるページを作っています。
+              分類は「お姉さん」と「それ以外」。
+            </p>
+          </article>
+        </div>
 
-				<a class="home-more-link" href="devlog.html">
-					View All Posts →
-				</a>
-			</section>
+        <a class="home-more-link" href="devlog.html">
+          View All Posts →
+        </a>
+      </section>
 
-			<!-- ABOUT -->
-			<section class="home-section home-about">
-				<h2>About</h2>
+      <!-- ABOUT -->
+      <section class="home-section home-about">
+        <h2>About</h2>
 
-				<p class="home-about-text">
-					小さなゲームを個人制作しています。
-					ドット絵やイラストを描いたり、ちょっと変わった遊びを考えたりしています。
-				</p>
+        <p class="home-about-text">
+          小さなゲームを個人制作しています。
+          ドット絵やイラストを描いたり、
+          ちょっと変わった遊びを考えたりしています。
+        </p>
 
-				<div class="home-social-links">
-					<a href="https://unityroom.com/users/nulllatte"
-						target="_blank" rel="noopener noreferrer">unityroom ↗</a>
+        <!-- SNS -->
+        <div class="home-social-links">
+          <a
+            href="https://unityroom.com/users/nulllatte"
+            target="_blank"
+            rel="noopener noreferrer"
+          >unityroom ↗</a>
 
-					<a href="https://nulllatte.itch.io/"
-						target="_blank" rel="noopener noreferrer">itch.io ↗</a>
+          <a
+            href="https://nulllatte.itch.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >itch.io ↗</a>
 
-					<a href="https://x.com/nulllattte"
-						target="_blank" rel="noopener noreferrer">X ↗</a>
-				</div>
-			</section>
+          <a
+            href="https://x.com/nulllattte"
+            target="_blank"
+            rel="noopener noreferrer"
+          >X ↗</a>
+        </div>
 
-		</main>
+        <!-- ちびぬるらてのお散歩エリア -->
+        <div class="about-walkway" aria-hidden="true">
+          <canvas id="nulllatteWalk"></canvas>
+        </div>
 
-		<footer>
-			© NULLLATTE — Made with care.
-		</footer>
+      </section>
 
-	</div>
-<script src="posts.js"></script>
-<script>
-	const latestContainer = document.getElementById("latest-devlog");
-	const latestPost = getSortedPosts()[0];
+    </main>
 
-	if (latestContainer && latestPost) {
-		latestContainer.replaceChildren(createPostCard(latestPost));
-	}
-</script>
-<script src="transition.js"></script>
+    <footer>
+      © NULLLATTE — Made with care.
+    </footer>
+
+  </div>
+
+  <!-- DEVLOG -->
+  <script src="posts.js"></script>
+  <script>
+    const latestContainer = document.getElementById("latest-devlog");
+
+    if (typeof getSortedPosts === "function" &&
+        typeof createPostCard === "function") {
+      const latestPost = getSortedPosts()[0];
+
+      if (latestContainer && latestPost) {
+        latestContainer.replaceChildren(createPostCard(latestPost));
+      }
+    }
+  </script>
+
+  <script src="transition.js"></script>
+
+  <!-- About: ちびぬるらてとBOSS -->
+  <script>
+  (() => {
+    const canvas = document.getElementById("nulllatteWalk");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const sprite = new Image();
+    const bossSprite = new Image();
+    const meowBubble = new Image();
+    const meowSound = new Audio("images/Meow.wav");
+    meowSound.volume = 0.7;
+
+    const FRAME_SIZE = 32;
+    const ME_SIZE = 96;
+    const BOSS_SIZE = 48;
+    const FRAMES = {
+      idle: [0, 1],
+      walk: [4, 5, 6]
+    };
+
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let initialized = false;
+    let lastTime = null;
+    let meowUntil = 0;
+    let bossReactUntil = 0;
+    let bossReady = false;
+    let bubbleReady = false;
+
+    const state = {
+      x: 0,
+      direction: "idle",
+      moving: false,
+      speed: 36,
+      animFrame: 0,
+      animTimer: 0,
+      animSpeed: 180,
+      idleAnimSpeed: 650,
+      actionTimer: 1200
+    };
+
+    const bossState = {
+      mode: "idle",
+      frame: 0,
+      animTimer: 0,
+      actionTimer: 5000
+    };
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvasWidth = rect.width;
+      canvasHeight = rect.height;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(canvasWidth * dpr);
+      canvas.height = Math.round(canvasHeight * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = false;
+      const maxX = Math.max(0, canvasWidth - ME_SIZE);
+      if (!initialized) {
+        state.x = maxX / 2;
+        initialized = true;
+      } else {
+        state.x = Math.max(0, Math.min(state.x, maxX));
+      }
+    }
+
+    function getBossPosition() {
+      return {
+        x: Math.round(Math.max(0, Math.min(
+          canvasWidth - BOSS_SIZE,
+          canvasWidth / 2 + 110
+        ))),
+        y: Math.round(canvasHeight - BOSS_SIZE)
+      };
+    }
+
+    function randomAction() {
+      if (Math.random() < 0.4) {
+        state.moving = false;
+        state.direction = "idle";
+        state.actionTimer = 1000 + Math.random() * 2000;
+      } else {
+        state.moving = true;
+        state.direction = Math.random() < 0.5 ? "left" : "right";
+        state.actionTimer = 1500 + Math.random() * 2500;
+      }
+      state.animFrame = 0;
+      state.animTimer = 0;
+    }
+
+    function update(dt, now) {
+      state.actionTimer -= dt;
+      if (state.actionTimer <= 0) randomAction();
+      if (state.moving) {
+        state.x += (state.direction === "right" ? 1 : -1) * state.speed * dt / 1000;
+        const maxX = Math.max(0, canvasWidth - ME_SIZE);
+        if (state.x <= 0) {
+          state.x = 0;
+          state.direction = "right";
+        } else if (state.x >= maxX) {
+          state.x = maxX;
+          state.direction = "left";
+        }
+      }
+      state.animTimer += dt;
+      const frameDuration = state.moving ? state.animSpeed : state.idleAnimSpeed;
+      while (state.animTimer >= frameDuration) {
+        state.animTimer -= frameDuration;
+        state.animFrame++;
+      }
+
+      // 鳴いている間はBOSSのポーズを固定する
+      if (now < bossReactUntil) return;
+
+      bossState.animTimer += dt;
+      bossState.actionTimer -= dt;
+      if (bossState.animTimer >= 700) {
+        bossState.animTimer -= 700;
+        if (bossState.mode === "idle") {
+          bossState.frame = bossState.frame === 0 ? 1 : 0;
+        } else if (bossState.mode === "closed") {
+          bossState.frame = bossState.frame === 2 ? 3 : 2;
+        }
+      }
+      if (bossState.actionTimer <= 0) {
+        const r = Math.random();
+        if (r < 0.55) {
+          bossState.mode = "idle";
+          bossState.frame = 0;
+        } else if (r < 0.8) {
+          bossState.mode = "closed";
+          bossState.frame = 2;
+        } else {
+          bossState.mode = "curl";
+          bossState.frame = Math.random() < 0.7 ? 5 : 6;
+        }
+        bossState.animTimer = 0;
+        bossState.actionTimer = 4000 + Math.random() * 5000;
+      }
+    }
+
+    function drawMe() {
+      const frames = state.moving ? FRAMES.walk : FRAMES.idle;
+      const frame = frames[state.animFrame % frames.length];
+      const x = Math.round(state.x);
+      const y = Math.round(canvasHeight - ME_SIZE);
+      ctx.save();
+      ctx.imageSmoothingEnabled = false;
+      if (state.direction === "right") {
+        // 元画像の横向きは左向き
+        ctx.translate(x + ME_SIZE, y);
+        ctx.scale(-1, 1);
+        ctx.drawImage(sprite, frame * FRAME_SIZE, 0, 32, 32, 0, 0, ME_SIZE, ME_SIZE);
+      } else {
+        ctx.drawImage(sprite, frame * FRAME_SIZE, 0, 32, 32, x, y, ME_SIZE, ME_SIZE);
+      }
+      ctx.restore();
+    }
+
+    function drawBoss(now) {
+      if (!bossReady) return;
+      const boss = getBossPosition();
+      ctx.save();
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(bossSprite, bossState.frame * 32, 0, 32, 32,
+        boss.x, boss.y, BOSS_SIZE, BOSS_SIZE);
+      ctx.restore();
+
+      // 手描きのドット吹き出し画像を頭上に表示
+      if (now < meowUntil && bubbleReady) {
+        // 元画像48x48のうち、上の透明な余白を除いた範囲を使う。
+        // 2倍拡大しても110pxのお散歩エリアに収まるようにする。
+        const bubbleW = 96;
+        const bubbleH = 54;
+        const bubbleX = Math.round(Math.max(0, Math.min(
+          canvasWidth - bubbleW,
+          boss.x + BOSS_SIZE / 2 - bubbleW / 2 - 7
+        )));
+        const bubbleY = Math.round(boss.y - bubbleH - 6);
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(
+          meowBubble,
+          0, 15, 48, 27,
+          bubbleX, bubbleY, bubbleW, bubbleH
+        );
+        ctx.restore();
+      }
+    }
+
+    function draw(now) {
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      drawMe();
+      drawBoss(now);
+    }
+
+    function pointerPosition(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left) * canvasWidth / rect.width,
+        y: (event.clientY - rect.top) * canvasHeight / rect.height
+      };
+    }
+
+    function isOverBoss(point) {
+      if (!bossReady) return false;
+      const b = getBossPosition();
+      return point.x >= b.x && point.x <= b.x + BOSS_SIZE &&
+             point.y >= b.y && point.y <= b.y + BOSS_SIZE;
+    }
+
+    canvas.addEventListener("pointermove", (event) => {
+      canvas.style.cursor = isOverBoss(pointerPosition(event)) ? "pointer" : "default";
+    });
+    canvas.addEventListener("pointerleave", () => {
+      canvas.style.cursor = "default";
+    });
+    canvas.addEventListener("pointerdown", (event) => {
+      if (!isOverBoss(pointerPosition(event))) return;
+      meowSound.pause();
+      meowSound.currentTime = 0;
+      meowSound.play().catch((error) => console.warn("Meow.wavを再生できません:", error));
+      const now = performance.now();
+      meowUntil = now + 1200;
+      bossReactUntil = now + 1200;
+      // 丸まっている場合は目を開く
+      if (bossState.mode === "curl") bossState.frame = 6;
+    });
+
+    function loop(timestamp) {
+      if (lastTime === null) lastTime = timestamp;
+      const dt = Math.min(timestamp - lastTime, 50);
+      lastTime = timestamp;
+      update(dt, timestamp);
+      draw(timestamp);
+      requestAnimationFrame(loop);
+    }
+
+    sprite.onload = () => {
+      resizeCanvas();
+      requestAnimationFrame(loop);
+    };
+    sprite.onerror = () => console.error("読み込めません:", sprite.src);
+    bossSprite.onload = () => { bossReady = true; };
+    bossSprite.onerror = () => console.error("読み込めません:", bossSprite.src);
+    meowBubble.onload = () => { bubbleReady = true; };
+    meowBubble.onerror = () => console.error("吹き出し画像が読み込めません:", meowBubble.src);
+
+    sprite.src = "images/nulllatte_walk.png";
+    bossSprite.src = "images/boss.png";
+    meowBubble.src = "images/meow.png";
+    window.addEventListener("resize", resizeCanvas);
+  })();
+  </script>
 
 </body>
 </html>
