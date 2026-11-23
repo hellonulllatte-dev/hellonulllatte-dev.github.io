@@ -51,3 +51,362 @@ white-space: pre-line;
   object-fit: contain;
   image-rendering: pixelated;
 }
+
+/* SOUND exhibit: linked feature card, centered within Gallery content width. */
+.gallery-sound{margin:48px 0 56px}
+.gallery-radio-link{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(18px,3vw,36px);align-items:center;padding:clamp(14px,2vw,26px);background:#ded0c7;color:#23232e;text-decoration:none;border-radius:10px;transition:background .18s ease,transform .18s ease}
+.gallery-radio-link:hover{background:#d7c1b4;transform:translateY(-2px)}
+.gallery-radio-link:focus-visible{outline:3px solid #c27f6f;outline-offset:4px}
+.gallery-radio-art{height:clamp(175px,22vw,260px);display:flex;align-items:end;justify-content:center;padding:24px 12px;background:#d7c1b4;border-radius:4px;overflow:hidden}
+.gallery-radio-bars{display:flex;align-items:end;justify-content:center;gap:clamp(3px,.6vw,8px);height:100%;width:100%}
+.gallery-radio-bars span{display:block;flex:1 1 0;max-width:23px;height:var(--h);background:repeating-linear-gradient(to top,#a37370 0 10px,transparent 10px 14px);image-rendering:pixelated}
+.gallery-radio-bars span:nth-child(3n){background:repeating-linear-gradient(to top,#6b5258 0 10px,transparent 10px 14px)}
+.gallery-radio-bars span:nth-child(4n){background:repeating-linear-gradient(to top,#c27f6f 0 10px,transparent 10px 14px)}
+.gallery-radio-copy{min-width:0;text-align:left}
+.gallery-radio-kind{font-size:11px;letter-spacing:.12em;color:#6b5258}
+.gallery-radio-copy h4{margin:12px 0;font-size:clamp(23px,3.2vw,38px);letter-spacing:.04em;color:#23232e}
+.gallery-radio-copy p{font-size:13px;line-height:1.7;max-width:39ch;color:#3a323c}
+.gallery-radio-cta{display:inline-block;margin-top:13px;font-size:12px;letter-spacing:.1em;color:#6b5258;font-weight:bold}
+@media(max-width:650px){.gallery-radio-link{grid-template-columns:1fr;gap:13px}.gallery-radio-art{height:180px}.gallery-sound{margin-top:36px}}
+@media(prefers-reduced-motion:reduce){.gallery-radio-link{transition:none}}
+
+/* GALLERY: separate exhibits for FICTIONAL GOODS and SOUND */
+.goods-intro {
+  margin-bottom: 42px;
+}
+
+.gallery-exhibit {
+  margin: 0 0 64px;
+}
+
+.gallery-exhibit + .gallery-exhibit {
+  border-top: 1px solid var(--line);
+  padding-top: 56px;
+}
+
+.gallery-exhibit-heading {
+  text-align: center;
+  margin: 0 auto 32px;
+}
+
+.gallery-exhibit-index {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: .16em;
+}
+
+.gallery-exhibit-heading h3 {
+  margin: 0 0 5px;
+  color: var(--text);
+  font-size: 27px;
+  font-weight: normal;
+  letter-spacing: .07em;
+}
+
+.gallery-exhibit-heading p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.gallery-exhibit-heading .gallery-exhibit-ja {
+  font-size: 12px;
+  opacity: .7;
+}
+
+.gallery-goods .goods-note {
+  margin-bottom: 0;
+}
+
+/* Keep SOUND visually on the same level as FICTIONAL GOODS. */
+.gallery-sound {
+  margin: 0 0 56px;
+}
+
+@media (max-width: 650px) {
+  .goods-intro { margin-bottom: 32px; }
+  .gallery-exhibit { margin-bottom: 48px; }
+  .gallery-exhibit + .gallery-exhibit { padding-top: 40px; }
+  .gallery-exhibit-heading { margin-bottom: 25px; }
+  .gallery-exhibit-heading h3 { font-size: 23px; }
+  .gallery-sound { margin-top: 0; }
+}
+
+/* GALLERY: collection index visible before the long goods list */
+.gallery-collection-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 46px;
+}
+.gallery-collection-shortcut {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 18px 46px 18px 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background .18s ease, transform .18s ease;
+}
+.gallery-collection-shortcut:hover {
+  background: #e5d3c7;
+  color: var(--text);
+  transform: translateY(-2px);
+}
+.gallery-collection-shortcut:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.gallery-shortcut-number {
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--accent);
+}
+.gallery-shortcut-title {
+  font-size: clamp(19px, 2.1vw, 25px);
+  line-height: 1.4;
+  letter-spacing: .05em;
+}
+.gallery-shortcut-caption {
+  font-size: 12px;
+  opacity: .75;
+}
+.gallery-shortcut-arrow {
+  position: absolute;
+  top: 50%;
+  right: 19px;
+  transform: translateY(-50%);
+  font-size: 23px;
+  color: var(--accent);
+}
+#fictional-goods { scroll-margin-top: 20px; }
+@media (max-width: 650px) {
+  .gallery-collection-nav { grid-template-columns: 1fr; gap: 10px; margin-bottom: 34px; }
+  .gallery-collection-shortcut { padding: 14px 44px 14px 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-collection-shortcut { transition: none; }
+}
+
+/* GALLERY — ART / AUDIO: switch content in place without fragment navigation */
+.gallery-collection-shortcut {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1.6;
+}
+.gallery-collection-shortcut.is-active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--background);
+}
+.gallery-collection-shortcut.is-active:hover {
+  background: var(--text);
+  color: var(--background);
+}
+.gallery-collection-shortcut.is-active .gallery-shortcut-number,
+.gallery-collection-shortcut.is-active .gallery-shortcut-arrow {
+  color: var(--background);
+}
+.gallery-exhibit[hidden] {
+  display: none !important;
+}
+/* With only one exhibit shown, the original between-section divider is unnecessary. */
+.gallery-exhibit + .gallery-exhibit {
+  border-top: 0;
+  padding-top: 0;
+}
+.gallery-collection-nav {
+  margin-bottom: 35px;
+}
+@media (max-width: 650px) {
+  .gallery-collection-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery-collection-shortcut { padding: 12px 16px; }
+  .gallery-shortcut-title { font-size: 21px; }
+  .gallery-shortcut-caption { font-size: 11px; }
+  .gallery-shortcut-arrow { display: none; }
+}
+
+
+/* ================================================
+   GALLERY / ART — two fictional vending machines
+   Left: smaller cigarette packs (4 x 3 at 12 items)
+   Right: larger drinks (4 x 2 at 8 items)
+   All existing gallery.js product buttons still work.
+   ================================================ */
+
+/* The category tabs are redundant while both machines are visible.
+   Leave their original markup present so gallery.js need not change. */
+.gallery-goods > .goods-filters { display: none; }
+
+.gallery-goods .vending-machines {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(14px, 2.5vw, 28px);
+  margin-top: 22px;
+}
+
+.gallery-goods .vending-machine {
+  min-width: 0;
+  margin: 0;
+  padding: clamp(12px, 1.65vw, 19px);
+  background: #cbb9ae;
+  border: 3px solid #9e837d;
+  border-radius: 17px;
+  box-shadow: inset 0 0 0 3px #e7d7cd, 0 7px 0 #b9a69b;
+}
+
+.gallery-goods .vending-machine-header {
+  align-items: center;
+  margin: 0 0 16px;
+  padding: 6px 9px 10px;
+  border-bottom: 2px solid rgba(88, 69, 64, .35);
+}
+.gallery-goods .vending-machine-header h3 {
+  font-size: clamp(15px, 1.6vw, 19px);
+  letter-spacing: .07em;
+}
+.gallery-goods .vending-machine-header span {
+  font-size: 10px;
+  white-space: nowrap;
+  letter-spacing: .04em;
+}
+
+.gallery-goods .vending-machine .goods-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(5px, .85vw, 11px);
+  padding: clamp(8px, 1.2vw, 14px);
+  background: #a9918b;
+  border: 2px solid #9b827b;
+  border-radius: 9px;
+  counter-reset: vending-number;
+}
+
+/* A product's complete button remains clickable; image and label dominate. */
+.gallery-goods .vending-machine .goods-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  min-width: 0;
+  margin: 0;
+  padding: 5px 3px 6px;
+  background: #e4d6cc;
+  border: 1px solid #c4ab9e;
+  border-radius: 5px;
+  box-shadow: none;
+  transform: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background .15s ease, transform .15s ease;
+}
+.gallery-goods .vending-machine .goods-card:hover {
+  background: #f0e4d9;
+  transform: translateY(-2px);
+}
+.gallery-goods .vending-machine .goods-card:focus-visible {
+  outline: 3px solid #78575e;
+  outline-offset: 2px;
+}
+
+.gallery-goods .vending-machine .goods-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  padding: 3px;
+  background: #efe5da;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.gallery-goods .vending-machine .goods-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* Cigarette packs are compact, like packs in a real vending-machine rack. */
+.gallery-goods .vending-cigarettes .goods-art {
+  height: clamp(74px, 9.6vw, 118px);
+}
+.gallery-goods .vending-cigarettes .goods-art img {
+  max-width: 79%;
+  max-height: 91%;
+}
+
+/* Drink cans are deliberately larger than the cigarette packs. */
+.gallery-goods .vending-drinks .goods-art {
+  height: clamp(101px, 13vw, 158px);
+}
+.gallery-goods .vending-drinks .goods-art img {
+  max-width: 97%;
+  max-height: 97%;
+}
+
+/* Do not duplicate names printed on packages.
+   Keep source names/descriptions available to assistive technologies. */
+.gallery-goods .vending-machine .goods-card h4,
+.gallery-goods .vending-machine .goods-card p {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.gallery-goods .vending-machine .goods-card::after {
+  counter-increment: vending-number;
+  content: counter(vending-number, decimal-leading-zero);
+  display: block;
+  width: min(80%, 54px);
+  margin-top: auto;
+  padding: 0 1px;
+  background: #f6ebe2;
+  border: 1px solid #b79e93;
+  border-radius: 2px;
+  color: #584540;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .06em;
+  text-align: center;
+}
+
+.gallery-goods .goods-note { margin: 28px auto 18px; }
+
+@media (max-width: 800px) {
+  /* On small screens, preserve tappable products by stacking the machines. */
+  .gallery-goods .vending-machines { grid-template-columns: minmax(0,1fr); }
+  .gallery-goods .vending-machine { max-width: 650px; width: 100%; margin: 0 auto; }
+  .gallery-goods .vending-cigarettes .goods-art { height: clamp(93px, 18vw, 131px); }
+  .gallery-goods .vending-drinks .goods-art { height: clamp(121px, 22vw, 165px); }
+}
+@media (max-width: 430px) {
+  .gallery-goods .vending-machine { padding: 10px; border-width: 2px; }
+  .gallery-goods .vending-machine .goods-grid { gap: 5px; padding: 7px; }
+  .gallery-goods .vending-machine .goods-card { gap: 4px; padding: 4px 2px 5px; }
+  .gallery-goods .vending-machine-header h3 { font-size: 16px; }
+  .gallery-goods .vending-machine-header span { font-size: 9px; }
+  .gallery-goods .vending-cigarettes .goods-art { height: 85px; }
+  .gallery-goods .vending-drinks .goods-art { height: 109px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-goods .vending-machine .goods-card { transition: none; }
+}

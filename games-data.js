@@ -66,7 +66,7 @@
       description: { ja: '魅力的な怪盗と謎の黒猫、そして夜へのラブレター。', en: 'A charming thief, a mysterious black cat, and a love letter to the night.' },
       flavors: ['pixel', 'pixel-illustration'],
       links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/koyoi-kimi-wo-ubaimashou', label: 'unityroom ↗', platforms: [] }],
-      releaseDate: '2026-11-19', displayOrder: 8
+      releaseDate: '2026-11-23', displayOrder: 8
     },
     {
       id: 'bunny-bar-diorama', title: 'BUNNY BAR DIORAMA', image: 'images/bunny_bar.png', imageAlt: 'Bunny Bar Diorama',
@@ -125,7 +125,7 @@
       description: { ja: '要求の多い悪魔の少女に、ひらがな二文字を捧げよう。反応を見届けて！', en: 'Offer two hiragana characters to a demanding demon girl. See how she reacts!' },
       flavors: ['pixel-illustration'],
       links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/futamoji-mitsuge', label: 'unityroom ↗', platforms: [] }],
-      releaseDate: '2026-11-21', displayOrder: 16
+      releaseDate: '2026-10-27', displayOrder: 16
     },
     {
       id: 'clunk-or-pass', title: 'CLUNK OR PASS!', image: 'images/clunk-or-pass.png', imageAlt: 'CLUNK OR PASS!',

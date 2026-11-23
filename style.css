@@ -1727,3 +1727,129 @@ body.page-leaving {
   background: var(--paper);
   transform: translateY(-2px);
 }
+
+/* GAMES — Streaming & fan art policy (collapsible) */
+.streaming-policy {
+  max-width: 960px;
+  margin: 22px auto 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.streaming-policy-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 18px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.streaming-policy-summary::-webkit-details-marker {
+  display: none;
+}
+
+.streaming-policy-summary::after {
+  content: "";
+  display: block;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  background: url("images/policy-chevron-down.png") center / contain no-repeat;
+  image-rendering: pixelated;
+}
+
+.streaming-policy[open] > .streaming-policy-summary::after {
+  background-image: url("images/policy-chevron-up.png");
+}
+
+.streaming-policy-summary:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.streaming-policy-summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.streaming-policy-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  line-height: 1.6;
+}
+
+.streaming-policy-summary-text strong {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.streaming-policy-summary-text > span {
+  font-size: 12px;
+  opacity: 0.78;
+}
+
+.streaming-policy-content {
+  padding: 20px 24px 24px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.streaming-policy-content p {
+  margin: 0 0 12px;
+}
+
+.streaming-policy-content h3 {
+  margin: 22px 0 8px;
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.streaming-policy-content ul {
+  margin: 0 0 14px;
+  padding-left: 1.5em;
+}
+
+.streaming-policy-content li {
+  margin-bottom: 8px;
+}
+
+.streaming-policy-lead {
+  font-size: 15px;
+}
+
+.streaming-policy-tag {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.streaming-policy-content .streaming-policy-outro {
+  margin-top: 22px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .streaming-policy {
+    margin-top: 18px;
+  }
+
+  .streaming-policy-summary {
+    padding: 12px 14px;
+  }
+
+  .streaming-policy-summary-text strong {
+    font-size: 14px;
+  }
+
+  .streaming-policy-content {
+    padding: 16px;
+    font-size: 13px;
+  }
+}
+
