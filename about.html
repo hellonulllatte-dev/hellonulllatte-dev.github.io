@@ -16,6 +16,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NULLLATTE | ABOUT</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pixel-history.css">
+  <!-- ABOUT限定。既存style.cssやPIXEL HISTORYの見た目は変更しない -->
+  <style>
+    .about-profile-layout {
+      display: grid;
+      /* 文章とキャラを実寸幅でまとめ、カード中央に配置 */
+      grid-template-columns: minmax(0, 470px) 190px;
+      gap: 36px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-inline: auto;
+    }
+    .about-profile-copy { min-width: 0; }
+    .about-profile-characters {
+      position: relative;
+      width: 190px;
+      height: 116px;
+      justify-self: start;
+      flex: none;
+    }
+    /* HOMEと同じ表示サイズ：ちびぬるらて96px（32px×3倍） */
+    .about-nulllatte-idle {
+      position: absolute;
+      left: 12px;
+      bottom: 0;
+      width: 96px;
+      height: 96px;
+      background-image: url("images/nulllatte_walk.png");
+      background-repeat: no-repeat;
+      background-size: 960px 96px;
+      image-rendering: pixelated;
+      animation: about-idle-two-frames 1.1s step-end infinite;
+    }
+    @keyframes about-idle-two-frames {
+      0%, 49.999% { background-position: 0 0; }
+      50%, 100% { background-position: -96px 0; }
+    }
+    /* HOMEと同じ表示サイズ：BOSS48px（32px×1.5倍）。0・1コマのみ */
+    .about-boss-still {
+      position: absolute;
+      left: 116px;
+      bottom: 0;
+      width: 48px;
+      height: 48px;
+      background-image: url("images/boss.png");
+      background-repeat: no-repeat;
+      background-size: 384px 48px;
+      image-rendering: pixelated;
+      animation: about-boss-two-frames 1.8s step-end infinite;
+    }
+    @keyframes about-boss-two-frames {
+      0%, 49.999% { background-position: 0 0; }
+      50%, 100% { background-position: -48px 0; }
+    }
+    @media (max-width: 850px) {
+      .about-profile-layout { grid-template-columns: minmax(0, 1fr); }
+      .about-profile-characters { justify-self: center; margin: 12px auto 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .about-nulllatte-idle, .about-boss-still { animation: none; background-position: 0 0; }
+    }
+  </style>
+
 </head>
 
 
@@ -45,9 +109,9 @@
         <a href="games.html">Games</a>
         <a href="cast.html">Cast</a>
         <a href="devlog.html">Devlog</a>
-        <a href="about.html" aria-current="page">About</a>
         <a href="gallery.html">GALLERY</a>
         <a href="playground.html">PLAYGROUND</a>
+        <a href="about.html" aria-current="page">About</a>
       </nav>
 
       <div class="language">
@@ -69,16 +133,24 @@
 
     <!-- 自己紹介 -->
     <div class="about-profile">
+      <div class="about-profile-layout">
+        <div class="about-profile-copy">
+          <h3>NULLLATTE</h3>
+          <p class="about-name">ぬるらて / Indie Game Developer</p>
 
-      <h3>NULLLATTE</h3>
-      <p class="about-name">ぬるらて / Indie Game Developer</p>
+          <p class="about-description">
+            小さなゲームを個人制作しています。<br>
+            ドット絵を描いたり、イラストを描いたり、<br>
+            ちょっと変わった遊びを考えたりしています。
+          </p>
+        </div>
 
-      <p class="about-description">
-        小さなゲームを個人制作しています。<br>
-        ドット絵を描いたり、イラストを描いたり、<br>
-        ちょっと変わった遊びを考えたりしています。
-      </p>
-
+        <!-- 作者とBOSSの2コマidle。既存のサイト用スクリプトには依存しない -->
+        <div class="about-profile-characters" aria-label="ちびぬるらてと飼い猫のBOSS" role="img">
+          <span class="about-nulllatte-idle" aria-hidden="true"></span>
+          <span class="about-boss-still" aria-hidden="true"></span>
+        </div>
+      </div>
     </div>
 
     <!-- 制作ツール -->
@@ -118,6 +190,35 @@
 
     </div>
 
+    <!-- 作品公開年表 -->
+    <section class="pixel-history" data-pixel-history aria-labelledby="pixel-history-title">
+      <header class="pixel-history-header">
+        <h2 id="pixel-history-title">PIXEL HISTORY</h2>
+        <p class="pixel-history-counter"><span data-ph-current>01</span> / <span data-ph-total>20</span></p>
+      </header>
+
+      <div class="pixel-history-preview" data-i18n-ignore>
+        <div class="pixel-history-preview-inner">
+          <a class="pixel-history-image-link" data-ph-image-link href="games.html" target="_blank" rel="noopener noreferrer">
+            <img class="pixel-history-image" data-ph-image src="" alt="">
+          </a>
+          <div class="pixel-history-info">
+            <p class="pixel-history-date" data-ph-date></p>
+            <h3 class="pixel-history-title" data-ph-title></h3>
+            <p class="pixel-history-description" data-ph-description></p>
+            <div class="pixel-history-links" data-ph-links></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pixel-history-timeline">
+        <div class="pixel-history-drag-panel" tabindex="0" role="slider" aria-label="作品の公開順を選択" aria-valuemin="1" aria-valuemax="20" aria-valuenow="1">
+          <span class="pixel-history-center-guide" aria-hidden="true"></span>
+          <div class="pixel-history-dot-track" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
   </section>
 
 </main>
@@ -127,7 +228,9 @@
     </footer>
 
   </div>
+  <script src="games-data.js"></script>
   <script src="i18n.js"></script>
+  <script src="pixel-history.js"></script>
   <script src="transition.js"></script>
 </body>
 </html>

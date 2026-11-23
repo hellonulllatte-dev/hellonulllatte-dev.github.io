@@ -1,40 +1,28 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DZBDZFFZ6J"></script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-
-	gtag('config', 'G-DZBDZFFZ6J');
-</script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-DZBDZFFZ6J"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-DZBDZFFZ6J');
+	</script>
 	<meta charset="UTF-8">
 	<link rel="icon" type="image/png" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>NULLLATTE | GAMES</title>
 	<link rel="stylesheet" href="style.css">
-
-
 </head>
 <body>
 	<div class="site">
-
 		<header class="header">
 			<div class="brand">
-				<img
-					src="images/coffee.gif"
-					alt="湯気の立つコーヒーカップ"
-					class="brand-icon"
-				>
+				<img src="images/coffee.gif" alt="湯気の立つコーヒーカップ" class="brand-icon">
 				<h1>NULLLATTE</h1>
-				<p class="brand-subtitle">
-					Little games, made with care.
-				</p>
+				<p class="brand-subtitle">Little games, made with care.</p>
 			</div>
-
 			<nav class="nav">
 				<a href="index.html">Home</a>
 				<a href="games.html" aria-current="page">Games</a>
@@ -42,8 +30,8 @@
 				<a href="devlog.html">Devlog</a>
 				<a href="gallery.html">GALLERY</a>
 				<a href="playground.html">PLAYGROUND</a>
+				<a href="about.html">About</a>
 			</nav>
-
 			<div class="language">
 				<button type="button">JP</button>
 				<span>/</span>
@@ -54,7 +42,6 @@
 		<main class="main">
 			<section class="games-section">
 				<h2>My Games</h2>
-
 				<!-- ビジュアル別フィルター -->
 				<div class="flavor-filters">
 					<button type="button" class="active" data-flavor="all">All</button>
@@ -64,309 +51,19 @@
 					<button type="button" data-flavor="typography">Typography</button>
 					<button type="button" data-flavor="3d">3D</button>
 				</div>
-
-				<!-- 作品一覧 -->
-				<div class="game-grid">
-
-					<!-- SILVER VINE WINERY -->
-					<div class="game-card" data-flavors="pixel">
-						<img src="images/winery.png" alt="Silver Vine Winery">
-						<h3>SILVER VINE WINERY</h3>
-						<p>A tiny, cozy winery.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/matatabi-winery"
-								target="_blank"
-								rel="noopener noreferrer">unityroom ↗</a>
-
-							<a href="https://nulllatte.itch.io/silver-vine-winery"
-								target="_blank"
-								rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</div>
-
-					<!-- お姉さん、まだ寝てて。 -->
-					<div class="game-card" data-flavors="pixel-illustration">
-						<img src="images/ragna.png" alt="お姉さん、まだ寝てて。">
-						<h3>お姉さん、まだ寝てて。</h3>
-						<p>Make breakfast quietly. Don't wake her up!</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/oneesan-still-sleeping"
-								target="_blank"
-								rel="noopener noreferrer">unityroom · Mobile ↗</a>
-
-							<a href="https://nulllatte.itch.io/oneesan-still-sleeping"
-								target="_blank"
-								rel="noopener noreferrer">itch.io · PC ↗</a>
-						</div>
-					</div>
-
-					<!-- ヤマカンアクマ -->
-					<div class="game-card" data-flavors="digital-illustration">
-						<img src="images/yamakan.png" alt="ヤマカンアクマ">
-						<h3>ヤマカンアクマ</h3>
-						<p>Study, rest, or trust a demon's predictions.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/yamakan-akuma"
-								target="_blank"
-								rel="noopener noreferrer">unityroom ↗</a>
-
-							<a href="https://nulllatte.itch.io/yamakan-akuma"
-								target="_blank"
-								rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</div>
-					<!-- 検閲♡おしおきバレンタイン -->
-					<div class="game-card" data-flavors="typography">
-						<img src="images/oshioki.png" alt="検閲♡おしおきバレンタイン">
-						<h3>検閲♡おしおきバレンタイン</h3>
-						<p>Censor a grumpy maid boy's complaints in a cute music video.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/censor-valentine"
-								target="_blank"
-								rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- WAKE ME NOT -->
-					<div class="game-card" data-flavors="3d">
-						<img src="images/wake_me_not.png" alt="WAKE ME NOT">
-						<h3>WAKE ME NOT</h3>
-						<p>A tiny, unsettling 3D adventure at a sunset train station.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/wake-me-not"
-								target="_blank"
-								rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-
-					<!-- 着いたよ。下。三分ね。 -->
-					<div class="game-card" data-flavors="pixel-illustration">
-						<img src="images/3min.png" alt="着いたよ。下。三分ね。">
-						<h3>着いたよ。下。三分ね。</h3>
-						<p>Three minutes to get dressed. She's waiting downstairs.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/tsuitayo-shita-3punne"
-								target="_blank"
-								rel="noopener noreferrer">unityroom · Mobile ↗</a>
-						</div>
-					</div>
-
-					<!-- だーれだ？ -->
-					<div class="game-card" data-flavors="typography">
-						<img src="images/da-reda.png" alt="だーれだ？">
-						<h3>だーれだ？</h3>
-						<p>Ten girls. One blindfold. Guess who's there.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/dareda"
-							target="_blank"
-							rel="noopener noreferrer">unityroom · PC ↗</a>
-						</div>
-					</div>
-
-					<!-- 今宵、君を奪いましょう♡ -->
-					<div class="game-card" data-flavors="pixel pixel-illustration">
-						<img src="images/alba.png" alt="今宵、君を奪いましょう♡">
-						<h3>今宵、君を奪いましょう♡</h3>
-						<p>A charming thief, a mysterious black cat, and a love letter to the night.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/koyoi-kimi-wo-ubaimashou"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- Bunny Bar Diorama -->
-					<div class="game-card" data-flavors="pixel">
-						<img src="images/bunny_bar.png" alt="Bunny Bar Diorama">
-						<h3>BUNNY BAR DIORAMA</h3>
-						<p>A tiny bunny bar where everyone goes about their evening. Sit back and watch.</p>
-
-						<div class="game-links">
-							<a href="https://nulllatte.itch.io/bunny-bar-diorama"
-							target="_blank"
-							rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</div>
-					<!-- スパっと！シがーる -->
-					<div class="game-card" data-flavors="digital-illustration">
-						<img src="images/cigirl.png" alt="スパっと！シがーる">
-						<h3>スパっと！シがーる</h3>
-						<p>Five cat-eared maids, shifting opinions, and one lunch decision. A playful Venn diagram puzzle!</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/supatto-cigirls"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- 中略！コラボカフェ -->
-					<div class="game-card" data-flavors="digital-illustration">
-						<img src="images/cigirl_cafe.png" alt="中略！コラボカフェ">
-						<h3>中略！コラボカフェ</h3>
-						<p>Five cat-eared maids, one collaboration café. A playful little crossover!</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/churyaku-collab-cafe"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- ワードランド診断 -->
-					<div class="game-card" data-flavors="typography">
-						<img src="images/wordland.png" alt="ワードランド診断">
-						<h3>ワードランド診断</h3>
-						<p>What kind of amusement park ride are your words?</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/wordland"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- WHY CAN'T I RUN?! -->
-					<div class="game-card" data-flavors="pixel">
-						<img src="images/why_can_i_run.png" alt="WHY CAN'T I RUN?!">
-						<h3>WHY CAN'T I RUN?!</h3>
-						<p>Something's chasing you. You're running as fast as you can. Why can't you run faster?!</p>
-
-						<div class="game-links">
-							<a href="https://nulllatte.itch.io/why-cant-i-run"
-							target="_blank"
-							rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</div>
-					<!-- 小さなゲームをつくりたい -->
-					<div class="game-card" data-flavors="pixel-illustration">
-						<img src="images/plune.png" alt="小さなゲームをつくりたい">
-						<h3>小さなゲームをつくりたい</h3>
-						<p>Cut the scope. Keep the cute. A tiny game about making a tiny game.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/prune"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-
-							<a href="https://nulllatte.itch.io/i-just-want-to-make-a-small-game"
-							target="_blank"
-							rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</div>
-
-					<!-- まだ閉めないで、店主様！ -->
-					<div class="game-card" data-flavors="pixel-illustration">
-						<img src="images/mada_shimenaide.png" alt="まだ閉めないで、店主様！">
-						<h3>まだ閉めないで、店主様！</h3>
-						<p>Keep the shop open just a little longer in this tiny score-attack game.</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/mada-shimenaide"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- ふた文字、貢げ！ -->
-					<div class="game-card" data-flavors="pixel-illustration">
-						<img src="images/futamoji.png" alt="ふた文字、貢げ！">
-						<h3>ふた文字、貢げ！</h3>
-						<p>Offer two hiragana characters to a demanding demon girl. See how she reacts!</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/futamoji-mitsuge"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- CLUNK OR PASS! -->
-					<div class="game-card" data-flavors="pixel">
-						<img src="images/clunk-or-pass.png" alt="CLUNK OR PASS!">
-						<h3>CLUNK OR PASS!</h3>
-						<p>Another shift. Another box. Something doesn't look right.</p>
-
-						<div class="game-links">
-							<a href="https://nulllatte.itch.io/clunk-or-pass"
-							target="_blank"
-							rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</div>
-					<!-- LAST ONE -->
-					<div class="game-card" data-flavors="pixel">
-						<img src="images/LAST_ONE.png" alt="LAST ONE">
-						<h3>LAST ONE</h3>
-						<p>One battery. One final choice.</p>
-
-						<div class="game-links">
-							<a href="https://nulllatte.itch.io/last-one"
-							target="_blank"
-							rel="noopener noreferrer">itch.io ↗</a>
-						</div>
-					</div>
-					<!-- ぎゅーっとコール！ -->
-					<div class="game-card" data-flavors="pixel-illustration typography">
-						<img src="images/cast_sena.png" alt="ぎゅーっとコール！">
-						<h3>ぎゅーっとコール！</h3>
-						<p>Cheer her on and bring the concert to life with your calls!</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/gyutto-call"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-					<!-- ♡？ -->
-					<div class="game-card" data-flavors="pixel-illustration">
-						<img src="images/heart-question.png" alt="♡？">
-						<h3>♡？</h3>
-						<p>Someone is behind a foggy window. Knock, knock. Why not say hello?</p>
-
-						<div class="game-links">
-							<a href="https://unityroom.com/games/heart-question"
-							target="_blank"
-							rel="noopener noreferrer">unityroom ↗</a>
-						</div>
-					</div>
-
-
-
-				</div>
+				<!-- 作品カードは games-data.js の共通データから生成します。 -->
+				<div class="game-grid"></div>
 				<p class="games-more">More games will be added to this collection over time...
 					<small>過去作品は少しずつ追加していきます。</small>
 				</p>
 			</section>
 		</main>
 
-		<footer>
-			© NULLLATTE — Made with care.
-		</footer>
-
+		<footer>© NULLLATTE — Made with care.</footer>
 	</div>
 
-	<!-- ビジュアル別フィルター -->
-	<script>
-		const filters = document.querySelectorAll(".flavor-filters button");
-		const games = document.querySelectorAll(".game-card[data-flavors]");
-
-		filters.forEach(button => {
-			button.addEventListener("click", () => {
-				const flavor = button.dataset.flavor;
-
-				filters.forEach(b => b.classList.remove("active"));
-				button.classList.add("active");
-
-				games.forEach(game => {
-					const flavors = game.dataset.flavors.split(" ");
-					game.hidden = flavor !== "all" && !flavors.includes(flavor);
-				});
-			});
-		});
-	</script>
-
-	<!-- ページ遷移 -->
+	<script src="games-data.js"></script>
+	<script src="games.js"></script>
 	<script src="i18n.js"></script>
 	<script src="transition.js"></script>
 </body>
