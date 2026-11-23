@@ -1,0 +1,149 @@
+/* GAMES: compact in-card development note (one-card prototype) */
+.game-card .game-card-info { min-width: 0; }
+.game-card .game-note-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 18px;
+}
+.game-card .game-note-heading h3 {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  margin: 10px 0 0;
+}
+.game-card .game-note-toggle {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  margin: 6px -8px 0 0;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: #3a323c;
+  font: inherit;
+  transition: transform 130ms ease;
+}
+.game-card .game-note-toggle:hover { transform: translateY(-2px); }
+.game-card .game-note-toggle:active { transform: translateY(1px); }
+.game-card .game-note-toggle:focus-visible,
+.game-card .game-note-dialogue:focus-visible {
+  outline: 2px solid #78575e;
+  outline-offset: 2px;
+}
+.game-card .game-note-icon {
+  width: 24px;
+  height: 24px;
+  max-width: none;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+  image-rendering: pixelated;
+  opacity: 1;
+}
+.game-card .game-note-x {
+  display: none;
+  font-size: 25px;
+  line-height: 1;
+}
+.game-card .game-note-toggle.is-open .game-note-icon { display: none; }
+.game-card .game-note-toggle.is-open .game-note-x { display: block; }
+
+/* The title stays visible; only the contents beneath it switch. */
+.game-card .game-note-normal-body,
+.game-card .game-note-novel {
+  min-height: 142px;
+}
+.game-card .game-note-normal-body[hidden],
+.game-card .game-note-novel[hidden] { display: none !important; }
+.game-card .game-note-novel {
+  padding: 8px 18px 0;
+}
+.game-card .game-note-dialogue {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 112px;
+  min-height: 0;
+  padding: 10px 13px;
+  text-align: left;
+  color: #3a323c;
+  background: #f4e8df;
+  border: 1px solid #cca795;
+  border-radius: 5px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+.game-card .game-note-text {
+  display: block;
+  padding: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+}
+.game-card .game-note-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  gap: 12px;
+  color: #a37370;
+  font-size: 12px;
+}
+/* Non-clickable game cards should not imply interactivity. */
+.game-card:hover { background: transparent; box-shadow: none; transform: none; }
+.game-card:hover > img { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .game-card .game-note-toggle { transition: none; }
+}
+
+/* Animated prompt: appears only when the typewriter has completed. */
+.game-card .game-note-next {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.game-card .game-note-next[hidden] { display: none !important; }
+@font-face {
+  font-family: "NosutaruDot";
+  src: url("fonts/Nosutaru-dot.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+.game-card .game-note-dialogue {
+  font-family: "NosutaruDot", "MaruMonica", sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #584540;
+}
+
+
+/* 三角GIFの場所を常に確保 */
+.game-card .game-note-next {
+  display: block;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* 文字送り中は透明にするだけ */
+.game-card .game-note-next[hidden] {
+  display: block !important;
+  visibility: hidden;
+}

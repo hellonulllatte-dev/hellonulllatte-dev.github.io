@@ -1710,3 +1710,20 @@ body.page-leaving {
   letter-spacing: 0.08em;
   color: var(--text);
 }
+
+/* GAMES：クリックできないカード全体のホバー演出を無効化 */
+.game-card:hover {
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+.game-card:hover img {
+  opacity: 1;
+}
+
+/* 実際に押せるリンクだけ反応 */
+.game-card .game-links a:hover {
+  background: var(--paper);
+  transform: translateY(-2px);
+}

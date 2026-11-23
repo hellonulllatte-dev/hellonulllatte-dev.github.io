@@ -22,6 +22,7 @@
     const title = root.querySelector('[data-ph-title]');
     const description = root.querySelector('[data-ph-description]');
     const links = root.querySelector('[data-ph-links]');
+    const jam = root.querySelector('[data-ph-jam]');
     let value = 0;
     let animationFrame = 0;
     let drag = null;
@@ -61,28 +62,44 @@
       return Math.exp(-(distance * distance) / (2 * spread * spread));
     }
 
-    function updatePreview(index, force = false) {
-      const game = games[index];
-      if (!game) return;
-      if (force || previewIndex !== index) {
-        previewIndex = index;
-        image.src = game.image;
-        image.alt = game.imageAlt;
-        imageLink.href = game.links[0]?.href || 'games.html';
-        title.textContent = game.title;
-        date.textContent = game.releaseDate;
-        links.replaceChildren();
-        game.links.forEach(link => {
-          const anchor = document.createElement('a');
-          anchor.href = link.href;
-          anchor.target = '_blank';
-          anchor.rel = 'noopener noreferrer';
-          anchor.textContent = link.label;
-          links.append(anchor);
-        });
+
+  function updatePreview(index, force = false) {
+    const game = games[index];
+    if (!game) return;
+
+    if (force || previewIndex !== index) {
+      previewIndex = index;
+
+      image.src = game.image;
+      image.alt = game.imageAlt;
+      imageLink.href = game.links[0]?.href || 'games.html';
+
+      title.textContent = game.title;
+      date.textContent = game.releaseDate;
+
+      // ゲームジャム参加情報
+      if (jam) {
+        const jamName = game.jam?.name;
+        jam.hidden = !jamName;
+        jam.textContent = jamName ? `GAME JAM / ${jamName}` : '';
       }
-      description.textContent = game.description[language() === 'en' ? 'en' : 'ja'];
+
+      links.replaceChildren();
+      game.links.forEach(link => {
+        const anchor = document.createElement('a');
+        anchor.href = link.href;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+        anchor.textContent = link.label;
+        links.append(anchor);
+      });
     }
+
+    // 言語切替時にも更新
+    description.textContent =
+      game.description[language() === 'en' ? 'en' : 'ja'];
+  }
+
 
     function measure() {
       spacing = clamp((panel.clientWidth - 48) / Math.max(1, Math.min(itemCount, 20) - 1), 18, 44);

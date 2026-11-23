@@ -209,8 +209,8 @@
   add('ぷるんと弾む、まるい音', 'A round, bouncy sound'); add('乾いた、8bitの電子音', 'A dry 8-bit electronic sound');
   add('きらっと響く、金属の音', 'A sparkling metallic sound'); add('低く鼻にかかった、ブーンと響く音', 'A low, nasal buzzing sound');
   add('向き', 'DIRECTION'); add('アイコン', 'ICON'); add('ふち・影', 'OUTLINE / SHADOW'); add('背景', 'BACKGROUND'); add('サイズ', 'SIZE'); add('動く速さ', 'SPEED');
-  add('お持ち帰り', 'Download'); add('選択中のアイコンをお持ち帰り', 'Download the selected icon');
-  add('ダウンロードありがとう！', 'Thanks for downloading!'); add('お持ち帰りありがとう！', 'Thanks for downloading!'); add('GIF出力でエラーが起きました。', 'An error occurred while exporting the GIF.');
+  add('ダウンロード', 'Download'); add('選択中のアイコンをダウンロード', 'Download the selected icon');
+  add('ダウンロードありがとう！', 'Thanks for downloading!'); add('ダウンロードありがとう！', 'Thanks for downloading!'); add('GIF出力でエラーが起きました。', 'An error occurred while exporting the GIF.');
   add('今の音をダウンロード', 'Download the current sound');
   add('MUG SE MAKERを開く', 'Open MUG SE MAKER'); add('カラフルなドット絵のマグカップが並ぶ MUG SE MAKER', 'MUG SE MAKER with colorful pixel-art mugs');
   add('NEXT MARK GALLERYを開く', 'Open NEXT MARK GALLERY'); add('POPOPO GRIDを開く', 'Open POPOPO GRID');

@@ -17,7 +17,7 @@
   <title>NULLLATTE | ABOUT</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="pixel-history.css">
-  <!-- ABOUT限定。既存style.cssやPIXEL HISTORYの見た目は変更しない -->
+  <!-- ABOUT限定。既存style.cssやHISTORYの見た目は変更しない -->
   <style>
     .about-profile-layout {
       display: grid;
@@ -191,25 +191,36 @@
     </div>
 
     <!-- 作品公開年表 -->
-    <section class="pixel-history" data-pixel-history aria-labelledby="pixel-history-title">
-      <header class="pixel-history-header">
-        <h2 id="pixel-history-title">PIXEL HISTORY</h2>
-        <p class="pixel-history-counter"><span data-ph-current>01</span> / <span data-ph-total>20</span></p>
-      </header>
 
-      <div class="pixel-history-preview" data-i18n-ignore>
-        <div class="pixel-history-preview-inner">
-          <a class="pixel-history-image-link" data-ph-image-link href="games.html" target="_blank" rel="noopener noreferrer">
-            <img class="pixel-history-image" data-ph-image src="" alt="">
-          </a>
-          <div class="pixel-history-info">
-            <p class="pixel-history-date" data-ph-date></p>
-            <h3 class="pixel-history-title" data-ph-title></h3>
-            <p class="pixel-history-description" data-ph-description></p>
-            <div class="pixel-history-links" data-ph-links></div>
-          </div>
-        </div>
+<section class="pixel-history" data-pixel-history aria-labelledby="pixel-history-title">
+  <header class="pixel-history-header">
+    <h2 id="pixel-history-title">HISTORY</h2>
+    <p class="pixel-history-counter">
+      <span data-ph-current>01</span> / <span data-ph-total>20</span>
+    </p>
+  </header>
+
+  <div class="pixel-history-preview" data-i18n-ignore>
+    <div class="pixel-history-preview-inner">
+      <a class="pixel-history-image-link" data-ph-image-link href="games.html" target="_blank" rel="noopener noreferrer">
+        <img class="pixel-history-image" data-ph-image src="" alt="">
+      </a>
+
+      <div class="pixel-history-info">
+        <p class="pixel-history-date" data-ph-date></p>
+
+        <h3 class="pixel-history-title" data-ph-title></h3>
+
+        <!-- ゲームジャム参加情報 -->
+        <p class="pixel-history-jam" data-ph-jam hidden></p>
+
+        <p class="pixel-history-description" data-ph-description></p>
+
+        <div class="pixel-history-links" data-ph-links></div>
       </div>
+    </div>
+  </div>
+
 
       <div class="pixel-history-timeline">
         <div class="pixel-history-drag-panel" tabindex="0" role="slider" aria-label="作品の公開順を選択" aria-valuemin="1" aria-valuemax="20" aria-valuenow="1">

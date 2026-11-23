@@ -9,7 +9,11 @@
       links: [
         { provider: 'unityroom', href: 'https://unityroom.com/games/matatabi-winery', label: 'unityroom ↗', platforms: [] },
         { provider: 'itch.io', href: 'https://nulllatte.itch.io/silver-vine-winery', label: 'itch.io ↗', platforms: [] }
-      ], releaseDate: '2026-10-28', displayOrder: 1
+      ], releaseDate: '2026-10-28', displayOrder: 1,
+      devNote: {
+        ja: [],
+        en: []
+      }
     },
     {
       id: 'oneesan-still-sleeping', title: 'お姉さん、まだ寝てて。', image: 'images/ragna.png', imageAlt: 'お姉さん、まだ寝てて。',
@@ -97,7 +101,8 @@
       description: { ja: '何かに追われて全力で走っている。それなのに、どうして速く走れない？！', en: "Something's chasing you. You're running as fast as you can. Why can't you run faster?!" },
       flavors: ['pixel'],
       links: [{ provider: 'itch.io', href: 'https://nulllatte.itch.io/why-cant-i-run', label: 'itch.io ↗', platforms: [] }],
-      releaseDate: '2026-10-30', displayOrder: 13
+      releaseDate: '2026-10-30', displayOrder: 13,
+      jam: { name: "SlapJam AI #2", url: null}
     },
     {
       id: 'i-just-want-to-make-a-small-game', title: '小さなゲームをつくりたい', image: 'images/plune.png', imageAlt: '小さなゲームをつくりたい',
