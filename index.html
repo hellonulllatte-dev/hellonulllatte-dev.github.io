@@ -16,6 +16,43 @@
       border-bottom: 0;
     }
     .main { padding-bottom: 0; }
+
+    /* HOME only: a single, unobtrusive collaboration banner. */
+    .home-cafe-banner {
+      margin: 48px auto 56px;
+      padding: 0 12px;
+      text-align: center;
+    }
+    .home-cafe-banner a {
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      margin-inline: auto;
+      border-radius: 8px;
+      overflow: hidden;
+      line-height: 0;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .home-cafe-banner a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(91, 14, 14, .12);
+    }
+    .home-cafe-banner a:focus-visible {
+      outline: 3px solid #934D4F;
+      outline-offset: 4px;
+    }
+    .home-cafe-banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    @media (max-width: 640px) {
+      .home-cafe-banner { margin: 28px auto 36px; padding: 0 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .home-cafe-banner a { transition: none; }
+      .home-cafe-banner a:hover { transform: none; }
+    }
   </style>
 
 
@@ -128,6 +165,16 @@
 
         <a class="home-more-link" href="games.html">
           View All Games →
+        </a>
+      </section>
+
+      <!-- SPECIAL COLLABORATION: one full-image clickable banner -->
+      <section class="home-cafe-banner" aria-label="喫茶 燻々 × CIGIRL コラボカフェ">
+        <a href="special/collab-cafe-special.html"
+           aria-label="喫茶 燻々 × CIGIRL コラボカフェ特設サイトへ">
+          <img src="images/cafe-banner-1200x400.png"
+               alt="喫茶 燻々 × CIGIRL コラボカフェ開催中。2026年11月17日から好評につき継続中。特設サイトはこちら。"
+               width="1200" height="400" loading="lazy" decoding="async">
         </a>
       </section>
 
