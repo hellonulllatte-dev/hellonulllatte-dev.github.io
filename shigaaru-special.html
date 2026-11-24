@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5B0E0E">
+  <link rel="icon" type="image/png" href="assets/sig-favicon.png">
+  <meta property="og:image" content="assets/main-visual.png">
+  <meta name="description" content="『スパっと！シがーる』の特設ページ。猫耳メイド5人の、ちょっと騒がしいランチ休憩。">
+  <title>スパっと！シがーる｜OFFICIAL SPECIAL SITE</title>
+  <style>
+    :root{--ink:#241c31;--hot:#ff477e;--hot-dark:#dd2b65;--lemon:#ffef87;--mint:#c0f3df;--lilac:#d6c5ff;--cream:#fffaf2;--white:#fff;--line:3px solid var(--ink)}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:86px}
+    body{margin:0;color:var(--ink);background:var(--cream);font-family:"Arial Black","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-weight:700;overflow-x:hidden}
+    button,a{font:inherit}a{color:inherit}button{cursor:pointer}
+    a:focus-visible,button:focus-visible{outline:4px solid #2b71ff;outline-offset:3px}
+    img{max-width:100%;display:block}
+    .wrap{width:min(1220px,calc(100% - 68px));margin-inline:auto}
+    .strip-top{height:9px;background:repeating-linear-gradient(90deg,var(--ink) 0 22px,var(--hot) 22px 44px,var(--lemon) 44px 66px,var(--mint) 66px 88px)}
+    .header{height:78px;display:flex;align-items:center;position:sticky;top:0;z-index:50;background:rgba(255,250,242,.95);border-bottom:3px solid var(--ink);backdrop-filter:blur(15px)}
+    .header-inner{width:min(1390px,calc(100% - 60px));margin:auto;display:flex;align-items:center;gap:28px}
+    .mini-logo{color:var(--hot);background:var(--ink);border-radius:8px;padding:10px 12px;letter-spacing:-2px;text-decoration:none;line-height:1;font-size:26px;box-shadow:4px 4px 0 var(--lemon);flex:none}
+    .site-tag{font-size:9px;letter-spacing:2px;line-height:1.6;white-space:nowrap}
+    .nav{display:flex;gap:24px;align-items:center;justify-content:center;margin:auto}
+    .nav a{font-size:12px;letter-spacing:1px;text-decoration:none;transition:color .15s;white-space:nowrap}
+    .nav a:hover{color:var(--hot-dark)}
+    .language{display:flex;align-items:center;gap:4px;border:2px solid var(--ink);border-radius:40px;padding:3px;background:var(--white)}
+    .language button{border:0;background:transparent;border-radius:30px;font-size:11px;padding:7px 9px;color:var(--ink)}
+    .language button[aria-pressed="true"]{background:var(--ink);color:var(--white)}
+    .nav-toggle{display:none;border:2px solid var(--ink);border-radius:10px;background:var(--lemon);padding:8px 12px}
+    .hero{position:relative;isolation:isolate;min-height:660px;background:linear-gradient(120deg,#ffe5ed 0%,#fff3c3 55%,#d9f5ef 100%);overflow:hidden;border-bottom:var(--line)}
+    .hero::before{content:"";position:absolute;inset:0;opacity:.32;pointer-events:none;background-image:radial-gradient(#ed91a0 1.25px,transparent 1.25px);background-size:23px 23px;mask-image:linear-gradient(90deg,transparent,black 32%,black 90%)}
+    .hero::after{content:"";position:absolute;border:4px solid var(--ink);width:530px;height:530px;border-radius:50%;left:-310px;top:-295px;box-shadow:0 0 0 20px #ff8cb0,0 0 0 26px var(--ink);pointer-events:none;opacity:.75}
+    .hero-inner{display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:35px;padding:85px 0 96px;position:relative;z-index:1}
+    .burst{position:absolute;top:19px;right:22px;background:var(--lemon);border:var(--line);border-radius:50%;height:108px;width:108px;display:grid;place-items:center;transform:rotate(14deg);box-shadow:7px 8px 0 var(--ink);font-size:13px;text-align:center;line-height:1.35;z-index:4}
+    .micro{display:inline-flex;gap:12px;align-items:center;font-size:12px;letter-spacing:3px}
+    .micro::before{content:"★";font-size:22px;color:var(--hot)}
+    .hero-copy{position:relative;z-index:2}
+    .hero-title{margin:22px 0 12px;line-height:.98;letter-spacing:-.08em;white-space:nowrap;filter:drop-shadow(2px 2px 0 var(--ink))}
+    .hero-title span{display:block;font-size:clamp(65px,8.7vw,138px);font-weight:1000;text-shadow:5px 6px 0 var(--lemon),9px 10px 0 var(--ink);-webkit-text-stroke:2px var(--ink);color:var(--white)}
+    .hero-title span+span{color:var(--hot);text-shadow:5px 6px 0 var(--white),9px 10px 0 var(--ink);font-size:clamp(79px,10vw,160px)}
+    .hero-eyebrow{margin:28px 0 9px;font-size:clamp(13px,1.5vw,19px);font-weight:1000;letter-spacing:1px}
+    .hero-lead{font-size:clamp(21px,2.3vw,30px);line-height:1.55;margin:8px 0 27px;max-width:540px;font-weight:900}
+    .hero-links{display:flex;flex-wrap:wrap;gap:13px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;text-align:center;border:3px solid var(--ink);border-radius:100px;min-height:56px;padding:12px 25px;text-decoration:none;font-size:14px;letter-spacing:.3px;box-shadow:5px 6px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+    .btn:hover{transform:translate(3px,3px);box-shadow:2px 3px 0 var(--ink)}
+    .btn-primary{background:var(--hot);color:white}
+    .btn-secondary{background:var(--white)}
+    .btn-small{min-height:46px;padding:9px 17px;font-size:12px}
+    .hero-visual{position:relative;min-height:460px;display:flex;align-items:center;justify-content:center;padding:32px 38px 45px 30px}
+    .visual-back{position:absolute;inset:44px 30px 34px 60px;transform:rotate(6deg);border:var(--line);background:var(--lilac);box-shadow:14px 14px 0 var(--ink)}
+    .visual-back::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent 0 13px,rgba(36,28,49,.16) 13px 17px);opacity:.6}
+    .key-visual{position:relative;z-index:1;width:100%;aspect-ratio:16/10;background:#ffb1c5;border:4px solid var(--ink);transform:rotate(-3deg);box-shadow:14px 17px 0 var(--ink);overflow:hidden}
+    .key-visual img{width:100%;height:100%;object-fit:contain;object-position:center}
+    .key-visual .missing{display:none;position:absolute;inset:0;background:linear-gradient(140deg,#fe8ca9,#fbcfe3 35%,#b8a8e8 65%,#e6ffbf);align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:12px;padding:28px}
+    .key-visual.is-missing .missing{display:flex}
+    .key-visual.is-missing img{display:none}
+    .missing-big{font-size:clamp(31px,4vw,60px);font-weight:1000;line-height:1.05;letter-spacing:-3px;-webkit-text-stroke:1.5px var(--ink);color:white;text-shadow:4px 5px 0 var(--ink)}
+    .missing-small{font-size:12px;line-height:1.6;background:white;border:2px solid var(--ink);padding:10px}
+    .sticker{position:absolute;z-index:3;border:var(--line);padding:12px 17px;background:var(--lemon);box-shadow:5px 5px 0 var(--ink);font-size:14px;transform:rotate(10deg);right:-6px;bottom:17px}
+    .sticker::before{content:"✦";margin-right:7px;color:var(--hot)}
+    .sticker-left{position:absolute;left:-5px;top:12px;background:var(--white);transform:rotate(-11deg);border:var(--line);padding:7px 16px;font-size:12px;font-weight:1000;letter-spacing:3px;z-index:3}
+    .ticker{background:var(--ink);color:var(--lemon);overflow:hidden;padding:13px 0;font-size:17px;letter-spacing:4px;white-space:nowrap}
+    .ticker-track{display:flex;width:max-content;animation:marquee 26s linear infinite;gap:55px}
+    .ticker span::after{content:" ✦ ";margin-left:52px;color:var(--hot)}
+    @keyframes marquee{to{transform:translateX(-50%)}}
+    section{position:relative}
+    .section-pad{padding:110px 0}
+    .section-head{margin-bottom:40px;display:flex;align-items:end;justify-content:space-between;gap:15px}
+    .section-no{font-weight:1000;font-size:12px;letter-spacing:2px;background:var(--ink);color:white;padding:7px 12px;display:inline-block;transform:rotate(-3deg)}
+    .section-title{font-size:clamp(46px,7vw,94px);line-height:1;margin:12px 0 0;letter-spacing:-.07em;font-weight:1000}
+    .section-title small{display:block;letter-spacing:.25em;font-size:14px;line-height:1.6;margin-top:13px;color:var(--hot);font-weight:900}
+    .section-desc{font-size:13px;line-height:1.9;opacity:.7;max-width:320px}
+    .intro{background:var(--ink);color:white;overflow:hidden}
+    .intro::before{content:"SMOKE BREAK";position:absolute;right:-30px;top:20px;font-size:clamp(76px,13vw,200px);letter-spacing:-.09em;color:rgba(255,255,255,.035);white-space:nowrap;pointer-events:none}
+    .intro .section-no{background:var(--lemon);color:var(--ink)}
+    .intro .section-title small{color:var(--lemon)}
+    .intro-body{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+    .intro-episode{font-size:14px;font-weight:800;letter-spacing:.13em;color:#F8C29B;margin:0 0 10px}
+    .intro-lead{font-size:clamp(26px,3.5vw,47px);line-height:1.48;margin:0 0 20px;letter-spacing:.02em}
+    .intro-lead mark{background:transparent;color:var(--lemon)}
+    .intro-copy{font-size:16px;line-height:2.3;font-weight:600;max-width:600px}
+    .scene-board{min-height:330px;transform:rotate(2deg);background:#fff5df;border:5px solid var(--ink);outline:3px solid white;box-shadow:13px 13px 0 var(--hot);color:var(--ink);padding:32px;position:relative;display:grid;place-items:center;text-align:center}
+    .scene-board::before{content:"CAFÉ BREAK TIME";position:absolute;top:18px;left:22px;font-size:12px;letter-spacing:3px}
+    .scene-board .huge{font-size:clamp(67px,8vw,128px);line-height:1;color:var(--hot);text-shadow:4px 4px var(--ink)}
+    .scene-board .scene-line{font-size:25px;line-height:1.45}
+    .scene-board .scene-foot{position:absolute;bottom:20px;font-size:12px;letter-spacing:1px}
+    .stars{position:absolute;right:14px;top:-29px;font-size:66px;color:var(--lemon);text-shadow:3px 4px var(--ink)}
+    .characters{background:var(--cream);overflow:hidden}
+    .characters::before{content:"";position:absolute;left:0;right:0;top:0;height:18px;background:repeating-linear-gradient(90deg,var(--hot) 0 24px,var(--cream) 24px 48px,var(--ink) 48px 56px)}
+    .character-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
+    .char-card{border:3px solid var(--ink);border-radius:9px;background:var(--char-bg);overflow:hidden;position:relative;transition:transform .18s,box-shadow .18s;box-shadow:5px 6px 0 var(--ink);min-width:0}
+    .char-card:hover{transform:translateY(-6px);box-shadow:7px 12px 0 var(--ink)}
+    .char-top{height:275px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .char-top::before{content:"";position:absolute;width:200px;height:200px;border:3px solid var(--ink);border-radius:50%;background:rgba(255,255,255,.45);left:50%;top:47%;transform:translate(-50%,-50%)}
+    .char-top::after{content:"✦";position:absolute;right:12px;top:8px;font-size:29px;color:white;-webkit-text-stroke:2px var(--ink)}
+    .char-number{font-size:100px;font-weight:1000;color:rgba(255,255,255,.6);position:absolute;bottom:-19px;left:7px;-webkit-text-stroke:2px var(--ink);letter-spacing:-.12em;line-height:1}
+    .char-person{height:85%;width:100%;object-fit:contain;position:absolute;inset:12px 0 0;margin:auto;z-index:2;filter:drop-shadow(3px 5px 0 rgba(36,28,49,.18))}
+    .char-silhouette{height:130px;width:130px;position:relative;z-index:1;opacity:.65;display:grid;place-items:center;font-size:73px;color:var(--ink);text-shadow:4px 4px 0 #fff7;transform:rotate(-4deg)}
+    .char-meta{background:var(--white);padding:15px 12px 18px;border-top:3px solid var(--ink);min-height:110px}
+    .char-meta .eyebrow{font-size:9px;letter-spacing:2px;color:var(--hot-dark)}
+    .char-meta strong{font-size:18px;display:block;margin-top:5px}
+    .char-meta small{display:block;font-size:11px;margin-top:5px;opacity:.65;line-height:1.4}
+    .char-note{font-size:12px;font-weight:600;color:#574f59;margin-top:30px;line-height:1.85;border-left:5px solid var(--hot);padding-left:14px}
+    .music{background:#ffe5ed;border-top:var(--line);border-bottom:var(--line);overflow:hidden}
+    .music::after{content:"♪ ♫ ♪";position:absolute;font-size:160px;right:-14px;bottom:-64px;opacity:.08;pointer-events:none}
+    .music-card{display:grid;grid-template-columns:1fr 1.3fr;gap:50px;align-items:center;background:var(--white);border:var(--line);box-shadow:12px 12px 0 var(--ink);padding:34px;margin-top:20px}
+    .disc{height:260px;width:260px;border:var(--line);border-radius:50%;margin:auto;background:repeating-radial-gradient(circle,var(--ink) 0 3px,#4e3953 3px 7px);display:grid;place-items:center;position:relative;box-shadow:10px 10px 0 var(--lemon)}
+    .disc::before{content:"";position:absolute;inset:38px;border:3px dashed var(--white);border-radius:50%;opacity:.4}
+    .disc-label{background:var(--lemon);border:3px solid var(--ink);border-radius:50%;height:110px;width:110px;display:grid;place-items:center;text-align:center;font-size:19px;line-height:1.2;transform:rotate(-12deg)}
+    .music-overline{letter-spacing:3px;font-size:12px;color:var(--hot-dark)}
+    .music-title{font-size:clamp(32px,4vw,56px);margin:10px 0 18px;line-height:1.25}
+    .music-text{font-size:14px;line-height:2;font-weight:600;max-width:480px}
+    .music-controls{display:flex;gap:12px;align-items:center;margin-top:20px;flex-wrap:wrap}
+    .play-audio{color:var(--ink);background:var(--lemon);border:3px solid var(--ink);border-radius:100px;padding:12px 20px;box-shadow:4px 4px 0 var(--ink);font-size:12px}
+    .play-audio:hover{background:var(--mint)}
+    .audio-state{font-size:11px;font-weight:600;opacity:.7;line-height:1.6}
+    .audio-progress{height:6px;max-width:400px;background:#dfced6;border-radius:4px;margin-top:19px;overflow:hidden}
+    .audio-progress>span{display:block;width:0%;height:100%;background:var(--hot)}
+    .world{background:#d9f5e7}
+    .world-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .world-card{background:var(--cream);border:3px solid var(--ink);min-height:310px;position:relative;overflow:hidden;padding:31px;box-shadow:9px 9px 0 var(--ink);display:flex;flex-direction:column;justify-content:space-between}
+    .world-card:nth-child(2){background:#e9dcff}
+    .world-no{font-size:12px;letter-spacing:2px;color:var(--hot-dark)}
+    .world-card h3{font-size:clamp(32px,4vw,55px);line-height:1.12;position:relative;z-index:2;margin:9px 0 12px;letter-spacing:-.05em}
+    .world-card p{font-size:13px;line-height:1.8;font-weight:600;position:relative;z-index:2;max-width:320px}
+    .world-card .circle{width:260px;height:260px;border:5px solid var(--ink);border-radius:50%;position:absolute;right:-77px;top:-69px;background:var(--lemon);box-shadow:0 0 0 21px #fff7}
+    .world-card:nth-child(2) .circle{background:var(--hot)}
+    .world-card .btn{align-self:flex-start;position:relative;z-index:2}
+    .play{background:var(--lemon);padding:110px 0 125px;text-align:center;overflow:hidden}
+    .play::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(40deg,transparent 0 50px,#f1d95f 50px 53px);opacity:.28;pointer-events:none}
+    .play-inner{position:relative;z-index:1}
+    .play .section-title{font-size:clamp(60px,10vw,135px);margin:0 0 14px}
+    .play .lead{font-size:clamp(17px,2vw,26px);margin:0 0 32px}
+    .play .btn-primary{font-size:19px;padding:19px 40px;min-height:75px}
+    .play .small-note{font-size:12px;opacity:.7;margin-top:25px}
+    .footer{background:var(--ink);color:white;padding:34px 0 50px}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:25px;flex-wrap:wrap}
+    .footer a{color:var(--lemon);text-underline-offset:4px;font-size:13px}
+    .footer small{font-size:11px;color:#d2cbd7;font-weight:600}
+    .reveal{opacity:1;transform:none}
+    .reveal.is-visible{opacity:1;transform:none}
+    @media(max-width:1080px){.nav{gap:13px}.nav a{font-size:10px}.header-inner{gap:16px}.hero-inner{grid-template-columns:1fr 1fr}.hero-visual{padding:0 25px;min-height:380px}.character-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){.wrap{width:min(100% - 38px,580px)}.header{height:70px}.header-inner{width:calc(100% - 30px)}.site-tag{display:none}.nav-toggle{display:block;margin-left:auto}.nav{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--cream);padding:10px 20px 20px;border-bottom:3px solid var(--ink);box-shadow:0 15px 25px #241c3122}.nav.is-open{display:flex}.nav a{padding:13px;border-bottom:1px solid #e2d4cd;font-size:13px}.language{margin-left:3px}.hero-inner{grid-template-columns:1fr;padding:60px 0 72px;gap:20px}.hero-title span{font-size:clamp(62px,16vw,106px)}.hero-title span+span{font-size:clamp(75px,18vw,130px)}.hero-visual{min-height:330px;padding:20px 24px 30px}.visual-back{inset:35px 18px 26px 48px}.burst{height:70px;width:70px;font-size:9px;right:10px;top:20px}.sticker{font-size:11px;padding:8px 11px}.section-pad{padding:74px 0}.section-head{display:block}.section-title{font-size:clamp(46px,11vw,70px)}.intro-body{grid-template-columns:1fr;gap:38px}.scene-board{min-height:260px}.character-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.char-top{height:230px}.music-card{grid-template-columns:1fr;gap:35px}.disc{height:220px;width:220px}.world-grid{grid-template-columns:1fr;gap:19px}.footer-inner{justify-content:center;text-align:center}.footer-inner>*{width:100%}}
+    @media(max-width:420px){.char-top{height:190px}.char-silhouette{font-size:50px}.char-meta strong{font-size:16px}.char-number{font-size:76px}.hero-links .btn{width:100%}.sticker-left{left:8px;top:0}.music-card{padding:22px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation:none}.reveal{opacity:1;transform:none;transition:none}.btn,.char-card{transition:none}}
+
+    /* ====================================================
+       OFFICIAL COLOR BIBLE — supplied by NULLLATTE
+       REGULAR #F6A671 #F8C29B #F88D3B #704C34
+       MENTHO  #8EB4A5 #C4DCCD #3AB484 #485B53
+       BLACK   #755C66 #934D4F #B9959C #423439
+       LIGHT   #F1AFB8 #F1C4CA #F18B99 #C45161
+       ONE     #E7D7D7 #BF99B2 #BF71A4 #756D6D
+       SHARED  Ink #5B0E0E / Dress #705153 /
+               Apron #FDF2E8 / Skin #FEE3D8
+       ==================================================== */
+    :root{
+      --ink:#5B0E0E;--hot:#C45161;--hot-dark:#934D4F;
+      --lemon:#F6A671;--mint:#C4DCCD;--lilac:#BF99B2;
+      --cream:#FDF2E8;--white:#FFF9F5;
+      --dress:#705153;--skin:#FEE3D8;--line:3px solid var(--ink);
+    }
+    a:focus-visible,button:focus-visible{outline-color:#3AB484}
+    .strip-top{background:repeating-linear-gradient(90deg,
+       #F88D3B 0 33px,#3AB484 33px 66px,#934D4F 66px 99px,
+       #F18B99 99px 132px,#BF71A4 132px 165px)}
+    .header{background:rgba(253,242,232,.97)}
+    .mini-logo{color:var(--cream);background:var(--ink);box-shadow:4px 4px 0 #F1AFB8}
+    .nav-toggle{background:#F8C29B}
+    .hero{background:linear-gradient(120deg,#FDF2E8 0%,#FEE3D8 46%,#F1C4CA 100%)}
+    .hero::before{background-image:radial-gradient(#B9959C 1px,transparent 1px);opacity:.26}
+    .hero::after{box-shadow:0 0 0 19px #F1C4CA,0 0 0 25px var(--ink);opacity:.7}
+    .hero-title{filter:none}
+    .hero-title span{color:#FDF2E8;-webkit-text-stroke:2px var(--ink);text-shadow:5px 6px 0 #F88D3B,9px 10px 0 var(--ink)}
+    .hero-title span+span{color:#C45161;text-shadow:5px 6px 0 var(--cream),9px 10px 0 var(--ink)}
+    .hero-visual{min-height:520px}
+    .visual-back{inset:44px 18px 34px 54px;background:#BF99B2}
+    .visual-back::before{background:repeating-linear-gradient(-45deg,transparent 0 16px,rgba(91,14,14,.11) 16px 20px)}
+    .key-visual{aspect-ratio:1 / 1;max-width:440px;background:#FDF2E8}
+    .key-visual img{object-fit:cover}
+    .sticker{background:#F6A671}.sticker::before{color:var(--ink)}
+    .burst{background:#C4DCCD}
+    .btn-primary{background:#934D4F;color:#FDF2E8}
+    .btn-secondary{background:var(--cream)}
+    .ticker{background:#5B0E0E;color:#FDF2E8}
+    .ticker span::after{color:#F88D3B}
+    .hero-team{background:linear-gradient(#FDF2E8,#FEE3D8);border-bottom:3px solid var(--ink);padding:35px 0 24px;overflow:hidden}
+    .hero-team-inner{position:relative;text-align:center}
+    .hero-team-caption{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;color:var(--ink);font-size:12px;letter-spacing:2px;margin-bottom:11px}
+    .hero-team-caption span{padding:5px 10px;background:var(--ink);color:var(--cream);transform:rotate(-2deg)}
+    .hero-team-caption strong{font-size:16px}
+    .hero-team-caption small{font-size:10px;letter-spacing:1px;color:#704C34}
+    .hero-team img{width:min(100%,1110px);max-height:455px;object-fit:contain;margin:0 auto;filter:drop-shadow(5px 7px 0 rgba(91,14,14,.10))}
+    .intro{background:#705153;color:#FDF2E8}
+    .intro .section-no{background:#F6A671;color:var(--ink)}
+    .intro .section-title small{color:#F8C29B}
+    .intro-lead mark{color:#F8C29B}
+    .scene-board{background:#FDF2E8;box-shadow:13px 13px 0 #F18B99}
+    .scene-board .huge{color:#C45161}
+    .characters{background:#FDF2E8}
+    .characters::before{background:repeating-linear-gradient(90deg,#F6A671 0 32px,#C4DCCD 32px 64px,#934D4F 64px 96px,#F1AFB8 96px 128px,#BF99B2 128px 160px)}
+    .char-card{border:2px solid var(--ink);box-shadow:5px 6px 0 #705153;border-radius:12px}
+    .char-card:hover{box-shadow:7px 12px 0 #705153}
+    .char-top{height:288px}
+    .char-top::before{border-color:rgba(91,14,14,.5);background:rgba(253,242,232,.36)}
+    .char-top::after{color:#FDF2E8;-webkit-text-stroke:1px var(--ink)}
+    .char-number{-webkit-text-stroke:1px rgba(91,14,14,.27);color:rgba(253,242,232,.55)}
+    .char-person{height:95%;inset:7px 0 0;filter:drop-shadow(3px 5px 0 rgba(91,14,14,.14))}
+    .char-meta{background:#FFF9F5;border-top:2px solid var(--ink);min-height:128px}
+    .char-meta .eyebrow{color:#934D4F}
+    .char-meta strong{font-size:14px;letter-spacing:-.5px;min-height:35px}
+    .char-meta small{opacity:.7}
+    .char-swatches{display:flex;gap:4px;margin-top:8px}
+    .char-swatches span{height:15px;min-width:0;flex:1;border:1px solid #5B0E0E60;border-radius:2px}
+    .char-note{color:#705153;border-color:#C45161}
+    .music{background:#F1C4CA}
+    .music-card{background:#FFF9F5}
+    .disc{background:repeating-radial-gradient(circle,#5B0E0E 0 3px,#705153 3px 7px);box-shadow:10px 10px 0 #F6A671}
+    .disc-label{background:#F8C29B}
+    .music-overline{color:#934D4F}
+    .play-audio{background:#F6A671}
+    .play-audio:hover{background:#C4DCCD}
+    .audio-progress{background:#E7D7D7}
+    .audio-progress>span{background:#934D4F}
+    .world{background:#C4DCCD}
+    .world-card{background:#FDF2E8}
+    .world-card:nth-child(2){background:#E7D7D7}
+    .world-card .circle{background:#F8C29B;box-shadow:0 0 0 21px #FDF2E8BB}
+    .world-card:nth-child(2) .circle{background:#F1AFB8}
+    .world-no{color:#934D4F}
+    .play{background:#F8C29B}
+    .play::before{background:repeating-linear-gradient(40deg,transparent 0 52px,#F88D3B 52px 54px);opacity:.2}
+    .footer{background:#5B0E0E;color:#FDF2E8}
+    .footer a{color:#F8C29B}
+    .footer small{color:#E7D7D7}
+    @media(max-width:1080px){.hero-visual{min-height:440px}.char-top{height:260px}}
+    @media(max-width:760px){
+      .hero-visual{min-height:330px}.key-visual{max-width:380px}
+      .hero-team{padding:22px 0 12px}.hero-team img{max-height:320px}
+      .hero-team-caption{gap:8px}.hero-team-caption small{width:100%}
+      .char-top{height:235px}.char-meta strong{font-size:13px}
+    }
+    @media(max-width:420px){.char-top{height:200px}.char-meta{padding:12px 8px}.char-meta strong{font-size:12px}}
+    /* Typography: bundled as browser-loaded Google Fonts. */
+/* All general UI, long-form copy, buttons and section titles */
+    body {
+      font-family: "Kiwi Maru", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+      font-weight: 500;
+    }
+    /* Cherry Bomb One is reserved for the logo and character names ONLY. */
+    .mini-logo, .hero-title, .char-meta strong {
+      font-family: "Cherry Bomb One", "Kiwi Maru", sans-serif;
+    }
+    /* Kaisei Decol accents: cafe-style labels and the collaboration cafe title. */
+    .scene-board::before, .scene-board .scene-foot,
+    .world-card:nth-child(2) h3 {
+      font-family: "Kaisei Decol", "Kiwi Maru", serif;
+    }
+    .char-meta strong {letter-spacing: 0;line-height: 1.5;overflow-wrap: anywhere;}
+    .hero-title {letter-spacing: -.04em;}
+    @media(max-width:760px){
+      .hero-title span{font-size:clamp(48px,11.7vw,91px)}
+      .hero-title span+span{font-size:clamp(57px,14.2vw,110px)}
+    }
+
+    /* === CHARACTER / anime official-site character selector (v5) === */
+    .character-showcase{--active-bg:#F6A671;--active-accent:#F88D3B;--active-dark:#704C34;--active-soft:#F8C29B;position:relative;margin-top:12px}
+    .character-display{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);border:3px solid var(--ink);border-radius:18px;overflow:hidden;background:#FFF9F5;box-shadow:9px 10px 0 #7051531c;min-height:490px;outline-offset:5px}
+    .character-portrait-shell{background:var(--active-bg);display:flex;align-items:end;justify-content:center;position:relative;min-height:485px;isolation:isolate;overflow:hidden}
+    .character-portrait-shell::before{content:"";position:absolute;width:min(75%,410px);aspect-ratio:1;border-radius:50%;border:2px solid #5B0E0E70;background:#FDF2E8B8;left:50%;top:47%;transform:translate(-50%,-50%);z-index:-1}
+    .character-portrait-shell::after{content:"";position:absolute;left:-6%;right:-6%;bottom:-80px;height:125px;background:#FDF2E850;border-top:2px solid #5B0E0E25;transform:rotate(-5deg);z-index:-1}
+    .character-hero-art{height:450px;max-width:100%;width:auto;object-fit:contain;object-position:center bottom;filter:drop-shadow(4px 7px 0 #5B0E0E1c);position:relative;z-index:1}
+    .character-large-number{position:absolute;top:-28px;left:22px;font-size:clamp(128px,16vw,220px);font-weight:900;letter-spacing:-.1em;line-height:1;opacity:.20;pointer-events:none;z-index:0}
+    .character-portrait-label{position:absolute;z-index:2;top:19px;right:19px;padding:6px 12px;background:#FDF2E8;border:2px solid var(--ink);font-size:11px;letter-spacing:1.5px;transform:rotate(4deg)}
+    .character-profile{display:flex;flex-direction:column;justify-content:center;padding:34px clamp(25px,4vw,62px) 28px;position:relative}
+    .character-profile-label{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.17em;color:#934D4F}
+    .character-profile-label::before{content:"";display:block;width:27px;height:3px;background:var(--active-accent)}
+    .character-name{font-family:"Cherry Bomb One","Kiwi Maru",sans-serif;font-size:clamp(48px,5vw,80px);line-height:1.07;letter-spacing:-.02em;overflow-wrap:anywhere;margin:13px 0 1px;color:var(--ink)}
+    .character-jpname{font-family:"Cherry Bomb One","Kiwi Maru",sans-serif;font-size:clamp(17px,2vw,25px);line-height:1.4;margin:0 0 29px;color:var(--active-dark)}
+    .character-copy{border-top:2px solid #5B0E0E36;padding-top:20px;min-height:112px}
+    .character-copy .copy-overline{display:block;letter-spacing:2px;font-size:11px;margin-bottom:9px;color:#934D4F}
+    .character-copy p{font-size:14px;line-height:1.9;margin:0;font-weight:500}
+    .character-palette-label{margin:20px 0 8px;font-size:11px;letter-spacing:2px;color:#934D4F}
+    .character-palette{display:flex;gap:7px;margin-bottom:26px}
+    .character-palette span{height:23px;flex:1;max-width:85px;border:1px solid #5B0E0E50;border-radius:5px}
+    .character-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:auto;border-top:1px solid #5B0E0E28;padding-top:20px}
+    .character-controls button{color:var(--ink);background:transparent;border:0;font-size:13px;padding:8px 4px;min-height:44px;transition:transform .15s}
+    .character-controls button:hover{color:#C45161;transform:translateY(-2px)}
+    .character-count{font-size:13px;letter-spacing:2px;white-space:nowrap}
+    .character-count strong{font-size:22px;color:var(--active-dark)}
+    .character-tabs-title{font-size:11px;letter-spacing:2px;margin:31px 0 12px;color:#705153;text-align:center}
+    .character-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(7px,1.4vw,18px);max-width:980px;margin:auto}
+    .character-tab{font-family:"Kiwi Maru","Yu Gothic",sans-serif;display:flex;flex-direction:column;gap:7px;align-items:center;justify-content:center;min-width:0;padding:8px 6px 11px;border:2px solid #5B0E0E55;border-radius:12px;background:var(--tab-bg);color:var(--ink);transition:transform .17s,border-color .17s,box-shadow .17s}
+    .character-tab:hover{transform:translateY(-3px);border-color:var(--ink)}
+    .character-tab[aria-selected="true"]{border:3px solid var(--ink);box-shadow:4px 5px 0 var(--ink);transform:translateY(-3px)}
+    .character-thumb{width:min(100%,108px);aspect-ratio:1;border-radius:9px;overflow:hidden;position:relative;background:#FDF2E8C0;display:flex;align-items:center;justify-content:center}
+    .character-thumb img{display:block;width:100%;height:100%;object-fit:contain}
+    .character-tab-name{font-family:"Cherry Bomb One","Kiwi Maru",sans-serif;font-size:clamp(10px,1.4vw,17px);line-height:1.2;overflow-wrap:anywhere;text-align:center}
+    .character-switch-note{font-size:12px;color:#705153;text-align:center;margin-top:19px;line-height:1.8}
+    @media(max-width:760px){
+      .character-display{grid-template-columns:1fr;min-height:0}
+      .character-portrait-shell{min-height:355px;max-height:430px}
+      .character-hero-art{height:365px}
+      .character-profile{padding:24px 25px 21px}
+      .character-name{font-size:clamp(40px,11vw,65px)}
+      .character-jpname{margin-bottom:16px}
+      .character-copy{min-height:80px}
+      .character-controls{padding-top:9px}
+      .character-tabs{gap:6px}
+      .character-tab{border-radius:8px;padding:5px 2px 7px;gap:5px}
+      .character-thumb{border-radius:6px}
+      .character-tab-name{font-size:clamp(9px,2.1vw,12px)}
+      .character-portrait-shell::before{width:300px}
+    }
+    @media(max-width:390px){
+      .character-portrait-shell{min-height:305px;max-height:340px}
+      .character-hero-art{height:315px}
+      .character-portrait-label{font-size:9px;top:11px;right:11px}
+      .character-portrait-shell::before{width:240px}
+      .character-profile{padding:22px 18px 19px}
+    }
+    @media(prefers-reduced-motion:reduce){.character-tab,.character-controls button{transition:none}.character-tab:hover,.character-controls button:hover{transform:none}}
+
+
+    /* =========================================================
+       v6 — POP SMOKE / NEWS / COMPACT CHARACTER / CREDITS
+       Shared across JP and EN. No external libraries.
+       ========================================================= */
+    html{scroll-padding-top:74px}
+    .header{height:64px;border-bottom:3px solid #5B0E0E}
+    .mini-logo{padding:8px 11px;font-size:23px}
+    .header-inner{gap:17px}
+    .nav{gap:clamp(9px,1.15vw,20px)}
+    .nav a{font-size:clamp(10px,.86vw,13px)}
+    .site-tag{letter-spacing:1.2px}
+    .nav a:focus-visible{outline-offset:5px}
+    .micro::before{content:"";width:24px;height:24px;flex:none;border-radius:50%;background:#F88D3B88;box-shadow:11px -7px 0 -3px #F18B9980,16px 7px 0 -5px #3AB48499,-6px 10px 0 -5px #BF71A499}
+    .sticker::before{content:"";display:inline-block;width:12px;height:12px;background:#F1AFB8;border-radius:50%;margin-right:8px;box-shadow:6px -5px 0 -2px #F88D3B,9px 4px 0 -3px #3AB484}
+    .ticker span::after{content:"  ● ● ●";margin-left:25px;letter-spacing:-3px;color:#F1AFB8;font-size:13px}
+    .stars.smoke-symbol{width:64px;height:64px;right:9px;top:-24px;font-size:0;text-shadow:none;border-radius:50%;background:#F88D3B50;box-shadow:-25px 16px 0 -8px #F18B9980,19px 19px 0 -10px #3AB48490,10px -13px 0 -17px #BF71A4AB}
+    .hero-smoke{position:absolute;left:5%;top:19%;width:195px;height:270px;opacity:.65;pointer-events:none;z-index:0}
+    .hero-smoke i,.portrait-smoke i,.profile-smoke i,.staff-smoke i{position:absolute;border-radius:50%;display:block;animation:puff-bob 6.5s ease-in-out infinite alternate}
+    .hero-smoke i:nth-child(1){width:123px;height:123px;left:14px;top:69px;background:#F1AFB855}
+    .hero-smoke i:nth-child(2){width:100px;height:100px;left:68px;top:12px;background:#3AB48435;animation-delay:-2s}
+    .hero-smoke i:nth-child(3){width:71px;height:71px;left:98px;top:128px;background:#BF71A46A;animation-delay:-3s}
+    .hero-smoke i:nth-child(4){width:47px;height:47px;left:42px;top:194px;background:#F88D3B8A;animation-delay:-1s}
+    .hero-smoke i:nth-child(5){width:27px;height:27px;left:89px;top:240px;background:#934D4F55;animation-delay:-4s}
+    @keyframes puff-bob{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+    .hero-copy{isolation:isolate}
+    .intro .scene-board{isolation:isolate}
+    .news{background:#FDF2E8;overflow:hidden;padding-top:75px;padding-bottom:76px}
+    .news-feature{display:grid;grid-template-columns:minmax(240px,.76fr) minmax(0,1.24fr);background:#F7E9DF;border:2px solid #5B0E0E;border-radius:22px;box-shadow:9px 10px 0 #5B0E0E20;overflow:hidden;min-height:345px}
+    .news-picture{position:relative;min-height:320px;background:#E9D4CD;padding:24px;display:grid;place-items:center;overflow:hidden}
+    .news-picture img{width:min(100%,310px);max-height:305px;object-fit:contain;border-radius:14px;box-shadow:0 9px 18px #5B0E0E20;position:relative;z-index:1}
+    .news-picture::before{content:"";position:absolute;width:280px;height:280px;background:#F1AFB86B;border-radius:50%;left:-90px;top:-70px;box-shadow:145px 150px 0 -45px #934D4F27}
+    .news-stamp{position:absolute;right:22px;top:12px;font-size:41px;color:#C45161;z-index:2;transform:rotate(13deg)}
+    .news-copy{position:relative;display:flex;flex-direction:column;justify-content:center;gap:9px;padding:27px clamp(24px,4vw,55px);overflow:hidden}
+    .news-copy::after{content:"♡ ♡ ♡";position:absolute;right:12px;bottom:10px;color:#934D4F12;font-size:54px;white-space:nowrap;pointer-events:none}
+    .news-flag{color:#C45161;font-size:11px;letter-spacing:2px;font-weight:700}
+    .news-flag span{letter-spacing:4px}
+    .news-overline{font-family:"Kaisei Decol","Kiwi Maru",serif;font-size:14px;color:#934D4F;margin:0}
+    .news-copy h3{font-family:"Kaisei Decol","Kiwi Maru",serif;font-size:clamp(31px,4.7vw,63px);line-height:1.2;margin:2px 0 5px;color:#5B0E0E}
+    .news-lead{font-size:13px;line-height:1.95;max-width:520px;margin:0}
+    .news-actions,.special-actions{display:flex;flex-wrap:wrap;gap:15px;align-items:center;margin-top:9px;position:relative;z-index:1}
+    .soon-chip{display:inline-flex;align-items:center;border:1px dashed #934D4F91;border-radius:40px;padding:8px 12px;color:#7D615C;font-size:11px;letter-spacing:.03em;background:#FDF2E899}
+    .news-disclaimer,.tiny-disclaimer{font-size:10px!important;line-height:1.65!important;color:#795E5B;opacity:.86;margin:6px 0 0!important}
+    /* Character information stays in one presentation cluster on desktop. */
+    .characters.section-pad{padding-top:34px;padding-bottom:55px}
+    .characters .section-head{margin-bottom:14px}
+    .characters .section-title{font-size:clamp(43px,5.15vw,69px);margin-top:7px}
+    .characters .section-title small{margin-top:1px;font-size:12px}
+    .characters .section-desc{line-height:1.5;font-size:12px}
+    .character-showcase{margin-top:0}
+    .character-display{min-height:0;height:clamp(300px,43vh,370px);grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}
+    .character-portrait-shell{min-height:0;height:100%}
+    .character-hero-art{height:93%;max-height:340px;z-index:2}
+    .character-portrait-shell::before{width:min(67%,285px);background:#FDF2E899;border-color:#5B0E0E20}
+    .character-large-number{font-size:clamp(90px,11vw,170px);top:-19px}
+    .character-portrait-label{font-size:9px;top:13px;right:13px;padding:5px 9px}
+    .portrait-smoke{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.9}
+    .portrait-smoke i:nth-child(1){width:100px;height:100px;top:25px;left:8%;background:color-mix(in srgb,var(--active-accent) 37%,transparent)}
+    .portrait-smoke i:nth-child(2){width:72px;height:72px;top:75px;left:23%;background:color-mix(in srgb,var(--active-soft) 70%,transparent);animation-delay:-1.5s}
+    .portrait-smoke i:nth-child(3){width:44px;height:44px;top:166px;left:12%;background:#FDF2E870;animation-delay:-3s}
+    .portrait-smoke i:nth-child(4){width:72px;height:72px;top:25px;right:7%;background:#FDF2E86E;animation-delay:-2.5s}
+    .portrait-smoke i:nth-child(5){width:36px;height:36px;bottom:15%;right:11%;background:color-mix(in srgb,var(--active-accent) 50%,transparent);animation-delay:-4s}
+    .character-profile{padding:17px clamp(18px,3vw,36px) 12px;overflow:hidden;background:linear-gradient(145deg,#FFF9F5 60%,#FDF2E8 100%)}
+    .profile-smoke{position:absolute;right:-5px;top:-5px;width:115px;height:85px;pointer-events:none;opacity:.45}
+    .profile-smoke i:nth-child(1){width:58px;height:58px;right:4px;top:5px;background:color-mix(in srgb,var(--active-accent) 40%,transparent)}
+    .profile-smoke i:nth-child(2){width:41px;height:41px;right:54px;top:31px;background:color-mix(in srgb,var(--active-bg) 67%,transparent);animation-delay:-1.7s}
+    .profile-smoke i:nth-child(3){width:21px;height:21px;right:93px;top:9px;background:color-mix(in srgb,var(--active-accent) 55%,transparent);animation-delay:-3s}
+    .character-profile>*:not(.profile-smoke){position:relative;z-index:1}
+    .character-profile-label{font-size:10px}
+    .character-name{font-size:clamp(35px,4.5vw,64px);line-height:1;margin:7px 0 0}
+    .character-jpname{font-size:clamp(16px,1.65vw,22px);margin:0 0 10px}
+    .character-copy{min-height:0;background:#FDF2E8CC;border:1px solid #5B0E0E1E;border-left:5px solid var(--active-accent);border-radius:0 10px 10px 0;padding:11px 14px}
+    .character-copy .copy-overline{font-size:10px;margin-bottom:3px}
+    .character-copy p{font-size:clamp(11px,1.05vw,13px);line-height:1.7}
+    .character-palette-label{margin:9px 0 5px;font-size:10px}
+    .character-palette{gap:5px;margin-bottom:10px}
+    .character-palette span{height:13px}
+    .character-controls{gap:9px;padding-top:5px}
+    .character-controls button{min-height:31px;font-size:12px}
+    .character-count strong{font-size:18px}
+    .character-tabs-title{margin:12px 0 6px;font-size:10px}
+    .character-tabs{max-width:720px;gap:10px}
+    .character-tab{padding:3px 6px 4px;gap:3px;border-radius:10px}
+    .character-thumb{width:min(100%,68px);border-radius:7px}
+    .character-tab-name{font-size:clamp(10px,1.1vw,13px)}
+    .character-switch-note{font-size:10px;margin-top:9px;line-height:1.5}
+    /* Rounded smoke + leaf iconography in Special. */
+    .world-card .circle{border:0;box-shadow:0 0 0 24px #FDF2E8A8,0 0 0 52px #F88D3B24}
+    .world-card:nth-child(2) .circle{background:#F1AFB8A0;box-shadow:0 0 0 27px #FDF2E8AD}
+    .world-card{border-radius:10px}
+    .world-card h3{font-family:"Kaisei Decol","Kiwi Maru",serif;max-width:395px}
+    .world-card .world-no{position:relative;z-index:2}
+    .world-card .tiny-disclaimer{position:relative;z-index:2}
+    .world-card:nth-child(2){background:#F5E4DE}
+    .heart-sprinkles{position:absolute;top:24px;right:5px;letter-spacing:15px;line-height:2;color:#C4516133;font-size:30px;transform:rotate(-24deg);pointer-events:none;max-width:230px}
+    .tobacco-leaf{position:absolute;right:51px;bottom:75px;width:7px;height:113px;background:#8EB4A5B0;transform:rotate(33deg);border-radius:6px;opacity:.58}
+    .tobacco-leaf::before,.tobacco-leaf::after{content:"";position:absolute;width:36px;height:64px;background:#8EB4A5A8;border-radius:90% 0 90% 0}
+    .tobacco-leaf::before{top:14px;left:-34px;transform:rotate(-28deg)}
+    .tobacco-leaf::after{top:40px;left:4px;transform:rotate(25deg) scaleX(-1)}
+    .special-actions{margin-top:15px}
+    .world-card .special-actions .btn{align-self:auto}
+    .staff{background:#423439;color:#FDF2E8;overflow:hidden}
+    .staff .section-no{background:#F1AFB8;color:#423439}
+    .staff .section-title small{color:#F1AFB8}
+    .staff-stage{position:relative;isolation:isolate;overflow:hidden;padding:clamp(25px,4vw,55px);border:1px solid #B9959C70;background:#423439;border-radius:17px}
+    .staff-stage::before{content:"STAFF";position:absolute;font-size:clamp(150px,27vw,450px);line-height:1;font-weight:900;color:#755C6629;left:0;top:-55px;z-index:-1;pointer-events:none}
+    .staff-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 22px;position:relative;z-index:1}
+    .staff-grid>div{min-width:0;display:flex;flex-direction:column;gap:4px}
+    .staff-grid small{font-size:11px;line-height:1.5;color:#F18B99;font-weight:700;letter-spacing:.025em}
+    .staff-grid strong{font-size:clamp(14px,1.6vw,24px);letter-spacing:.05em;overflow-wrap:anywhere;line-height:1.2}
+    .staff-bottom{display:flex;gap:10px;align-items:center;justify-content:center;border-top:1px solid #B9959C70;margin-top:35px;padding-top:23px;letter-spacing:3px;font-size:12px;position:relative}
+    .staff-bottom b{font-size:18px;letter-spacing:1px}
+    .staff-smoke{position:absolute;right:7%;top:30px;width:180px;height:220px;pointer-events:none;opacity:.55}
+    .staff-smoke i:nth-child(1){width:112px;height:112px;background:#B9959C45;left:15px;top:70px}
+    .staff-smoke i:nth-child(2){width:75px;height:75px;background:#F18B9935;left:85px;top:40px;animation-delay:-1s}
+    .staff-smoke i:nth-child(3){width:49px;height:49px;background:#E7D7D72A;left:39px;top:8px;animation-delay:-2s}
+    .staff-smoke i:nth-child(4){width:27px;height:27px;background:#FDF2E83B;left:129px;top:5px;animation-delay:-3s}
+    @media(max-width:1140px){
+      .header{height:64px}.nav-toggle{display:block;margin-left:auto}
+      .nav{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--cream);padding:10px 20px 20px;border-bottom:3px solid var(--ink);box-shadow:0 15px 25px #241c3122}
+      .nav.is-open{display:flex}.nav a{padding:12px;font-size:13px;border-bottom:1px solid #e2d4cd}
+    }
+    @media(max-width:760px){
+      .section-pad{padding-top:72px;padding-bottom:75px}
+      .news{padding-top:62px;padding-bottom:65px}.news-feature{grid-template-columns:1fr}
+      .news-picture{min-height:0;padding:18px}.news-picture img{width:min(100%,225px);max-height:225px}
+      .news-copy{padding:24px 24px 29px}.news-copy h3{font-size:clamp(29px,8vw,48px)}
+      .characters.section-pad{padding-top:48px;padding-bottom:62px}
+      .characters .section-head{margin-bottom:15px}
+      .character-display{height:auto;min-height:0;grid-template-columns:1fr}
+      .character-portrait-shell{height:clamp(220px,43vh,310px);min-height:0;max-height:none}
+      .character-hero-art{height:93%;max-height:300px}
+      .character-portrait-shell::before{width:min(65%,240px)}
+      .character-profile{padding:18px 23px 14px}
+      .character-name{font-size:clamp(38px,8vw,54px)}
+      .character-jpname{font-size:18px;margin-bottom:10px}
+      .character-copy{padding:10px 13px}.character-copy p{font-size:12px}
+      .character-tabs{gap:5px}.character-thumb{width:min(100%,60px)}
+      .character-tab{padding:4px 2px 6px}.character-tab-name{font-size:clamp(9px,2vw,12px)}
+      .staff-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 17px}
+      .staff-grid strong{font-size:17px}
+      .staff-bottom{flex-wrap:wrap;letter-spacing:1px}
+      .world-card .circle{width:185px;height:185px;right:-55px;top:-43px}
+    }
+    @media(min-width:520px) and (max-width:760px){
+      .character-display{grid-template-columns:.8fr 1.2fr}
+      .character-portrait-shell{height:auto;min-height:290px}
+      .character-hero-art{height:90%;max-height:285px}
+    }
+    @media(max-width:390px){
+      .character-portrait-shell{height:210px;min-height:0;max-height:none}
+      .character-hero-art{height:95%}
+      .character-portrait-label{font-size:8px}
+      .character-profile{padding:15px 16px 12px}
+      .news-actions .btn{width:100%}
+      .staff-grid strong{font-size:15px}
+    }
+    @media(prefers-reduced-motion:reduce){.hero-smoke i,.portrait-smoke i,.profile-smoke i,.staff-smoke i{animation:none}}
+
+
+    /* v6.2 — Finale card: five silhouettes from the original character art. */
+    .farewell{position:relative;overflow:hidden;background:#FDF2E8;color:#5B0E0E;text-align:center;padding:clamp(54px,7vw,96px) 0 clamp(56px,7vw,100px);isolation:isolate}
+    .farewell::before,.farewell::after{content:"";position:absolute;pointer-events:none;border-radius:50%;opacity:.15;z-index:-1}
+    .farewell::before{width:340px;height:340px;background:#F18B99;top:-215px;left:-125px}
+    .farewell::after{width:280px;height:280px;background:#8EB4A5;bottom:-190px;right:-80px}
+    .farewell-kicker{display:flex;align-items:center;justify-content:center;gap:15px;color:#934D4F;font-size:clamp(11px,1.1vw,14px);letter-spacing:.21em;margin-bottom:16px}
+    .farewell-kicker::before,.farewell-kicker::after{content:"";display:block;width:42px;height:1px;background:#C45161;opacity:.65}
+    .farewell-title{font-size:clamp(20px,3vw,35px);line-height:1.6;letter-spacing:.04em;margin:0 0 30px;font-weight:700}
+    .farewell-end{width:min(1050px,calc(100% - 44px));margin:0 auto;position:relative}
+    .farewell-lineup{display:flex;justify-content:center;align-items:flex-end;gap:clamp(0px,1.6vw,24px);border-bottom:3px solid #705153;position:relative;padding:18px 0 0;isolation:isolate}
+    .farewell-figure{position:relative;flex:0 1 174px;min-width:0;height:clamp(116px,23vw,272px);--fig-color:#5B0E0E}
+    .farewell-figure:nth-child(3){height:clamp(125px,25vw,292px)}
+    .farewell-figure::before{content:"";position:absolute;left:3%;right:0;top:17%;aspect-ratio:1;border-radius:50%;background:var(--puff);opacity:.36;z-index:-1}
+    .farewell-figure::after{content:"";position:absolute;top:10%;right:1%;width:28%;aspect-ratio:1;border-radius:50%;background:var(--puff);opacity:.28;z-index:-1}
+    .farewell-silhouette{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;display:block;pointer-events:none}
+    .farewell-smoke{position:absolute;inset:0;pointer-events:none;z-index:-1}
+    .farewell-smoke i{position:absolute;display:block;border-radius:50%;background:var(--puff);opacity:.45;animation:farewell-puff 5.8s ease-in-out infinite alternate}
+    .farewell-smoke i:nth-child(1){width:26%;aspect-ratio:1;top:7%;left:4%}
+    .farewell-smoke i:nth-child(2){width:18%;aspect-ratio:1;top:0;left:31%;animation-delay:-2s;opacity:.24}
+    .farewell-smoke i:nth-child(3){width:12%;aspect-ratio:1;top:-9%;left:18%;animation-delay:-3.6s;opacity:.22}
+    @keyframes farewell-puff{from{transform:translateY(0) scale(.92)}to{transform:translateY(-16px) scale(1.12)}}
+    .farewell-end.is-visible .farewell-figure{animation:farewell-arrive .85s cubic-bezier(.2,.75,.22,1) both;animation-delay:calc(var(--order) * 95ms)}
+    @keyframes farewell-arrive{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .farewell-under{margin:22px auto 0;display:flex;justify-content:center;align-items:center;gap:10px;font-size:12px;letter-spacing:.24em;color:#934D4F}
+    .farewell-under .dot{width:7px;height:7px;border-radius:50%;background:var(--dot)}
+    .farewell-signoff{font-size:clamp(12px,1.5vw,15px);color:#705153;letter-spacing:.04em;margin:14px 0 0}
+    @media(max-width:600px){
+      .farewell{padding:54px 0 60px}
+      .farewell-title{font-size:clamp(18px,5vw,25px);margin-bottom:16px}
+      .farewell-end{width:calc(100% - 28px)}
+      .farewell-lineup{gap:0;padding-top:24px;border-bottom-width:2px}
+      .farewell-figure{height:clamp(111px,32vw,170px)}
+      .farewell-figure:nth-child(3){height:clamp(121px,35vw,188px)}
+      .farewell-under{margin-top:16px;gap:7px;font-size:10px;letter-spacing:.13em}
+      .farewell-under .dot{width:6px;height:6px}
+      .farewell-smoke i:nth-child(3){top:0}
+      .farewell-signoff{font-size:12px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .farewell-smoke i{animation:none}
+      .farewell-end.is-visible .farewell-figure{animation:none}
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Kaisei+Decol:wght@500;700&family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="strip-top"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a class="mini-logo" href="#top" aria-label="トップへ戻る">S<span style="color:var(--lemon)">!</span>G</a>
+      <span class="site-tag">スパっと！シがーる<br>OFFICIAL GAME SPECIAL</span>
+      <button id="menuToggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" data-ja="MENU ≡" data-en="MENU ≡">MENU ≡</button>
+      <nav class="nav" id="siteNav" aria-label="セクションナビゲーション">
+        <a href="#top">TOP</a><a href="#news">NEWS</a><a href="#introduction">INTRODUCTION</a><a href="#characters">CHARACTER</a><a href="#music">MUSIC</a><a href="#special">SPECIAL</a><a href="#staff">STAFF</a><a href="#play">PLAY</a>
+      </nav>
+      <div class="language" aria-label="Language"><button id="jpBtn" type="button" aria-pressed="true">JP</button><button id="enBtn" type="button" aria-pressed="false">EN</button></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-smoke" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <span class="micro">5 GIRLS. ONE LUNCH BREAK.</span>
+          <h1 class="hero-title" aria-label="スパっと！シがーる"><span>スパっと！</span><span>シがーる</span></h1>
+          <p class="hero-eyebrow" data-ja="猫耳メイド、ただいま休憩中。" data-en="Five cat-eared maids on their break.">猫耳メイド、ただいま休憩中。</p>
+          <p class="hero-lead" data-ja="今日のランチが、<br>ぜんぜん決まらない！" data-en="The hardest decision?<br>Where to eat lunch!">今日のランチが、<br>ぜんぜん決まらない！</p>
+          <div class="hero-links"><a class="btn btn-primary" href="https://unityroom.com/games/supatto-cigirls" target="_blank" rel="noopener noreferrer"><span data-ja="ゲームをあそぶ" data-en="PLAY THE GAME">ゲームをあそぶ</span><span aria-hidden="true">↗</span></a><a class="btn btn-secondary" href="#characters"><span data-ja="メイドたちを見る" data-en="MEET THE CAST">メイドたちを見る</span><span aria-hidden="true">↓</span></a></div>
+        </div>
+        <div class="hero-visual" aria-label="『スパっと！シがーる』公式ビジュアル">
+          <div class="visual-back"></div><span class="sticker-left">KEY VISUAL</span>
+          <div class="key-visual"><img src="assets/main-visual.png" alt="『スパっと！シがーる』ゲーム公式画像" ></div>
+          <span class="sticker">LUNCH TIME!!</span><div class="burst">休憩中<br>です！</div>
+        </div>
+      </div>
+    </section>
+    <div class="hero-team" aria-label="猫耳メイド5人の集合イラスト">
+      <div class="wrap hero-team-inner">
+        <div class="hero-team-caption"><span>THE FIVE</span><strong>SMOKE BREAK GIRLS</strong><small>REGULAR · MENTHO · BLACK · LIGHT · ONE</small></div>
+        <img src="assets/five-maids.png" alt="5人の猫耳メイドの集合立ち絵">
+      </div>
+    </div>
+    <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>スパっと！シがーる</span><span>CAT-EARED MAIDS</span><span>BREAK TIME!</span><span>WHAT'S FOR LUNCH?</span><span>スパっと！シがーる</span><span>CAT-EARED MAIDS</span><span>BREAK TIME!</span><span>WHAT'S FOR LUNCH?</span></div></div>
+
+
+    <section class="news section-pad" id="news">
+      <div class="wrap">
+        <div class="section-head reveal"><div><span class="section-no">00 / HOT NEWS</span><h2 class="section-title">NEWS<small data-ja="シがーるからのお知らせ。" data-en="Latest from the girls.">シがーるからのお知らせ。</small></h2></div><p class="section-desc" data-ja="休憩時間の、その先へ。" data-en="Beyond the usual smoke break.">休憩時間の、その先へ。</p></div>
+        <article class="news-feature reveal" aria-labelledby="cafe-news-title">
+          <div class="news-picture"><img src="assets/collab-cafe.png" loading="lazy" alt="『スパっと！シがーる』×『喫茶 燻々』のコラボカフェ公式ビジュアル"><span class="news-stamp" aria-hidden="true">♡</span></div>
+          <div class="news-copy">
+            <span class="news-flag">SPECIAL NEWS <span aria-hidden="true">♡ ♡ ♡</span></span>
+            <p class="news-overline">COFFEE &amp; SMOKE / 喫茶 燻々</p>
+            <h3 id="cafe-news-title" data-ja="コラボカフェ<br>開催決定！" data-en="COLLAB CAFÉ<br>ANNOUNCED!">コラボカフェ<br>開催決定！</h3>
+            <p class="news-lead" data-ja="『スパっと！シがーる』× 喫茶 燻々。<br>5人の猫耳メイドたちが、コラボカフェに登場！" data-en="Supatto! Shiga-ru × Coffee &amp; Smoke Café. All five cat-eared maids are joining the collaboration!">『スパっと！シがーる』× 喫茶 燻々。<br>5人の猫耳メイドたちが、コラボカフェに登場！</p>
+            <div class="news-actions">
+              <a class="btn btn-primary btn-small" href="https://unityroom.com/games/churyaku-collab-cafe" target="_blank" rel="noopener noreferrer"><span data-ja="コラボゲームを遊ぶ" data-en="PLAY THE COLLAB GAME">コラボゲームを遊ぶ</span> ↗</a>
+              <a class="btn btn-secondary btn-small" href="collab-cafe-special.html"><span data-ja="カフェ特設サイトを見る" data-en="VISIT CAFE SPECIAL SITE">カフェ特設サイトを見る</span> →</a>
+            </div>
+            <p class="news-disclaimer" data-ja="※このコラボカフェは作品世界内の架空企画です。" data-en="* This collaboration café is fictional and exists within the game's world.">※このコラボカフェは作品世界内の架空企画です。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="intro section-pad" id="introduction">
+      <div class="wrap">
+        <div class="section-head reveal"><div><span class="section-no">01 / STORY</span><h2 class="section-title">INTRODUCTION<small data-ja="いつもの休憩、いつも通りじゃない。" data-en="Just another break. Or is it?">いつもの休憩、いつも通りじゃない。</small></h2></div><p class="section-desc" data-ja="小さな決断に、なぜか全力。そんな5人の昼休みのお話。" data-en="Five personalities. One seemingly simple decision.">小さな決断に、なぜか全力。そんな5人の昼休みのお話。</p></div>
+        <div class="intro-body">
+          <div class="reveal"><p class="intro-episode" data-ja="第一話" data-en="EPISODE 01">第一話</p><p class="intro-lead" data-ja="「今日のお昼、<br><mark>どこにする？</mark>」" data-en="“So... <mark>where are we eating?</mark>”">「今日のお昼、<br><mark>どこにする？</mark>」</p><p class="intro-copy" data-ja="舞台はメイド喫茶のタバコ休憩。<br>5人の猫耳メイドが、今日のランチ先を決めようとしている。<br>ところが、気まぐれな彼女たちの意見はころころ変わって……。<br>さて、今日のお昼はどこになる？" data-en="It's break time at a maid café. Five cat-eared maids are trying to agree on where to eat lunch. Their opinions keep changing... So where will they end up today?">舞台はメイド喫茶のタバコ休憩。<br>5人の猫耳メイドが、今日のランチ先を決めようとしている。<br>ところが、気まぐれな彼女たちの意見はころころ変わって……。<br>さて、今日のお昼はどこになる？</p></div>
+          <div class="scene-board reveal"><span class="stars smoke-symbol" aria-hidden="true"></span><div><div class="huge">!?!!</div><div class="scene-line" data-ja="たったひとつのランチに、<br>5人分の主張。" data-en="One lunch decision.<br>Five different opinions.">たったひとつのランチに、<br>5人分の主張。</div></div><div class="scene-foot">SMOKE BREAK × LUNCH DECISION</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="characters section-pad" id="characters">
+      <div class="wrap">
+        <div class="section-head reveal"><div><span class="section-no">02 / CAST</span><h2 class="section-title">CHARACTER<small data-ja="休憩中でも、個性は全開。" data-en="Off the clock. Full of personality.">休憩中でも、個性は全開。</small></h2></div><p class="section-desc" data-ja="5つのテーマカラーと、5人の猫耳メイド。" data-en="Five cat-eared maids, each with a distinct color palette.">5つのテーマカラーと、5人の猫耳メイド。</p></div>
+        <div class="character-showcase" id="characterShowcase">
+          <div class="character-display" id="characterPanel" role="tabpanel" aria-labelledby="character-tab-0" tabindex="0">
+            <div class="character-portrait-shell">
+              <div class="portrait-smoke" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+              <span class="character-large-number" id="characterLargeNumber" aria-hidden="true">01</span>
+              <span class="character-portrait-label">OFFICIAL CHARACTER</span>
+              <img class="character-hero-art" id="characterHero" src="assets/regular.png" alt="レギュラーの立ち絵">
+            </div>
+            <div class="character-profile">
+              <div class="profile-smoke" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="character-profile-label">CHARACTER FILE</span>
+              <h3 class="character-name" id="characterName">REGULAR</h3>
+              <p class="character-jpname" id="characterJpName">レギュラー</p>
+              <div class="character-copy">
+                <span class="copy-overline">PROFILE</span>
+                <p id="characterDescription">王道好きで自信家。口は悪いが面倒見がよく、5人をまとめようとする。</p>
+              </div>
+              <div class="character-palette-label">THEME COLORS</div>
+              <div class="character-palette" id="characterPalette" aria-label="テーマカラー4色"></div>
+              <div class="character-controls">
+                <button id="characterPrev" type="button" aria-label="前のキャラクター" data-ja="← PREV" data-en="← PREV">← PREV</button>
+                <span class="character-count"><strong id="characterCounter">01</strong> / 05</span>
+                <button id="characterNext" type="button" aria-label="次のキャラクター" data-ja="NEXT →" data-en="NEXT →">NEXT →</button>
+              </div>
+            </div>
+          </div>
+          <p class="character-tabs-title" data-ja="▼ 顔アイコンを選んでキャラクターを切り替え" data-en="▼ SELECT A CHARACTER">▼ 顔アイコンを選んでキャラクターを切り替え</p>
+          <div class="character-tabs" id="characterTabs" role="tablist" aria-label="キャラクター選択"></div>
+          <p class="character-switch-note" data-ja="※ プロフィールは制作時のキャラクター設定資料をもとに掲載しています。" data-en="* Profiles are based on the original character design notes.">※ プロフィールは制作時のキャラクター設定資料をもとに掲載しています。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="music section-pad" id="music">
+      <div class="wrap"><div class="section-head reveal"><div><span class="section-no">03 / SOUND</span><h2 class="section-title">MUSIC<small data-ja="休憩時間を彩るサウンド。" data-en="A little soundtrack for break time.">休憩時間を彩るサウンド。</small></h2></div></div>
+      <div class="music-card reveal"><div class="disc" aria-hidden="true"><div class="disc-label">すぱっと！<br>♫</div></div><div><div class="music-overline">OPENING THEME</div><h3 class="music-title">スパっと休憩！</h3><p class="music-text" data-ja="オープニングテーマ曲" data-en="Opening theme song">オープニングテーマ曲</p><div class="music-controls"><button id="audioToggle" class="play-audio" type="button" aria-pressed="false"><span data-ja="▶ 試聴する" data-en="▶ LISTEN">▶ 試聴する</span></button><span class="audio-state" id="audioStatus" role="status" aria-live="polite" data-ja="音声はクリック後に再生されます" data-en="Click to play the track">音声はクリック後に再生されます</span></div><div class="audio-progress" aria-hidden="true"><span id="audioProgress"></span></div><audio id="themeAudio" src="audio/supatto-kyukei.mp3" preload="none"></audio></div></div>
+      </div>
+    </section>
+
+    <section class="world section-pad" id="special">
+      <div class="wrap">
+        <div class="section-head reveal"><div><span class="section-no">04 / RELATED</span><h2 class="section-title">SPECIAL<small data-ja="ゲームの外にも、少しだけ続く世界。" data-en="More to explore beyond the game.">ゲームの外にも、少しだけ続く世界。</small></h2></div></div>
+        <div class="world-grid">
+          <article class="world-card tobacco-card reveal">
+            <div class="circle"></div><span class="tobacco-leaf" aria-hidden="true"></span>
+            <div><div class="world-no">SPECIAL 01 / COLLECTION</div>
+            <h3 data-ja="タバコ<br>コレクション" data-en="CIGARETTE<br>COLLECTION">タバコ<br>コレクション</h3>
+            <p data-ja="シがーるたち愛煙の銘柄も。商品カタログでチェック。" data-en="Discover the Shiga-ru girls’ favorite cigarette brands in the product catalog.">シがーるたち愛煙の銘柄も。商品カタログでチェック。</p>
+            <p class="tiny-disclaimer" data-ja="※掲載銘柄は架空のものです。" data-en="* Fictional products.">※掲載銘柄は架空のものです。</p></div>
+            <a class="btn btn-secondary btn-small" href="../gallery.html"><span data-ja="コレクションを見る" data-en="VIEW THE COLLECTION">コレクションを見る</span> ↗</a>
+          </article>
+          <article class="world-card collab-card reveal">
+            <div class="circle"></div><div class="heart-sprinkles" aria-hidden="true">♡ ♡ ♡ ♡ ♡ ♡</div>
+            <div><div class="world-no">SPECIAL 02 / CAFE COLLABORATION</div>
+              <h3>中略！<br>コラボカフェ</h3>
+              <p data-ja="5人が登場する、喫茶 燻々とのコラボ企画。" data-en="A café collaboration featuring all five maids.">5人が登場する、喫茶 燻々とのコラボ企画。</p>
+              <p class="tiny-disclaimer" data-ja="※作品内の架空企画です。" data-en="* Fictional in-world collaboration.">※作品内の架空企画です。</p>
+            </div>
+            <div class="special-actions"><a class="btn btn-secondary btn-small" href="https://unityroom.com/games/churyaku-collab-cafe" target="_blank" rel="noopener noreferrer"><span data-ja="ゲームを見にいく" data-en="VISIT THE GAME">ゲームを見にいく</span> ↗</a><a class="btn btn-secondary btn-small" href="collab-cafe-special.html"><span data-ja="カフェ特設サイトへ" data-en="CAFE SPECIAL SITE">カフェ特設サイトへ</span> →</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="staff section-pad" id="staff">
+      <div class="wrap">
+        <div class="section-head"><div><span class="section-no">05 / CREDITS</span><h2 class="section-title">STAFF<small data-ja="ぜんぶ、ひとりで。" data-en="One name. Many roles.">ぜんぶ、ひとりで。</small></h2></div></div>
+        <div class="staff-stage reveal">
+          <div class="staff-smoke" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="staff-grid">
+            <div><small data-ja="原作・企画" data-en="Original Concept / Planning">原作・企画</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="監督" data-en="Direction">監督</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="脚本" data-en="Scenario">脚本</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="キャラクターデザイン" data-en="Character Design">キャラクターデザイン</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="美術・色彩設計" data-en="Art / Color Design">美術・色彩設計</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="演出" data-en="Presentation">演出</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="ゲーム開発" data-en="Game Development">ゲーム開発</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="Web制作" data-en="Web Design / Development">Web制作</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="プロデュース" data-en="Production">プロデュース</small><strong>NULLLATTE</strong></div>
+            <div><small data-ja="宣伝" data-en="Publicity">宣伝</small><strong>NULLLATTE</strong></div>
+          </div>
+          <div class="staff-bottom">PRODUCED BY <b>NULLLATTE</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="play" id="play"><div class="wrap play-inner"><span class="section-no">06 / LET'S PLAY</span><h2 class="section-title">PLAY NOW!</h2><p class="lead" data-ja="今日のランチは、君の決断にかかっている！" data-en="Today's lunch is in your hands!">今日のランチは、君の決断にかかっている！</p><a class="btn btn-primary" href="https://unityroom.com/games/supatto-cigirls" target="_blank" rel="noopener noreferrer"><span data-ja="スパっと！シがーるを遊ぶ" data-en="PLAY SUPATTO! SHIGA-RU">スパっと！シがーるを遊ぶ</span> ↗</a><p class="small-note">FREE BROWSER GAME · UNITYROOM</p></div></section>
+  <!-- END CARD / silhouettes made from the alpha of original official sprites. -->
+  <section class="farewell" id="endcard" aria-labelledby="farewellTitle">
+    <div class="farewell-end reveal">
+      <div class="farewell-kicker">END CARD / THANK YOU</div>
+      <h2 class="farewell-title" id="farewellTitle" data-ja="またのご来店をお待ちしております。" data-en="We look forward to seeing you again.">またのご来店をお待ちしております。</h2>
+      <div class="farewell-lineup" aria-hidden="true">
+          <div class="farewell-figure" style="--puff:#F88D3B;--order:0" aria-hidden="true">
+            <div class="farewell-smoke"><i></i><i></i><i></i></div>
+            <img class="farewell-silhouette" src="assets/silhouettes/regular.png" alt="" aria-hidden="true" decoding="async" loading="eager">
+          </div>
+          <div class="farewell-figure" style="--puff:#3AB484;--order:1" aria-hidden="true">
+            <div class="farewell-smoke"><i></i><i></i><i></i></div>
+            <img class="farewell-silhouette" src="assets/silhouettes/mentho.png" alt="" aria-hidden="true" decoding="async" loading="eager">
+          </div>
+          <div class="farewell-figure" style="--puff:#934D4F;--order:2" aria-hidden="true">
+            <div class="farewell-smoke"><i></i><i></i><i></i></div>
+            <img class="farewell-silhouette" src="assets/silhouettes/black.png" alt="" aria-hidden="true" decoding="async" loading="eager">
+          </div>
+          <div class="farewell-figure" style="--puff:#F18B99;--order:3" aria-hidden="true">
+            <div class="farewell-smoke"><i></i><i></i><i></i></div>
+            <img class="farewell-silhouette" src="assets/silhouettes/light.png" alt="" aria-hidden="true" decoding="async" loading="eager">
+          </div>
+          <div class="farewell-figure" style="--puff:#BF71A4;--order:4" aria-hidden="true">
+            <div class="farewell-smoke"><i></i><i></i><i></i></div>
+            <img class="farewell-silhouette" src="assets/silhouettes/one.png" alt="" aria-hidden="true" decoding="async" loading="eager">
+          </div>
+      </div>
+      <div class="farewell-under" aria-hidden="true">
+        <span class="dot" style="--dot:#F88D3B"></span>
+        <span class="dot" style="--dot:#3AB484"></span>
+        <span class="dot" style="--dot:#934D4F"></span>
+        <span class="dot" style="--dot:#F18B99"></span>
+        <span class="dot" style="--dot:#BF71A4"></span>
+      </div>
+      <p class="farewell-signoff">© NULLLATTE · SUPATTO! SHIGA-RU</p>
+    </div>
+  </section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><div><strong>スパっと！シがーる</strong><br><small>© NULLLATTE — OFFICIAL GAME SPECIAL SITE</small></div><a href="../games.html" data-ja="← NULLLATTEのGAMESへ戻る" data-en="← BACK TO NULLLATTE GAMES">← NULLLATTEのGAMESへ戻る</a></div></footer>
+  <script>
+    (()=>{
+      'use strict';
+      const CHARACTERS = [
+        {name:'REGULAR',ja:'レギュラー',image:'assets/regular.png',face:'assets/faces/regular-face.png',color:'#F6A671',palette:['#F6A671','#F8C29B','#F88D3B','#704C34'],descriptionJa:'王道好きで自信家。口は悪いが面倒見がよく、5人をまとめようとする。',descriptionEn:'Confident and devoted to the classics. Her words can be rough, but she looks out for everyone and tries to keep the five together.'},
+        {name:'MENTHO',ja:'メンソ',image:'assets/mentho.png',face:'assets/faces/mentho-face.png',color:'#8EB4A5',palette:['#8EB4A5','#C4DCCD','#3AB484','#485B53'],descriptionJa:'眠たげでマイペース。柔らかく毒を吐く。刺激が強いものを平然と好む。',descriptionEn:'Sleepy-eyed and easygoing, she delivers biting remarks with a gentle smile. She has a surprising taste for intense flavors.'},
+        {name:'BLACK',ja:'ブラック',image:'assets/black.png',face:'assets/faces/black-face.png',color:'#755C66',palette:['#755C66','#934D4F','#B9959C','#423439'],descriptionJa:'寡黙で大人っぽい甘党。香ばしく渋いタバコを甘いものに合わせるこだわりがある。',descriptionEn:'Quiet and mature, with a serious sweet tooth. She has a particular fondness for pairing rich, earthy tobacco with sweets.'},
+        {name:'LIGHT',ja:'ライト',image:'assets/light.png',face:'assets/faces/light-face.png',color:'#F1AFB8',palette:['#F1AFB8','#F1C4CA','#F18B99','#C45161'],descriptionJa:'明るく人懐っこい小悪魔。距離が近く、ノリが軽い。',descriptionEn:'Bright, friendly, and a little devilish. She gets close easily and is always up for a bit of fun.'},
+        {name:'ONE',ja:'ワン',image:'assets/one.png',face:'assets/faces/one-face.png',color:'#E7D7D7',palette:['#E7D7D7','#BF99B2','#BF71A4','#756D6D'],descriptionJa:'指摘されても論理武装。元ヘビースモーカー。',descriptionEn:'Always ready with a logical defense when called out. A former heavy smoker.'}
+      ];
+      let lang = 'ja';
+      let selectedCharacter = 0;
+      try{lang=localStorage.getItem('nulllatte-language')==='en'?'en':'ja';}catch(_){/* offline preview */}
+      const nav=document.querySelector('#siteNav');
+      const toggle=document.querySelector('#menuToggle');
+      const charShowcase=document.querySelector('#characterShowcase');
+      const charPanel=document.querySelector('#characterPanel');
+      const charTabs=document.querySelector('#characterTabs');
+      const charImage=document.querySelector('#characterHero');
+      const charName=document.querySelector('#characterName');
+      const charJpName=document.querySelector('#characterJpName');
+      const charDesc=document.querySelector('#characterDescription');
+      const charPalette=document.querySelector('#characterPalette');
+      const charCount=document.querySelector('#characterCounter');
+      const charLargeNumber=document.querySelector('#characterLargeNumber');
+      const charPrev=document.querySelector('#characterPrev');
+      const charNext=document.querySelector('#characterNext');
+      function setLanguage(next){
+        lang=next==='en'?'en':'ja';document.documentElement.lang=lang;
+        document.querySelectorAll('[data-ja][data-en]').forEach(el=>{el.innerHTML=el.dataset[lang];});
+        document.querySelector('#jpBtn').setAttribute('aria-pressed',String(lang==='ja'));
+        document.querySelector('#enBtn').setAttribute('aria-pressed',String(lang==='en'));
+        try{localStorage.setItem('nulllatte-language',lang);}catch(_){}
+        renderSelectedCharacter();
+      }
+      function buildCharacterTabs(){
+        CHARACTERS.forEach((character,i)=>{
+          const tab=document.createElement('button');
+          tab.type='button';tab.className='character-tab';tab.id=`character-tab-${i}`;
+          tab.setAttribute('role','tab');tab.setAttribute('aria-controls','characterPanel');
+          tab.style.setProperty('--tab-bg',character.color);
+          tab.dataset.index=String(i);
+          const picture=document.createElement('span');picture.className='character-thumb';
+          const image=document.createElement('img');image.src=character.face;
+          image.alt='';image.loading='lazy';image.decoding='async';
+          picture.append(image);
+          const label=document.createElement('span');label.className='character-tab-name';label.textContent=character.name;
+          tab.append(picture,label);
+          tab.addEventListener('click',()=>selectCharacter(i));
+          tab.addEventListener('keydown',(event)=>{
+            let next=null;
+            if(event.key==='ArrowRight')next=(i+1)%CHARACTERS.length;
+            if(event.key==='ArrowLeft')next=(i+CHARACTERS.length-1)%CHARACTERS.length;
+            if(event.key==='Home')next=0;
+            if(event.key==='End')next=CHARACTERS.length-1;
+            if(next!==null){event.preventDefault();selectCharacter(next);charTabs.children[next].focus();}
+          });
+          charTabs.append(tab);
+        });
+      }
+      function selectCharacter(index){
+        selectedCharacter=(index+CHARACTERS.length)%CHARACTERS.length;
+        renderSelectedCharacter();
+      }
+      function renderSelectedCharacter(){
+        const character=CHARACTERS[selectedCharacter];
+        const number=String(selectedCharacter+1).padStart(2,'0');
+        charShowcase.style.setProperty('--active-bg',character.color);
+        charShowcase.style.setProperty('--active-accent',character.palette[2]);
+        charShowcase.style.setProperty('--active-dark',character.palette[3]);
+        charImage.src=character.image;
+        charImage.alt=lang==='ja'?`${character.ja}の立ち絵`:`Full-body illustration: ${character.name}`;
+        charName.textContent=character.name;
+        charJpName.textContent=lang==='ja'?character.ja:`COLOR TYPE / ${character.name}`;
+        charDesc.textContent=lang==='ja'?character.descriptionJa:character.descriptionEn;
+        charCount.textContent=number;charLargeNumber.textContent=number;
+        charPalette.replaceChildren();
+        charPalette.setAttribute('aria-label',lang==='ja'?'テーマカラー4色':'Four theme colors');
+        character.palette.forEach(color=>{
+          const swatch=document.createElement('span');swatch.style.backgroundColor=color;
+          swatch.title=color;swatch.setAttribute('aria-label',color);
+          charPalette.append(swatch);
+        });
+        charPanel.setAttribute('aria-labelledby',`character-tab-${selectedCharacter}`);
+        [...charTabs.children].forEach((tab,i)=>{
+          const active=i===selectedCharacter;
+          tab.setAttribute('aria-selected',String(active));
+          tab.setAttribute('tabindex',active?'0':'-1');
+          tab.setAttribute('aria-label',lang==='ja'?`${CHARACTERS[i].ja}（${CHARACTERS[i].name}）`:`${CHARACTERS[i].name}`);
+        });
+        charPrev.setAttribute('aria-label',lang==='ja'?'前のキャラクター':'Previous character');
+        charNext.setAttribute('aria-label',lang==='ja'?'次のキャラクター':'Next character');
+        charTabs.setAttribute('aria-label',lang==='ja'?'キャラクター選択':'Select a character');
+      }
+      buildCharacterTabs();
+      charPrev.addEventListener('click',()=>selectCharacter(selectedCharacter-1));
+      charNext.addEventListener('click',()=>selectCharacter(selectedCharacter+1));
+      document.querySelector('#jpBtn').addEventListener('click',()=>setLanguage('ja'));
+      document.querySelector('#enBtn').addEventListener('click',()=>setLanguage('en'));
+      toggle.addEventListener('click',()=>{const open=!nav.classList.contains('is-open');nav.classList.toggle('is-open',open);toggle.setAttribute('aria-expanded',String(open));});
+      nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false');}));
+      setLanguage(lang);
+      const observer=window.IntersectionObserver&&new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target);}}),{threshold:.06});
+      document.querySelectorAll('.reveal').forEach(el=>{if(observer)observer.observe(el);else el.classList.add('is-visible');});
+      const audio=document.querySelector('#themeAudio'),button=document.querySelector('#audioToggle'),status=document.querySelector('#audioStatus'),progress=document.querySelector('#audioProgress');
+      button.addEventListener('click',async()=>{
+        if(!audio.paused){audio.pause();button.querySelector('span').textContent=lang==='en'?'▶ LISTEN':'▶ 試聴する';button.setAttribute('aria-pressed','false');status.textContent=lang==='en'?'Paused':'一時停止中';return;}
+        try{await audio.play();button.querySelector('span').textContent=lang==='en'?'Ⅱ PAUSE':'Ⅱ 一時停止';button.setAttribute('aria-pressed','true');status.textContent=lang==='en'?'Playing':'再生中';}
+        catch(_){status.textContent=lang==='en'?'Audio file not found. Place audio/supatto-kyukei.mp3 beside this page.':'音楽ファイルが見つかりません。audio/supatto-kyukei.mp3 を配置してください。';}
+      });
+      audio.addEventListener('timeupdate',()=>{progress.style.width=audio.duration?`${audio.currentTime/audio.duration*100}%`:'0%';});
+      audio.addEventListener('ended',()=>{button.querySelector('span').textContent=lang==='en'?'▶ LISTEN':'▶ 試聴する';button.setAttribute('aria-pressed','false');status.textContent=lang==='en'?'Finished':'再生終了';});
+    })();
+  </script>
+</body>
+</html>
