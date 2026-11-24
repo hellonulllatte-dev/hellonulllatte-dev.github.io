@@ -192,7 +192,9 @@
     .hero-team-caption span{padding:5px 10px;background:var(--ink);color:var(--cream);transform:rotate(-2deg)}
     .hero-team-caption strong{font-size:16px}
     .hero-team-caption small{font-size:10px;letter-spacing:1px;color:#704C34}
-    .hero-team img{width:min(100%,1110px);max-height:455px;object-fit:contain;margin:0 auto;filter:drop-shadow(5px 7px 0 rgba(91,14,14,.10))}
+    .hero-team-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;gap:clamp(2px,1.2vw,16px);max-width:1110px;margin:0 auto;padding-top:8px}
+    .hero-team-member{display:flex;align-items:flex-end;justify-content:center;min-width:0}
+    .hero-team-member img{display:block;width:100%;max-width:220px;max-height:455px;height:auto;object-fit:contain;margin:0 auto;filter:drop-shadow(5px 7px 0 rgba(91,14,14,.10))}
     .intro{background:#705153;color:#FDF2E8}
     .intro .section-no{background:#F6A671;color:var(--ink)}
     .intro .section-title small{color:#F8C29B}
@@ -238,7 +240,7 @@
     @media(max-width:1080px){.hero-visual{min-height:440px}.char-top{height:260px}}
     @media(max-width:760px){
       .hero-visual{min-height:330px}.key-visual{max-width:380px}
-      .hero-team{padding:22px 0 12px}.hero-team img{max-height:320px}
+      .hero-team{padding:22px 0 12px}.hero-team-strip{gap:0;padding-top:6px}.hero-team-member img{max-height:320px}
       .hero-team-caption{gap:8px}.hero-team-caption small{width:100%}
       .char-top{height:235px}.char-meta strong{font-size:13px}
     }
@@ -562,10 +564,16 @@
         </div>
       </div>
     </section>
-    <div class="hero-team" aria-label="猫耳メイド5人の集合イラスト">
+    <div class="hero-team" aria-label="猫耳メイド5人の立ち絵">
       <div class="wrap hero-team-inner">
         <div class="hero-team-caption"><span>THE FIVE</span><strong>SMOKE BREAK GIRLS</strong><small>REGULAR · MENTHO · BLACK · LIGHT · ONE</small></div>
-        <img src="assets/five-maids.png" alt="5人の猫耳メイドの集合立ち絵">
+        <div class="hero-team-strip">
+          <div class="hero-team-member"><img src="assets/regular.png" alt="レギュラーの立ち絵"></div>
+          <div class="hero-team-member"><img src="assets/mentho.png" alt="メンソの立ち絵"></div>
+          <div class="hero-team-member"><img src="assets/black.png" alt="ブラックの立ち絵"></div>
+          <div class="hero-team-member"><img src="assets/light.png" alt="ライトの立ち絵"></div>
+          <div class="hero-team-member"><img src="assets/one.png" alt="ワンの立ち絵"></div>
+        </div>
       </div>
     </div>
     <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>スパっと！シがーる</span><span>CAT-EARED MAIDS</span><span>BREAK TIME!</span><span>WHAT'S FOR LUNCH?</span><span>スパっと！シがーる</span><span>CAT-EARED MAIDS</span><span>BREAK TIME!</span><span>WHAT'S FOR LUNCH?</span></div></div>
