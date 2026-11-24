@@ -77,8 +77,12 @@
     game.links.forEach(link => {
       const anchor = document.createElement('a');
       anchor.href = link.href;
-      anchor.target = '_blank';
-      anchor.rel = 'noopener noreferrer';
+      if (link.provider === 'media-kit') {
+        anchor.download = '';
+      } else {
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+      }
       anchor.textContent = link.label;
       links.append(anchor);
     });

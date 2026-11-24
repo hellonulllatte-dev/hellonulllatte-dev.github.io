@@ -21,7 +21,8 @@
       flavors: ['pixel-illustration'],
       links: [
         { provider: 'unityroom', href: 'https://unityroom.com/games/oneesan-still-sleeping', label: 'unityroom · Mobile ↗', platforms: ['Mobile'] },
-        { provider: 'itch.io', href: 'https://nulllatte.itch.io/oneesan-still-sleeping', label: 'itch.io · PC ↗', platforms: ['PC'] }
+        { provider: 'itch.io', href: 'https://nulllatte.itch.io/oneesan-still-sleeping', label: 'itch.io · PC ↗', platforms: ['PC'] },
+        { provider: 'media-kit', href: 'media-kits/ragna.zip', label: 'MEDIA KIT ↓', platforms: [] }
       ], releaseDate: '2026-10-16', displayOrder: 2
     },
     {
@@ -37,7 +38,10 @@
       id: 'censor-valentine', title: '検閲♡おしおきバレンタイン', image: 'images/oshioki.png', imageAlt: '検閲♡おしおきバレンタイン',
       description: { ja: '不機嫌なメイド少年の苦情を、かわいいミュージックビデオの中で検閲しよう。', en: "Censor a grumpy maid boy's complaints in a cute music video." },
       flavors: ['typography'],
-      links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/censor-valentine', label: 'unityroom ↗', platforms: [] }],
+      links: [
+        { provider: 'unityroom', href: 'https://unityroom.com/games/censor-valentine', label: 'unityroom ↗', platforms: [] },
+        { provider: 'media-kit', href: 'media-kits/kujou.zip', label: 'MEDIA KIT ↓', platforms: [] }
+      ],
       releaseDate: '2026-11-04', displayOrder: 4
     },
     {
@@ -65,7 +69,10 @@
       id: 'koyoi-kimi-wo-ubaimashou', title: '今宵、君を奪いましょう♡', image: 'images/alba.png', imageAlt: '今宵、君を奪いましょう♡',
       description: { ja: '魅力的な怪盗と謎の黒猫、そして夜へのラブレター。', en: 'A charming thief, a mysterious black cat, and a love letter to the night.' },
       flavors: ['pixel', 'pixel-illustration'],
-      links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/koyoi-kimi-wo-ubaimashou', label: 'unityroom ↗', platforms: [] }],
+      links: [
+        { provider: 'unityroom', href: 'https://unityroom.com/games/koyoi-kimi-wo-ubaimashou', label: 'unityroom ↗', platforms: [] },
+        { provider: 'media-kit', href: 'media-kits/alba.zip', label: 'MEDIA KIT ↓', platforms: [] }
+      ],
       releaseDate: '2026-11-23', displayOrder: 8
     },
     {
@@ -124,7 +131,10 @@
       id: 'futamoji-mitsuge', title: 'ふた文字、貢げ！', image: 'images/futamoji.png', imageAlt: 'ふた文字、貢げ！',
       description: { ja: '要求の多い悪魔の少女に、ひらがな二文字を捧げよう。反応を見届けて！', en: 'Offer two hiragana characters to a demanding demon girl. See how she reacts!' },
       flavors: ['pixel-illustration'],
-      links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/futamoji-mitsuge', label: 'unityroom ↗', platforms: [] }],
+      links: [
+        { provider: 'unityroom', href: 'https://unityroom.com/games/futamoji-mitsuge', label: 'unityroom ↗', platforms: [] },
+        { provider: 'media-kit', href: 'media-kits/futamoji.zip', label: 'MEDIA KIT ↓', platforms: [] }
+      ],
       releaseDate: '2026-10-27', displayOrder: 16
     },
     {
