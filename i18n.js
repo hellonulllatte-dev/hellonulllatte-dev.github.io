@@ -216,6 +216,18 @@
   add('NEXT MARK GALLERYを開く', 'Open NEXT MARK GALLERY'); add('POPOPO GRIDを開く', 'Open POPOPO GRID');
   add('小さな遊びを、少しずつ追加していきます。', 'More small toys will be added over time.');
 
+  // CAT ROOM: PLAYGROUND card and accessibility labels.
+  add('猫部屋 / CAT ROOM', 'CAT ROOM');
+  add('猫部屋', 'CAT ROOM');
+  add('作品に出演してくれた猫が集結。', 'Cats from the games have gathered here.');
+  add('作品に出演してくれた猫たちが、ここでひと休み。', "A little resting spot for cats from NULLLATTE's games.");
+  add('猫部屋を開く', 'Open CAT ROOM');
+
+
+  // DEVLOG NOTE: Cat Room announcement (2026-11-21).
+  add("PLAYGROUNDに「猫部屋」ができました！", "CAT ROOM Has Arrived in PLAYGROUND!");
+  add("NULLLATTEの作品に出演してくれた猫たちが、PLAYGROUNDに集まりました！BOSS、NOX、RICHの3匹が、気ままに過ごしています。特に目的はありません。のんびり眺めていってください。", "Cats from NULLLATTE's games have gathered in PLAYGROUND! BOSS, NOX, and RICH are spending their time here at their own pace. There's no particular goal. Just relax and watch them for a while.");
+
   // Branding and navigation stay in English in both JP and EN modes.
   // Content descriptions and other text still follow the chosen language.
   const fixedEnglish = new Map([

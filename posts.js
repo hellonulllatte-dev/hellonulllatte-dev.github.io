@@ -3,6 +3,13 @@ const POSTS = [
 	{
     date: "2026-11-21",
     category: "note",
+    title: "PLAYGROUNDに「猫部屋」ができました！",
+    description: "NULLLATTEの作品に出演してくれた猫たちが、PLAYGROUNDに集まりました！BOSS、NOX、RICHの3匹が、気ままに過ごしています。特に目的はありません。のんびり眺めていってください。",
+    url: "playground.html"
+	},
+	{
+    date: "2026-11-21",
+    category: "note",
     title: "PLAYGROUNDを公開しました！",
     description: "ちいさな遊びと実験を集めるPLAYGROUNDを追加しました。効果音や会話送りアイコンを作れるWeb Toyを3つ公開中。無料で遊べます！",
     url: "playground.html"
