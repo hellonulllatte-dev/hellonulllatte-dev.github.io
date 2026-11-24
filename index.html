@@ -7,6 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NULLLATTE | HOME</title>
   <link rel="stylesheet" href="style.css">
+  <!-- HOME only: no separate floor line; BOSS stands on the footer separator. -->
+  <style>
+    .home-about { padding-bottom: 0; }
+    .home-about .about-walkway {
+      height: 170px;
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+    .main { padding-bottom: 0; }
+  </style>
+
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZBDZFFZ6J"></script>
@@ -175,7 +186,7 @@
           >X ↗</a>
         </div>
 
-        <!-- ちびぬるらてのお散歩エリア -->
+        <!-- BOSSのお留守番エリア -->
         <div class="about-walkway" aria-hidden="true">
           <canvas id="nulllatteWalk"></canvas>
         </div>
@@ -209,55 +220,54 @@
 
   <script src="transition.js"></script>
 
-  <!-- About: ちびぬるらてとBOSS -->
+  <!-- HOME: BOSS only. The 13-frame sprite is shared with PLAYGROUND. -->
   <script>
   (() => {
-    const canvas = document.getElementById("nulllatteWalk");
+    'use strict';
+    const canvas = document.getElementById('nulllatteWalk');
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const sprite = new Image();
     const bossSprite = new Image();
     const meowBubble = new Image();
-    const meowSound = new Audio("images/Meow.wav");
+    const meowSound = new Audio('images/Meow.wav');
     meowSound.volume = 0.7;
 
     const FRAME_SIZE = 32;
-    const ME_SIZE = 96;
-    const BOSS_SIZE = 48;
-    const FRAMES = {
+    const BOSS_SIZE = 96; // 32 x 3: same pixel scale as the mini character on ABOUT.
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const BOSS_FRAMES = {
       idle: [0, 1],
-      walk: [4, 5, 6]
+      walk: [2, 3, 4],
+      back: [5, 6],
+      rest: [11, 12]
     };
 
     let canvasWidth = 0;
     let canvasHeight = 0;
-    let initialized = false;
+    let ready = false;
+    let bubbleReady = false;
     let lastTime = null;
     let meowUntil = 0;
     let bossReactUntil = 0;
-    let bossReady = false;
-    let bubbleReady = false;
+    let animationId = 0;
+    let initialized = false;
 
-    const state = {
-      x: 0,
-      direction: "idle",
-      moving: false,
-      speed: 36,
-      animFrame: 0,
-      animTimer: 0,
-      animSpeed: 180,
-      idleAnimSpeed: 650,
-      actionTimer: 1200
+    const boss = {
+      mode: 'idle', x: 0, direction: 'right', speed: 20,
+      animFrame: 0, animTimer: 0, actionTimer: 7000
     };
 
-    const bossState = {
-      mode: "idle",
-      frame: 0,
-      animTimer: 0,
-      actionTimer: 5000
-    };
+    function bounds() {
+      const edge = Math.max(0, canvasWidth - BOSS_SIZE);
+      const anchor = Math.max(0, Math.min(edge, (canvasWidth - BOSS_SIZE) / 2));
+      return {
+        anchor,
+        min: Math.max(0, anchor - 90),
+        max: Math.min(edge, anchor + 90)
+      };
+    }
 
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
@@ -268,201 +278,151 @@
       canvas.height = Math.round(canvasHeight * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.imageSmoothingEnabled = false;
-      const maxX = Math.max(0, canvasWidth - ME_SIZE);
+      const area = bounds();
       if (!initialized) {
-        state.x = maxX / 2;
+        boss.x = area.anchor;
         initialized = true;
       } else {
-        state.x = Math.max(0, Math.min(state.x, maxX));
+        boss.x = Math.max(area.min, Math.min(boss.x, area.max));
       }
     }
 
-    function getBossPosition() {
+    function position() {
+      // The sprites have 6–7 transparent rows below their visible paws.
+      const pawRow = boss.mode === 'walk' ? 26 : 25;
       return {
-        x: Math.round(Math.max(0, Math.min(
-          canvasWidth - BOSS_SIZE,
-          canvasWidth / 2 + 110
-        ))),
-        y: Math.round(canvasHeight - BOSS_SIZE)
+        x: Math.round(boss.x),
+        y: Math.round(canvasHeight - pawRow * BOSS_SIZE / FRAME_SIZE)
       };
     }
 
-    function randomAction() {
-      if (Math.random() < 0.4) {
-        state.moving = false;
-        state.direction = "idle";
-        state.actionTimer = 1000 + Math.random() * 2000;
-      } else {
-        state.moving = true;
-        state.direction = Math.random() < 0.5 ? "left" : "right";
-        state.actionTimer = 1500 + Math.random() * 2500;
-      }
-      state.animFrame = 0;
-      state.animTimer = 0;
+    function setMode(mode, duration) {
+      boss.mode = mode;
+      boss.animFrame = 0;
+      boss.animTimer = 0;
+      boss.actionTimer = duration;
+    }
+
+    function chooseAction() {
+      const roll = Math.random();
+      if (roll < .48) setMode('idle', 6000 + Math.random() * 6000);
+      else if (roll < .68) {
+        boss.direction = Math.random() < .5 ? 'left' : 'right';
+        setMode('walk', 1300 + Math.random() * 1000);
+      } else if (roll < .84) setMode('back', 3000 + Math.random() * 2500);
+      else setMode('rest', 8000 + Math.random() * 7000);
     }
 
     function update(dt, now) {
-      state.actionTimer -= dt;
-      if (state.actionTimer <= 0) randomAction();
-      if (state.moving) {
-        state.x += (state.direction === "right" ? 1 : -1) * state.speed * dt / 1000;
-        const maxX = Math.max(0, canvasWidth - ME_SIZE);
-        if (state.x <= 0) {
-          state.x = 0;
-          state.direction = "right";
-        } else if (state.x >= maxX) {
-          state.x = maxX;
-          state.direction = "left";
-        }
-      }
-      state.animTimer += dt;
-      const frameDuration = state.moving ? state.animSpeed : state.idleAnimSpeed;
-      while (state.animTimer >= frameDuration) {
-        state.animTimer -= frameDuration;
-        state.animFrame++;
-      }
-
-      // 鳴いている間はBOSSのポーズを固定する
       if (now < bossReactUntil) return;
-
-      bossState.animTimer += dt;
-      bossState.actionTimer -= dt;
-      if (bossState.animTimer >= 700) {
-        bossState.animTimer -= 700;
-        if (bossState.mode === "idle") {
-          bossState.frame = bossState.frame === 0 ? 1 : 0;
-        } else if (bossState.mode === "closed") {
-          bossState.frame = bossState.frame === 2 ? 3 : 2;
+      if (reducedMotion.matches) {
+        if (boss.mode !== 'idle' || boss.animFrame !== 0) {
+          setMode('idle', Number.POSITIVE_INFINITY);
         }
+        return;
       }
-      if (bossState.actionTimer <= 0) {
-        const r = Math.random();
-        if (r < 0.55) {
-          bossState.mode = "idle";
-          bossState.frame = 0;
-        } else if (r < 0.8) {
-          bossState.mode = "closed";
-          bossState.frame = 2;
-        } else {
-          bossState.mode = "curl";
-          bossState.frame = Math.random() < 0.7 ? 5 : 6;
-        }
-        bossState.animTimer = 0;
-        bossState.actionTimer = 4000 + Math.random() * 5000;
+      boss.animTimer += dt;
+      boss.actionTimer -= dt;
+      const frameDuration = boss.mode === 'walk' ? 180 : boss.mode === 'rest' ? 1100 : 850;
+      while (boss.animTimer >= frameDuration) {
+        boss.animTimer -= frameDuration;
+        boss.animFrame++;
       }
-    }
-
-    function drawMe() {
-      const frames = state.moving ? FRAMES.walk : FRAMES.idle;
-      const frame = frames[state.animFrame % frames.length];
-      const x = Math.round(state.x);
-      const y = Math.round(canvasHeight - ME_SIZE);
-      ctx.save();
-      ctx.imageSmoothingEnabled = false;
-      if (state.direction === "right") {
-        // 元画像の横向きは左向き
-        ctx.translate(x + ME_SIZE, y);
-        ctx.scale(-1, 1);
-        ctx.drawImage(sprite, frame * FRAME_SIZE, 0, 32, 32, 0, 0, ME_SIZE, ME_SIZE);
-      } else {
-        ctx.drawImage(sprite, frame * FRAME_SIZE, 0, 32, 32, x, y, ME_SIZE, ME_SIZE);
+      if (boss.mode === 'walk') {
+        const area = bounds();
+        boss.x += (boss.direction === 'right' ? 1 : -1) * boss.speed * dt / 1000;
+        if (boss.x <= area.min) { boss.x = area.min; boss.direction = 'right'; }
+        else if (boss.x >= area.max) { boss.x = area.max; boss.direction = 'left'; }
       }
-      ctx.restore();
-    }
-
-    function drawBoss(now) {
-      if (!bossReady) return;
-      const boss = getBossPosition();
-      ctx.save();
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(bossSprite, bossState.frame * 32, 0, 32, 32,
-        boss.x, boss.y, BOSS_SIZE, BOSS_SIZE);
-      ctx.restore();
-
-      // 手描きのドット吹き出し画像を頭上に表示
-      if (now < meowUntil && bubbleReady) {
-        // 元画像48x48のうち、上の透明な余白を除いた範囲を使う。
-        // 2倍拡大しても110pxのお散歩エリアに収まるようにする。
-        const bubbleW = 96;
-        const bubbleH = 54;
-        const bubbleX = Math.round(Math.max(0, Math.min(
-          canvasWidth - bubbleW,
-          boss.x + BOSS_SIZE / 2 - bubbleW / 2 - 7
-        )));
-        const bubbleY = Math.round(boss.y - bubbleH - 6);
-        ctx.save();
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(
-          meowBubble,
-          0, 15, 48, 27,
-          bubbleX, bubbleY, bubbleW, bubbleH
-        );
-        ctx.restore();
-      }
+      if (boss.actionTimer <= 0) chooseAction();
     }
 
     function draw(now) {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      drawMe();
-      drawBoss(now);
+      if (!ready) return;
+      const pos = position();
+      const frames = BOSS_FRAMES[boss.mode] || BOSS_FRAMES.idle;
+      const frame = frames[boss.animFrame % frames.length];
+      ctx.save();
+      ctx.imageSmoothingEnabled = false;
+      if (boss.mode === 'walk' && boss.direction === 'right') {
+        ctx.translate(pos.x + BOSS_SIZE, pos.y);
+        ctx.scale(-1, 1);
+        ctx.drawImage(bossSprite, frame * FRAME_SIZE, 0, FRAME_SIZE, FRAME_SIZE,
+          0, 0, BOSS_SIZE, BOSS_SIZE);
+      } else {
+        ctx.drawImage(bossSprite, frame * FRAME_SIZE, 0, FRAME_SIZE, FRAME_SIZE,
+          pos.x, pos.y, BOSS_SIZE, BOSS_SIZE);
+      }
+      ctx.restore();
+
+      if (now < meowUntil && bubbleReady) {
+        const bubbleW = 96;
+        const bubbleH = 54;
+        const bubbleX = Math.round(Math.max(0, Math.min(canvasWidth - bubbleW,
+          pos.x + BOSS_SIZE / 2 - bubbleW / 2)));
+        // The taller stage keeps the whole bubble visible above BOSS.
+        const bubbleY = Math.round(Math.max(0, pos.y - bubbleH - 8));
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(meowBubble, 0, 15, 48, 27,
+          bubbleX, bubbleY, bubbleW, bubbleH);
+        ctx.restore();
+      }
     }
 
-    function pointerPosition(event) {
+    function point(event) {
       const rect = canvas.getBoundingClientRect();
       return {
         x: (event.clientX - rect.left) * canvasWidth / rect.width,
         y: (event.clientY - rect.top) * canvasHeight / rect.height
       };
     }
-
-    function isOverBoss(point) {
-      if (!bossReady) return false;
-      const b = getBossPosition();
-      return point.x >= b.x && point.x <= b.x + BOSS_SIZE &&
-             point.y >= b.y && point.y <= b.y + BOSS_SIZE;
+    function overBoss(point) {
+      if (!ready) return false;
+      const pos = position();
+      return point.x >= pos.x && point.x <= pos.x + BOSS_SIZE &&
+             point.y >= pos.y && point.y <= pos.y + BOSS_SIZE;
     }
-
-    canvas.addEventListener("pointermove", (event) => {
-      canvas.style.cursor = isOverBoss(pointerPosition(event)) ? "pointer" : "default";
+    canvas.addEventListener('pointermove', event => {
+      canvas.style.cursor = overBoss(point(event)) ? 'pointer' : 'default';
     });
-    canvas.addEventListener("pointerleave", () => {
-      canvas.style.cursor = "default";
-    });
-    canvas.addEventListener("pointerdown", (event) => {
-      if (!isOverBoss(pointerPosition(event))) return;
+    canvas.addEventListener('pointerleave', () => { canvas.style.cursor = 'default'; });
+    canvas.addEventListener('pointerdown', event => {
+      if (!overBoss(point(event))) return;
       meowSound.pause();
       meowSound.currentTime = 0;
-      meowSound.play().catch((error) => console.warn("Meow.wavを再生できません:", error));
+      meowSound.play().catch(error => console.warn('Meow.wavを再生できません:', error));
       const now = performance.now();
       meowUntil = now + 1200;
       bossReactUntil = now + 1200;
-      // 丸まっている場合は目を開く
-      if (bossState.mode === "curl") bossState.frame = 6;
+      if (boss.mode === 'rest') setMode('idle', 6000);
     });
 
-    function loop(timestamp) {
-      if (lastTime === null) lastTime = timestamp;
-      const dt = Math.min(timestamp - lastTime, 50);
-      lastTime = timestamp;
-      update(dt, timestamp);
-      draw(timestamp);
-      requestAnimationFrame(loop);
+    function loop(now) {
+      if (lastTime === null) lastTime = now;
+      const dt = Math.min(now - lastTime, 50);
+      lastTime = now;
+      update(dt, now);
+      draw(now);
+      animationId = requestAnimationFrame(loop);
     }
-
-    sprite.onload = () => {
+    bossSprite.onload = () => {
+      ready = true;
       resizeCanvas();
-      requestAnimationFrame(loop);
+      animationId = requestAnimationFrame(loop);
     };
-    sprite.onerror = () => console.error("読み込めません:", sprite.src);
-    bossSprite.onload = () => { bossReady = true; };
-    bossSprite.onerror = () => console.error("読み込めません:", bossSprite.src);
+    bossSprite.onerror = () => console.error('BOSS画像を読み込めません:', bossSprite.src);
     meowBubble.onload = () => { bubbleReady = true; };
-    meowBubble.onerror = () => console.error("吹き出し画像が読み込めません:", meowBubble.src);
-
-    sprite.src = "images/nulllatte_walk.png";
-    bossSprite.src = "images/boss.png";
-    meowBubble.src = "images/meow.png";
-    window.addEventListener("resize", resizeCanvas);
+    meowBubble.onerror = () => console.error('吹き出し画像を読み込めません:', meowBubble.src);
+    bossSprite.src = 'playground/cats/boss.png';
+    meowBubble.src = 'images/meow.png';
+    window.addEventListener('resize', resizeCanvas);
+    document.addEventListener('visibilitychange', () => { lastTime = null; });
+    reducedMotion.addEventListener?.('change', event => {
+      boss.x = bounds().anchor;
+      setMode('idle', event.matches ? Number.POSITIVE_INFINITY : 6000);
+    });
   })();
   </script>
 

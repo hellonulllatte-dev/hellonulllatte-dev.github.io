@@ -40,7 +40,7 @@
     /* HOMEと同じ表示サイズ：ちびぬるらて96px（32px×3倍） */
     .about-nulllatte-idle {
       position: absolute;
-      left: 12px;
+      left: 47px;
       bottom: 0;
       width: 96px;
       height: 96px;
@@ -54,29 +54,12 @@
       0%, 49.999% { background-position: 0 0; }
       50%, 100% { background-position: -96px 0; }
     }
-    /* HOMEと同じ表示サイズ：BOSS48px（32px×1.5倍）。0・1コマのみ */
-    .about-boss-still {
-      position: absolute;
-      left: 116px;
-      bottom: 0;
-      width: 48px;
-      height: 48px;
-      background-image: url("images/boss.png");
-      background-repeat: no-repeat;
-      background-size: 384px 48px;
-      image-rendering: pixelated;
-      animation: about-boss-two-frames 1.8s step-end infinite;
-    }
-    @keyframes about-boss-two-frames {
-      0%, 49.999% { background-position: 0 0; }
-      50%, 100% { background-position: -48px 0; }
-    }
     @media (max-width: 850px) {
       .about-profile-layout { grid-template-columns: minmax(0, 1fr); }
       .about-profile-characters { justify-self: center; margin: 12px auto 0; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .about-nulllatte-idle, .about-boss-still { animation: none; background-position: 0 0; }
+      .about-nulllatte-idle { animation: none; background-position: 0 0; }
     }
   </style>
 
@@ -145,10 +128,9 @@
           </p>
         </div>
 
-        <!-- 作者とBOSSの2コマidle。既存のサイト用スクリプトには依存しない -->
-        <div class="about-profile-characters" aria-label="ちびぬるらてと飼い猫のBOSS" role="img">
+        <!-- ABOUTは作者のちびぬるらてのみ -->
+        <div class="about-profile-characters" aria-label="ちびぬるらてのドット絵" role="img">
           <span class="about-nulllatte-idle" aria-hidden="true"></span>
-          <span class="about-boss-still" aria-hidden="true"></span>
         </div>
       </div>
     </div>
