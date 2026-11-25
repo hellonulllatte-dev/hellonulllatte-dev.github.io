@@ -60,7 +60,7 @@
     },
     {
       id: 'dareda', title: 'だーれだ？', image: 'images/da-reda.png', imageAlt: 'だーれだ？',
-      description: { ja: '15人の女の子、ひとつの目隠し。からかっているのは誰？', en: "Ten girls. One blindfold. Guess who's there." },
+      description: { ja: '15人の女の子、ひとつの目隠し。からかっているのは誰？', en: "Fifteen girls. One blindfold. Guess who's there." },
       flavors: ['typography'],
       links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/dareda', label: 'unityroom · PC ↗', platforms: ['PC'] }],
       releaseDate: '2026-11-01', displayOrder: 7
