@@ -6,11 +6,11 @@
   const add = (ja, en) => translations.set(ja, en);
 
   // Shared navigation and page furniture.
-  add('Home', 'Home'); add('Games', 'Games'); add('Cast', 'Cast'); add('Devlog', 'Devlog');
+  add('Home', 'Home'); add('Games', 'Games'); add('Cast', 'Cast'); add('LOG', 'LOG');
   add('About', 'About'); add('Gallery', 'Gallery'); add('GALLERY', 'GALLERY'); add('PLAYGROUND', 'PLAYGROUND');
   add('Little games, made with care.', 'Little games, made with care.');
   add('© NULLLATTE — Made with care.', '© NULLLATTE — Made with care.');
-  add('ホーム', 'Home'); add('ゲーム', 'Games'); add('キャスト', 'Cast'); add('開発記録', 'Devlog'); add('このサイトについて', 'About'); add('ギャラリー', 'Gallery');
+  add('ホーム', 'Home'); add('ゲーム', 'Games'); add('キャスト', 'Cast'); add('LOG', 'LOG'); add('このサイトについて', 'About'); add('ギャラリー', 'Gallery');
   add('小さなゲームを、心を込めて。', 'Little games, made with care.'); add('© NULLLATTE — 心を込めて制作しています。', '© NULLLATTE — Made with care.');
   add('湯気の立つコーヒーカップ', 'Steaming coffee cup');
   add('Main navigation', 'Main navigation');
@@ -23,7 +23,7 @@
   add('What kind of amusement park ride are your words?', 'What kind of amusement park ride are your words?');
   add('あなたの言葉は、どんな遊園地の乗り物？', 'What kind of amusement park ride are your words?');
   add('View All Games →', 'View All Games →'); add('すべてのゲームを見る →', 'View All Games →');
-  add('Latest Devlog', 'Latest Devlog'); add('最新の開発記録', 'Latest Devlog');
+  add('Latest LOG', 'Latest LOG');
   add('View All Posts →', 'View All Posts →'); add('すべての記事を見る →', 'View All Posts →');
   add('小さなゲームを個人制作しています。 ドット絵やイラストを描いたり、 ちょっと変わった遊びを考えたりしています。', 'I make small games on my own. I draw pixel art and illustrations, and dream up slightly unusual ways to play.');
   add('My Games', 'My Games'); add('ゲーム一覧', 'My Games'); add('All', 'All'); add('すべて', 'All');
@@ -86,7 +86,6 @@
   add('怪盗アルバの愛猫にして、頼れる相棒。小さな体でせっせと働く、活発な黒猫。アルバに宝物のように大切にされているため、自分のことを宝物だと思っている。', 'Alba the phantom thief\'s beloved cat and trusted partner. A lively black cat who works tirelessly despite his small size. Alba treasures him so dearly that Nox believes he\'s a treasure himself.');
   add('Bunny Barの常連。百合ハーレムの女王。', 'A Bunny Bar regular and queen of a yuri harem.');
   add('3人組アイドルユニットWHITEの青担当のお姉さん。', 'The blue member of the three-person idol unit WHITE.');
-  add('Notes from the kitchen.', 'Notes from the kitchen.'); add('制作の舞台裏。', 'Notes from the kitchen.');
   add('PLAYGROUNDを公開しました！', 'PLAYGROUND is now open!');
   add('ちいさな遊びと実験を集めるPLAYGROUNDを追加しました。効果音や会話送りアイコンを作れるWeb Toyを3つ公開中。無料で遊べます！', 'PLAYGROUND, a collection of small toys and experiments, is now open. Three free Web Toys for making sound effects and dialogue icons are available!');
   add('CASTページ制作中！', 'CAST page in progress!');
@@ -97,7 +96,7 @@
   add("初めて海外の48時間ゲームジャムに参加！『WHY CAN'T I RUN?!』の制作と、結果発表、そして反省点を振り返りました。", "My first international 48-hour game jam: a look back at making WHY CAN'T I RUN?!, the results, and what I learned.");
   add('Explore →', 'Explore →'); add('遊んでみる →', 'Explore →'); add('Read more →', 'Read more →'); add('続きを読む →', 'Read more →');
 
-  // Devlog article: Slapjam #2.
+  // LOG article: Slapjam #2.
   add('初めて海外の48時間ゲームジャム', 'I joined an international 48-hour game jam,'); add('「Slapjam #2」', '“Slapjam #2,”'); add('に参加しました！', 'for the first time!');
   add('テーマは', 'The theme was'); add('制作したのは『WHY CAN’T I RUN?!』。', 'I made WHY CAN’T I RUN?!'); add("制作したのは『WHY CAN'T I RUN?!』。", "I made WHY CAN'T I RUN?!");
   add('何かに追いかけられているのに、思うように走れない。', 'Something is chasing you, but you cannot run the way you want.');
@@ -159,7 +158,7 @@
   add('でも、また悪夢を作るとしたら、', 'But if I make another nightmare,'); add('きっと多少は耳障りな音を入れてしまうと思います。', 'I will probably still include at least a little unpleasant sound.');
   add('でも、また悪夢を作るとしたら、 きっと多少は耳障りな音を入れてしまうと思います。', 'But if I make another nightmare, I will probably still include at least a little unpleasant sound.');
   add('『WHY CAN’T I RUN?!』をプレイする ↗', 'Play WHY CAN’T I RUN?! ↗'); add("『WHY CAN'T I RUN?!』をプレイする ↗", "Play WHY CAN'T I RUN?! ↗");
-  add('← Back to Devlog', '← Back to Devlog'); add('← 開発記録へ戻る', '← Back to Devlog');
+  add('← Back to LOG', '← Back to LOG'); add('← LOGへ戻る', '← Back to LOG');
 
   // Gallery and playground.
   add("Things that don't exist, lovingly packaged.", "Things that don't exist, lovingly packaged.");
@@ -235,14 +234,14 @@
     ['ホーム', 'Home'], ['Home', 'Home'],
     ['ゲーム', 'Games'], ['Games', 'Games'],
     ['キャスト', 'Cast'], ['Cast', 'Cast'],
-    ['開発記録', 'Devlog'], ['Devlog', 'Devlog'],
+    ['LOG', 'LOG'],
     ['このサイトについて', 'About'], ['About', 'About'],
     ['ギャラリー', 'Gallery'], ['Gallery', 'Gallery'],
     ['GALLERY', 'GALLERY'], ['PLAYGROUND', 'PLAYGROUND'],
     ['小さなゲームを、心を込めて。', 'Little games, made with care.'],
     ['Little games, made with care.', 'Little games, made with care.'],
     ['注目のゲーム', 'Featured Games'], ['Featured Games', 'Featured Games'],
-    ['最新の開発記録', 'Latest Devlog'], ['Latest Devlog', 'Latest Devlog'],
+    ['Latest LOG', 'Latest LOG'],
     ['ゲーム一覧', 'My Games'], ['My Games', 'My Games'],
     ['キャラクター紹介', 'Meet the Cast'], ['Meet the Cast', 'Meet the Cast']
     ,['自己紹介', 'About'], ['Tools', 'Tools'], ['制作ツール', 'Tools'], ['Find me at', 'Find me at'], ['リンク', 'Find me at']
