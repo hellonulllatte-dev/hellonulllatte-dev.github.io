@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#DBC5BF">
+  <title>おばけねこ | NULLLATTE PLAYGROUND</title>
+  <link rel="icon" href="game/index.icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #DBC5BF;
+      --panel: #E9DCD6;
+      --ink: #3D3936;
+      --line: #988476;
+      --muted: #78575E;
+      --soft: #F4EAE4;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-height: 100%; }
+    body { min-height: 100vh; margin: 0; background: var(--paper); color: var(--ink); font-family: 'Kiwi Maru','Hiragino Maru Gothic ProN','Yu Gothic',sans-serif; }
+    a { color: inherit; text-underline-offset: 4px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--muted); outline-offset: 4px; }
+    .shell { min-height: 100vh; display: flex; flex-direction: column; }
+    .masthead { width: min(1060px, calc(100% - 44px)); margin: 0 auto; padding: 27px 0 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .crumb { font-size: 12px; font-weight: 500; letter-spacing: .13em; text-decoration: none; }
+    .crumb:hover { text-decoration: underline; }
+    .language { display: flex; align-items: center; gap: 3px; font-size: 11px; }
+    .language button { appearance: none; border: 1px solid transparent; border-radius: 999px; padding: 6px 9px; color: var(--muted); background: transparent; cursor: pointer; }
+    .language button[aria-pressed="true"] { background: var(--soft); border-color: #BFA69B; color: var(--ink); }
+    main { flex: 1; width: min(900px, calc(100% - 32px)); margin: 0 auto; padding: clamp(12px, 5vh, 64px) 0 64px; }
+    .intro { max-width: 720px; margin: 0 auto 22px; text-align: center; }
+    .eyebrow { display: block; color: var(--muted); font-size: 10px; letter-spacing: .25em; margin-bottom: 10px; }
+    h1 { font-size: clamp(28px, 4.8vw, 38px); font-weight: 500; line-height: 1.4; letter-spacing: .11em; margin: 0 0 8px; }
+    .intro p { font-size: 13px; line-height: 1.9; margin: 0; }
+    .window { width: 100%; max-width: 740px; margin: 0 auto; border: 2px solid var(--muted); border-radius: 14px; overflow: hidden; box-shadow: 7px 9px 0 #78575E24; background: var(--soft); }
+    .window-bar { height: 43px; display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 0 17px; background: var(--panel); border-bottom: 2px solid var(--muted); }
+    .window-dots { display: flex; gap: 7px; align-items: center; }
+    .window-dots span { display: block; height: 9px; width: 9px; background: #B9959C; border: 1px solid #A18D89; border-radius: 50%; }
+    .window-dots span:nth-child(2) { background: #BBB18F; }
+    .window-dots span:nth-child(3) { background: #988476; }
+    .window-label { font: 500 10px/1 'Kiwi Maru','Yu Gothic',sans-serif; color: var(--muted); letter-spacing: .12em; white-space: nowrap; }
+    .game-frame { width: 100%; aspect-ratio: 16 / 9; background: #5C5752; }
+    .game-frame iframe { width: 100%; height: 100%; display: block; border: 0; background: #5C5752; }
+    .window-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 20px 16px; background: var(--soft); border-top: 1px solid #BBA8A0; }
+    .window-footer p { margin: 0; font-size: 12px; line-height: 1.8; }
+    .footmark { color: var(--muted); font-size: 13px; letter-spacing: .08em; white-space: nowrap; }
+    .caption { text-align: center; margin: 19px auto 0; max-width: 730px; font-size: 11px; color: var(--muted); line-height: 1.8; }
+    .site-footer { border-top: 1px solid #BFA69B; text-align: center; color: var(--muted); font-size: 10px; padding: 22px 16px 26px; }
+    @media (max-width: 520px) {
+      .masthead { width: calc(100% - 30px); padding-top: 18px; }
+      main { width: calc(100% - 24px); padding: 18px 0 45px; }
+      .intro { margin-bottom: 17px; }
+      .intro p { font-size: 12px; }
+      .window { border-radius: 11px; box-shadow: 3px 5px 0 #78575E24; }
+      .window-bar { height: 38px; padding: 0 13px; }
+      .window-label { font-size: 9px; }
+      .window-footer { padding: 10px 13px; }
+      .window-footer p { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <a class="crumb" href="../../playground.html">← NULLLATTE / PLAYGROUND</a>
+      <div class="language" role="group" aria-label="Language">
+        <button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="intro">
+        <span class="eyebrow">A LITTLE 3D WEB TOY</span>
+        <h1 data-ja="おばけねこ" data-en="GHOST CAT">おばけねこ</h1>
+        <p data-ja="じっと見てくる、小さな住人。" data-en="A tiny resident who watches you back.">じっと見てくる、小さな住人。</p>
+      </div>
+
+      <section class="window" aria-label="Godot 3D toy window">
+        <div class="window-bar" aria-hidden="true">
+          <div class="window-dots"><span></span><span></span><span></span></div>
+          <span class="window-label">OBAKENEKO.EXE</span>
+        </div>
+        <div class="game-frame">
+          <iframe src="game/index.html" title="おばけねこ 3D Web Toy" loading="eager" allow="autoplay"></iframe>
+        </div>
+        <div class="window-footer">
+          <p data-ja="マウスを動かして、そっとなでてみて。" data-en="Move your mouse and give it a gentle pat.">マウスを動かして、そっとなでてみて。</p>
+          <span class="footmark" aria-hidden="true">♡</span>
+        </div>
+      </section>
+      <p class="caption" data-ja="ブラウザ内で動く小さなGodot作品です。読み込みに少し時間がかかる場合があります。" data-en="A tiny Godot toy running in your browser. Loading may take a moment.">ブラウザ内で動く小さなGodot作品です。読み込みに少し時間がかかる場合があります。</p>
+    </main>
+    <footer class="site-footer">© NULLLATTE — Made with care.</footer>
+  </div>
+  <script>
+    (() => {
+      const elements = [...document.querySelectorAll('[data-ja][data-en]')];
+      const buttons = [...document.querySelectorAll('.language button')];
+      const readLanguage = () => {
+        try { return localStorage.getItem('nulllatte-language') === 'en' ? 'en' : 'ja'; }
+        catch (_) { return 'ja'; }
+      };
+      const setLanguage = (lang) => {
+        document.documentElement.lang = lang;
+        elements.forEach(el => { el.textContent = el.dataset[lang]; });
+        buttons.forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang)));
+        try { localStorage.setItem('nulllatte-language', lang); } catch (_) { /* localStorage optional */ }
+      };
+      buttons.forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+      setLanguage(readLanguage());
+    })();
+  </script>
+</body>
+</html>
