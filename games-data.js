@@ -60,7 +60,7 @@
     },
     {
       id: 'dareda', title: 'だーれだ？', image: 'images/da-reda.png', imageAlt: 'だーれだ？',
-      description: { ja: '10人の女の子、ひとつの目隠し。からかっているのは誰？', en: "Ten girls. One blindfold. Guess who's there." },
+      description: { ja: '15人の女の子、ひとつの目隠し。からかっているのは誰？', en: "Ten girls. One blindfold. Guess who's there." },
       flavors: ['typography'],
       links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/dareda', label: 'unityroom · PC ↗', platforms: ['PC'] }],
       releaseDate: '2026-11-01', displayOrder: 7
@@ -86,20 +86,14 @@
       id: 'supatto-cigirls', title: 'スパっと！シがーる', image: 'images/cigirl.png', imageAlt: 'スパっと！シがーる',
       description: { ja: '猫耳メイド5人、揺れ動く意見、そしてランチの決断。ベン図で遊ぶパズル！', en: 'Five cat-eared maids, shifting opinions, and one lunch decision. A playful Venn diagram puzzle!' },
       flavors: ['digital-illustration'],
-      links: [
-        { provider: 'unityroom', href: 'https://unityroom.com/games/supatto-cigirls', label: 'unityroom ↗', platforms: [] },
-        { provider: 'special-site', href: 'special/shigaaru-special.html', label: 'SPECIAL SITE ↗', platforms: [] }
-      ],
+      links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/supatto-cigirls', label: 'unityroom ↗', platforms: [] }],
       releaseDate: '2026-11-20', displayOrder: 10
     },
     {
       id: 'churyaku-collab-cafe', title: '中略！コラボカフェ', image: 'images/cigirl_cafe.png', imageAlt: '中略！コラボカフェ',
       description: { ja: '猫耳メイド5人と、ひとつのコラボカフェ。小さく楽しいクロスオーバー！', en: 'Five cat-eared maids, one collaboration café. A playful little crossover!' },
       flavors: ['digital-illustration'],
-      links: [
-        { provider: 'unityroom', href: 'https://unityroom.com/games/churyaku-collab-cafe', label: 'unityroom ↗', platforms: [] },
-        { provider: 'special-site', href: 'special/collab-cafe-special.html', label: 'SPECIAL SITE ↗', platforms: [] }
-      ],
+      links: [{ provider: 'unityroom', href: 'https://unityroom.com/games/churyaku-collab-cafe', label: 'unityroom ↗', platforms: [] }],
       releaseDate: '2026-11-17', displayOrder: 11
     },
     {
