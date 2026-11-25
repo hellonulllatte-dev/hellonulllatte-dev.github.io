@@ -1,303 +1,435 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WORDLAND — ちいさな遊園地 | NULLLATTE GALLERY</title>
-<meta name="theme-color" content="#ded0c7">
-<link rel="icon" type="image/png" href="../images/favicon.png">
-<script>
-// Set this before styles load to prevent a flash of the park between pages.
-try {
- if (sessionStorage.getItem('wordland-ticket-entered') === '1') {
-  document.documentElement.classList.add('wordland-entering');
-  sessionStorage.removeItem('wordland-ticket-entered');
- }
-} catch (_) {}
-</script>
-<style>
- @font-face { font-family:"MaruMonica"; src:url("../fonts/MaruMonica.ttf") format("truetype"); font-display:swap; }
- :root{--bg:#ded0c7;--ink:#3a323c;--line:#a37370;--paper:#e9d9ce}
- *{box-sizing:border-box}
- html,body{margin:0;min-height:100%;}
- body{background:var(--bg);color:var(--ink);font-family:"MaruMonica","Hiragino Maru Gothic ProN",Meiryo,sans-serif;}
- .page{width:min(720px,calc(100% - 24px));margin:0 auto;padding:24px 0 22px}
- /* Same compact return-to-gallery header as other standalone exhibits. */
- .top{display:flex;align-items:center;gap:16px;margin-bottom:20px;font-size:12px;letter-spacing:.07em}
- .gallery-back{color:#6b5258;text-decoration:none;min-height:30px;display:inline-flex;align-items:center}
- .gallery-back:hover{text-decoration:underline;text-underline-offset:4px}
- .gallery-back:focus-visible{outline:3px solid var(--line);outline-offset:3px}
- .brand-title{margin:2px auto 13px;text-align:center;line-height:0}
- .brand-title img{display:block;width:230px;max-width:75%;height:auto;margin:0 auto;image-rendering:pixelated;image-rendering:crisp-edges}
-  
- .frame{width:min(388px,100%);margin:0 auto;overflow:hidden;background:#cca795;border:2px solid var(--line);border-radius:10px;box-shadow:5px 6px 0 #3a323c18}
- canvas{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges}
-  .used-ticket{text-align:center;margin:18px 0 0;line-height:0}
- .used-ticket img{display:block;width:142px;max-width:40%;height:auto;margin:0 auto;image-rendering:pixelated}
- /* Entry curtain: same background/logo as the Gallery's fade-in. */
- .wordland-arrival { display:none; position:fixed; z-index:9999; inset:0; align-items:center; justify-content:center; background:#ded0c7; opacity:1; pointer-events:auto; transition:opacity .75s ease; }
- html.wordland-entering .wordland-arrival { display:flex; }
- .wordland-arrival.is-leaving { opacity:0; pointer-events:none; }
- .wordland-arrival img { display:block; width:min(460px,76vw); height:auto; image-rendering:pixelated; }
- @media(prefers-reduced-motion:reduce){ .wordland-arrival{transition:none;} }
- .status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
- .status.has-error{position:static;clip-path:none;width:auto;height:auto;overflow:visible;white-space:normal;text-align:center;font-size:12px;margin-top:12px;color:#7a4343}
- @media(max-width:540px){.page{padding:16px 0}.top{font-size:11px}.frame{border-width:1px}.brand-title{margin-bottom:10px}.caption{font-size:12px}}
-html {
-  scrollbar-gutter: stable;
-}
-</style>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NULLLATTE | HOME</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home-featured.css">
+  <!-- HOME only: no separate floor line; BOSS stands on the footer separator. -->
+  <style>
+    .home-about { padding-bottom: 0; }
+    .home-about .about-walkway {
+      height: 170px;
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+    .main { padding-bottom: 0; }
+
+    /* HOME only: a single, unobtrusive collaboration banner. */
+    .home-cafe-banner {
+      margin: 48px auto 56px;
+      padding: 0 12px;
+      text-align: center;
+    }
+    .home-cafe-banner a {
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      margin-inline: auto;
+      border-radius: 8px;
+      overflow: hidden;
+      line-height: 0;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .home-cafe-banner a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(91, 14, 14, .12);
+    }
+    .home-cafe-banner a:focus-visible {
+      outline: 3px solid #934D4F;
+      outline-offset: 4px;
+    }
+    .home-cafe-banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    @media (max-width: 640px) {
+      .home-cafe-banner { margin: 28px auto 36px; padding: 0 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .home-cafe-banner a { transition: none; }
+      .home-cafe-banner a:hover { transform: none; }
+    }
+  </style>
+
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZBDZFFZ6J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DZBDZFFZ6J');
+  </script>
 </head>
+
 <body>
-<div class="wordland-arrival" id="wordland-arrival" aria-hidden="true"><img src="assets/wordland-logo.png" alt=""></div>
-<main class="page">
- <header class="top"><a class="gallery-back" href="../gallery.html?view=diorama">← GALLERY</a></header>
- <h1 class="brand-title"><img src="assets/wordland-logo.png" alt="WORDLAND"></h1>
- <div class="frame"><canvas id="park" width="768" height="512" aria-label="アトラクションが動き、小さなお客さんが自分で歩く遊園地"></canvas></div>
- <div class="used-ticket"><img src="assets/ticket-stub.png" alt="WORDLANDの使用済み半券" width="143" height="84"></div>
- <p id="status" class="status" aria-live="polite">素材を読み込み中…</p>
-</main>
-<script>
-(()=>{
- 'use strict';
- const canvas=document.querySelector('#park');
- const ctx=canvas.getContext('2d',{alpha:false});
- ctx.imageSmoothingEnabled=false;
- const status=document.querySelector('#status');
- const sources={
-  park:'assets/park.png', coaster:'assets/coaster.png', bunny:'assets/bunny.png',
-  ferris:'assets/ferris.png', coffee:'assets/coffee.png', merry:'assets/merry.png',
-  kart:'assets/kart.png', viking:'assets/viking.png', ghost:'assets/ghost.png', visitor:'assets/visitor.png'
- };
- const images={};
- const rides=[
-  // All frames are 128x128. 'durations' sets the display time in ms per frame.
-  // Edit these numbers later to fine-tune animation without touching the PNGs.
-  {id:'coaster',x:24,y:27,frames:5,durations:[230,35,230,230,230]}, // frame 1 flashes by
-  {id:'ferris',x:308,y:3,frames:2,durations:[1150,1150]}, // slow rotation
-  {id:'ghost',x:591,y:6,frames:4,interval:400},
-  {id:'viking',x:184,y:179,frames:4,durations:[640,320,640,320]}, // 1 & 3 extended, while 0 & 2 stay longer
-  {id:'coffee',x:307,y:213,frames:2,interval:560},
-  {id:'merry',x:466,y:189,frames:4,durations:[850,850,850,850]}, // slower carousel
-  {id:'kart',x:5,y:351,frames:2,interval:490},
-  {id:'bunny',x:626,y:305,frames:4,interval:330}
- ];
- function rideFrame(ride,time){
-  if(!ride.durations)return Math.floor(time/ride.interval)%ride.frames;
-  const cycle=ride.durations.reduce((total,ms)=>total+ms,0);
-  let within=time%cycle;
-  for(let frame=0;frame<ride.durations.length;frame++){
-   if(within<ride.durations[frame])return frame;
-   within-=ride.durations[frame];
-  }
-  return ride.durations.length-1;
- }
- const nodes={
-  E:[384,500], B:[384,444], LB:[160,444], LG:[160,400], LM:[160,281],
-  LV:[160,244], LT:[160,170], LE:[80,281], UL:[240,170], UT:[240,95],
-  UM:[384,170], UR:[548,170], URT:[548,95], RT:[608,170], MR:[608,221],
-  RM:[608,283], RE:[688,283], RB:[608,444],
-  // Viewpoints stay on the south side of the parade, outside its animation.
-  WATCH_W:[364,386], WATCH_E:[404,386]
- };
- const edges=[
-  ['E','B'],['B','LB'],['B','RB'],['B','WATCH_W'],['B','WATCH_E'],
-  ['LB','LG'],['LG','LM'],['LM','LV'],['LV','LT'],['LM','LE'],
-  ['LT','UL'],['UL','UT'],['UL','UM'],['UM','UR'],['UR','URT'],['UR','RT'],
-  ['RT','MR'],['MR','RM'],['RM','RE'],['RM','RB']
- ];
- const graph=Object.fromEntries(Object.keys(nodes).map(k=>[k,[]]));
- for(const [a,b] of edges){
-  const length=Math.hypot(nodes[a][0]-nodes[b][0],nodes[a][1]-nodes[b][1]);
-  graph[a].push({to:b,length}); graph[b].push({to:a,length});
- }
- function shortest(from,to){
-  const distance=Object.fromEntries(Object.keys(nodes).map(k=>[k,Infinity]));
-  const parent={};const remaining=new Set(Object.keys(nodes));distance[from]=0;
-  while(remaining.size){
-   let best=null;
-   for(const k of remaining){if(best===null||distance[k]<distance[best])best=k;}
-   if(best===null||!Number.isFinite(distance[best]))break;
-   remaining.delete(best);if(best===to)break;
-   for(const edge of graph[best]){
-    const next=distance[best]+edge.length;
-    if(next<distance[edge.to]){distance[edge.to]=next;parent[edge.to]=best;}
-   }
-  }
-  if(!Number.isFinite(distance[to]))return [];
-  const route=[to];let cur=to;
-  while(cur!==from){cur=parent[cur];route.unshift(cur);}
-  return route;
- }
- const rand=(min,max)=>min+Math.random()*(max-min);
- const choose=arr=>arr[Math.floor(Math.random()*arr.length)];
- const rideStops=[
-  {ride:'coaster', node:'UT'},
-  {ride:'ferris', node:'UM'},
-  {ride:'ghost', node:'URT'},
-  {ride:'viking', node:'LV'},
-  {ride:'merry', node:'MR'},
-  {ride:'kart', node:'LG'},
-  {ride:'bunny', node:'RE'}
- ];
- const scenicStops=['LE','LG','LV','UM','URT','MR','RE','RT','LG'];
- // Nine visitors: three of each of the three source colors (two sprite frames/color).
- // Four wander, two often watch the parade, three often take rides.
- const specs=[
-  {role:'wander', color:0, first:'UM', speed:35},
-  {role:'watcher',color:1, first:'WATCH_W', speed:30},
-  {role:'rider',  color:2, first:'UT', speed:32},
-  {role:'wander', color:0, first:'LG', speed:31},
-  {role:'rider',  color:1, first:'MR', speed:36},
-  {role:'watcher',color:2, first:'WATCH_E', speed:33},
-  {role:'wander', color:0, first:'RE', speed:29},
-  {role:'rider',  color:1, first:'LV', speed:34},
-  {role:'wander', color:2, first:'URT', speed:37}
- ];
- const customers=specs.map((spec,index)=>({
-  id:index,role:spec.role,variant:spec.color*2,speed:spec.speed,
-  first:spec.first,home:spec.role==='watcher'?spec.first:null,
-  spawnAt:index*3.2, state:'scheduled', x:384,y:532,
-  node:'E',route:[],target:null,activity:null,
-  wait:0,bobOffset:index*83,lastGoal:null,watchBreak:false, ride:null
- }));
- function sendTo(customer,destination,activity){
-  customer.target=destination;
-  customer.activity=activity;
-  customer.route=shortest(customer.node,destination).slice(1);
-  customer.state='walking';
-  if(!customer.route.length){arrive(customer);}
- }
- function walkSomewhere(customer){
-  const options=scenicStops.filter(n=>n!==customer.node&&n!==customer.lastGoal);
-  const dest=choose(options.length?options:scenicStops.filter(n=>n!==customer.node));
-  customer.lastGoal=dest;
-  sendTo(customer,dest,'stroll');
- }
- function rideSomewhere(customer,first=null){
-  const available=rideStops.filter(r=>r.node!==customer.node&&r.node!==customer.lastGoal);
-  const place=first?rideStops.find(r=>r.node===first):choose(available.length?available:rideStops);
-  customer.ride=place.ride;
-  customer.lastGoal=place.node;
-  sendTo(customer,place.node,'ride');
- }
- function beginCustomer(customer){
-  if(customer.first){
-   const first=customer.first;customer.first=null;
-   if(customer.role==='watcher')sendTo(customer,first,'watch');
-   else if(customer.role==='rider')rideSomewhere(customer,first);
-   else sendTo(customer,first,'stroll');
-  }else if(customer.role==='watcher'){
-   if(customer.watchBreak){customer.watchBreak=false;sendTo(customer,customer.home,'watch');}
-   else sendTo(customer,customer.home,'watch');
-  }else if(customer.role==='rider')rideSomewhere(customer);
-  else walkSomewhere(customer);
- }
- function arrive(customer){
-  customer.route=[];
-  if(customer.activity==='ride'){
-   // The guest disappears at the ride entrance, then reappears after the ride.
-   customer.state='riding';customer.wait=rand(12,20);
-  }else if(customer.activity==='watch'){
-   customer.state='watching';customer.wait=rand(16,26);
-  }else{
-   customer.state='resting';customer.wait=rand(1.2,3.5);
-  }
- }
- function nextAfterWait(customer){
-  if(customer.state==='riding'){
-   // Reappear at the SAME boarding point; do not teleport across the park.
-   customer.state='afterRide';customer.wait=rand(1.1,2.6);
-  }else if(customer.state==='watching'){
-   customer.watchBreak=true;
-   const options=['LG','RM','UM','LV'].filter(n=>n!==customer.node);
-   sendTo(customer,choose(options),'stroll');
-  }else if(customer.state==='resting'||customer.state==='afterRide'){
-   beginCustomer(customer);
-  }
- }
- function moveTowards(customer,tx,ty,dt){
-  const dx=tx-customer.x,dy=ty-customer.y;
-  const dist=Math.hypot(dx,dy),move=customer.speed*dt;
-  if(dist<=move+0.00001){customer.x=tx;customer.y=ty;return true;}
-  customer.x+=dx/dist*move;customer.y+=dy/dist*move;
-  return false;
- }
- let elapsed=0;
- function advance(customer,dt){
-  if(customer.state==='scheduled'){
-   if(elapsed>=customer.spawnAt){customer.state='entering';}
-   else return;
-  }
-  if(customer.state==='entering'){
-   if(moveTowards(customer,...nodes.E,dt)){beginCustomer(customer);}
-   return;
-  }
-  if(customer.wait>0){
-   customer.wait=Math.max(0,customer.wait-dt);
-   if(customer.wait===0)nextAfterWait(customer);
-   return;
-  }
-  if(customer.state!=='walking')return;
-  if(!customer.route.length){arrive(customer);return;}
-  const dest=customer.route[0];
-  if(moveTowards(customer,...nodes[dest],dt)){
-   customer.node=dest;customer.route.shift();
-   if(!customer.route.length)arrive(customer);
-  }
- }
- function render(time){
-  ctx.clearRect(0,0,768,512);
-  ctx.imageSmoothingEnabled=false;
-  ctx.drawImage(images.park,0,0);
-  for(const ride of rides){
-   const frame=rideFrame(ride,time);
-   ctx.drawImage(images[ride.id],frame*128,0,128,128,ride.x,ride.y,128,128);
-  }
-  for(const customer of customers){
-   if(customer.state==='scheduled'||customer.state==='riding')continue;
-   const walking=customer.state==='walking'||customer.state==='entering';
-   const step=walking?Math.floor((time+customer.bobOffset)/210)%2:0;
-   const bob=walking?(step===0?0:1):0;
-   ctx.drawImage(images.visitor,(customer.variant+step)*56,0,56,43,
-    Math.round(customer.x)-28,Math.round(customer.y)-35-bob,56,43);
-  }
- }
- // Optional read-only diagnostic state for local QA (?debug=1).
- if(new URLSearchParams(location.search).has('debug')){
-  window.__parkDebug={getState:()=>({elapsed,
-   customers:customers.map(c=>({id:c.id,role:c.role,variant:c.variant,
-    state:c.state,x:c.x,y:c.y,node:c.node,target:c.target,activity:c.activity})),
-   totalEntered:customers.filter(c=>c.state!=='scheduled').length})};
- }
- let previous=null;
- function tick(time){
-  const dt=previous===null?0:Math.min(0.05,(time-previous)/1000);previous=time;
-  elapsed+=dt;
-  for(const customer of customers)advance(customer,dt);
-  render(time);requestAnimationFrame(tick);
- }
- function revealPark(){
-  const curtain=document.querySelector('#wordland-arrival');
-  if(!curtain || !document.documentElement.classList.contains('wordland-entering'))return;
-  const finish=()=>{curtain.remove();document.documentElement.classList.remove('wordland-entering');};
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){finish();return;}
-  // Give the canvas one fully drawn frame before fading the logo away.
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-   curtain.addEventListener('transitionend',finish,{once:true});
-   curtain.classList.add('is-leaving');
-  }));
- }
- Promise.all(Object.entries(sources).map(([key,url])=>new Promise((resolve,reject)=>{
-  const img=new Image(); img.onload=()=>{images[key]=img;resolve();};
-  img.onerror=()=>reject(new Error('画像を読み込めません: '+url));img.src=url;
- }))).then(()=>{
-  status.textContent='';
-  render(performance.now());
-  requestAnimationFrame(tick);
-  revealPark();
- }).catch(error=>{status.textContent=error.message;status.classList.add('has-error');console.error(error);revealPark();});
-})();
-</script>
+  <div class="site">
+
+    <header class="header">
+      <div class="brand">
+        <img
+          src="images/coffee.gif"
+          alt="湯気の立つコーヒーカップ"
+          class="brand-icon"
+        >
+        <h1>NULLLATTE</h1>
+        <p class="brand-subtitle">
+          Little games, made with care.
+        </p>
+      </div>
+      <div class="language">
+        <button type="button">JP</button>
+        <span>/</span>
+        <button type="button">EN</button>
+      </div>
+      <nav class="nav">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="games.html">Games</a>
+        <a href="cast.html">Cast</a>
+        <a href="devlog.html">LOG</a>
+        <a href="gallery.html">GALLERY</a>
+        <a href="playground.html">PLAYGROUND</a>
+        <a href="about.html">About</a>
+      </nav>
+
+
+    </header>
+
+    <main class="main">
+
+      <!-- FEATURED GAMES -->
+      <section class="games-section">
+        <h2>Featured Games</h2>
+
+        <div class="home-featured" data-i18n-ignore>
+          <div class="hf-window" aria-label="Featured Games">
+            <div class="hf-track"></div>
+          </div>
+          <div class="hf-controls">
+            <button type="button" class="hf-prev" aria-label="Previous">‹</button>
+            <span class="hf-count">01 / 06</span>
+            <button type="button" class="hf-next" aria-label="Next">›</button>
+            <button type="button" class="hf-pause" aria-label="Pause">Ⅱ</button>
+          </div>
+        </div>
+        <noscript><p><a href="games.html">View All Games →</a></p></noscript>
+
+        <a class="home-more-link" href="games.html">
+          View All Games →
+        </a>
+      </section>
+
+      <!-- SPECIAL COLLABORATION: one full-image clickable banner -->
+      <section class="home-cafe-banner" aria-label="喫茶 燻々 × CIGIRL コラボカフェ">
+        <a href="special/collab-cafe-special.html"
+           aria-label="喫茶 燻々 × CIGIRL コラボカフェ特設サイトへ">
+          <img src="images/cafe-banner-1200x400.png"
+               alt="喫茶 燻々 × CIGIRL コラボカフェ開催中。2026年11月17日から好評につき継続中。特設サイトはこちら。"
+               width="1200" height="400" loading="lazy" decoding="async">
+        </a>
+      </section>
+
+      <!-- LATEST DEVLOG -->
+      <section class="home-section">
+        <h2>Latest LOG</h2>
+
+        <div id="latest-devlog">
+          <article class="devlog-card">
+            <div class="devlog-meta">
+              <time datetime="2026-11-20">2026.11.20</time>
+              <span>NOTE</span>
+            </div>
+
+            <h3>CASTページ制作中！</h3>
+            <p>
+              キャラクターを並べるページを作っています。
+              分類は「お姉さん」と「それ以外」。
+            </p>
+          </article>
+        </div>
+
+        <a class="home-more-link" href="devlog.html">
+          View All Posts →
+        </a>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="home-section home-about">
+        <h2>About</h2>
+
+        <p class="home-about-text">
+          小さなゲームを個人制作しています。
+          ドット絵やイラストを描いたり、
+          ちょっと変わった遊びを考えたりしています。
+        </p>
+
+        <!-- SNS -->
+        <div class="home-social-links">
+          <a
+            href="https://unityroom.com/users/nulllatte"
+            target="_blank"
+            rel="noopener noreferrer"
+          >unityroom ↗</a>
+
+          <a
+            href="https://nulllatte.itch.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >itch.io ↗</a>
+
+          <a
+            href="https://x.com/nulllattte"
+            target="_blank"
+            rel="noopener noreferrer"
+          >X ↗</a>
+        </div>
+
+        <!-- BOSSのお留守番エリア -->
+        <div class="about-walkway" aria-hidden="true">
+          <canvas id="nulllatteWalk"></canvas>
+        </div>
+
+      </section>
+
+    </main>
+
+    <footer>
+      © NULLLATTE — Made with care.
+    </footer>
+
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="games-data.js"></script>
+  <script src="home-featured.js"></script>
+
+  <!-- DEVLOG -->
+  <script src="posts.js"></script>
+  <script>
+    const latestContainer = document.getElementById("latest-devlog");
+
+    if (typeof getSortedPosts === "function" &&
+        typeof createPostCard === "function") {
+      const latestPost = getSortedPosts()[0];
+
+      if (latestContainer && latestPost) {
+        latestContainer.replaceChildren(createPostCard(latestPost));
+      }
+    }
+  </script>
+
+  <script src="transition.js"></script>
+
+  <!-- HOME: BOSS only. The 13-frame sprite is shared with PLAYGROUND. -->
+  <script>
+  (() => {
+    'use strict';
+    const canvas = document.getElementById('nulllatteWalk');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const bossSprite = new Image();
+    const meowBubble = new Image();
+    const meowSound = new Audio('images/Meow.wav');
+    meowSound.volume = 0.7;
+
+    const FRAME_SIZE = 32;
+    const BOSS_SIZE = 96; // 32 x 3: same pixel scale as the mini character on ABOUT.
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const BOSS_FRAMES = {
+      idle: [0, 1],
+      walk: [2, 3, 4],
+      back: [5, 6],
+      rest: [11, 12]
+    };
+
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let ready = false;
+    let bubbleReady = false;
+    let lastTime = null;
+    let meowUntil = 0;
+    let bossReactUntil = 0;
+    let animationId = 0;
+    let initialized = false;
+
+    const boss = {
+      mode: 'idle', x: 0, direction: 'right', speed: 20,
+      animFrame: 0, animTimer: 0, actionTimer: 7000
+    };
+
+    function bounds() {
+      const edge = Math.max(0, canvasWidth - BOSS_SIZE);
+      const anchor = Math.max(0, Math.min(edge, (canvasWidth - BOSS_SIZE) / 2));
+      return {
+        anchor,
+        min: Math.max(0, anchor - 90),
+        max: Math.min(edge, anchor + 90)
+      };
+    }
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvasWidth = rect.width;
+      canvasHeight = rect.height;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(canvasWidth * dpr);
+      canvas.height = Math.round(canvasHeight * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = false;
+      const area = bounds();
+      if (!initialized) {
+        boss.x = area.anchor;
+        initialized = true;
+      } else {
+        boss.x = Math.max(area.min, Math.min(boss.x, area.max));
+      }
+    }
+
+    function position() {
+      // The sprites have 6–7 transparent rows below their visible paws.
+      const pawRow = boss.mode === 'walk' ? 26 : 25;
+      return {
+        x: Math.round(boss.x),
+        y: Math.round(canvasHeight - pawRow * BOSS_SIZE / FRAME_SIZE)
+      };
+    }
+
+    function setMode(mode, duration) {
+      boss.mode = mode;
+      boss.animFrame = 0;
+      boss.animTimer = 0;
+      boss.actionTimer = duration;
+    }
+
+    function chooseAction() {
+      const roll = Math.random();
+      if (roll < .48) setMode('idle', 6000 + Math.random() * 6000);
+      else if (roll < .68) {
+        boss.direction = Math.random() < .5 ? 'left' : 'right';
+        setMode('walk', 1300 + Math.random() * 1000);
+      } else if (roll < .84) setMode('back', 3000 + Math.random() * 2500);
+      else setMode('rest', 8000 + Math.random() * 7000);
+    }
+
+    function update(dt, now) {
+      if (now < bossReactUntil) return;
+      if (reducedMotion.matches) {
+        if (boss.mode !== 'idle' || boss.animFrame !== 0) {
+          setMode('idle', Number.POSITIVE_INFINITY);
+        }
+        return;
+      }
+      boss.animTimer += dt;
+      boss.actionTimer -= dt;
+      const frameDuration = boss.mode === 'walk' ? 180 : boss.mode === 'rest' ? 1100 : 850;
+      while (boss.animTimer >= frameDuration) {
+        boss.animTimer -= frameDuration;
+        boss.animFrame++;
+      }
+      if (boss.mode === 'walk') {
+        const area = bounds();
+        boss.x += (boss.direction === 'right' ? 1 : -1) * boss.speed * dt / 1000;
+        if (boss.x <= area.min) { boss.x = area.min; boss.direction = 'right'; }
+        else if (boss.x >= area.max) { boss.x = area.max; boss.direction = 'left'; }
+      }
+      if (boss.actionTimer <= 0) chooseAction();
+    }
+
+    function draw(now) {
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      if (!ready) return;
+      const pos = position();
+      const frames = BOSS_FRAMES[boss.mode] || BOSS_FRAMES.idle;
+      const frame = frames[boss.animFrame % frames.length];
+      ctx.save();
+      ctx.imageSmoothingEnabled = false;
+      if (boss.mode === 'walk' && boss.direction === 'right') {
+        ctx.translate(pos.x + BOSS_SIZE, pos.y);
+        ctx.scale(-1, 1);
+        ctx.drawImage(bossSprite, frame * FRAME_SIZE, 0, FRAME_SIZE, FRAME_SIZE,
+          0, 0, BOSS_SIZE, BOSS_SIZE);
+      } else {
+        ctx.drawImage(bossSprite, frame * FRAME_SIZE, 0, FRAME_SIZE, FRAME_SIZE,
+          pos.x, pos.y, BOSS_SIZE, BOSS_SIZE);
+      }
+      ctx.restore();
+
+      if (now < meowUntil && bubbleReady) {
+        const bubbleW = 96;
+        const bubbleH = 54;
+        const bubbleX = Math.round(Math.max(0, Math.min(canvasWidth - bubbleW,
+          pos.x + BOSS_SIZE / 2 - bubbleW / 2)));
+        // The taller stage keeps the whole bubble visible above BOSS.
+        const bubbleY = Math.round(Math.max(0, pos.y - bubbleH - 8));
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(meowBubble, 0, 15, 48, 27,
+          bubbleX, bubbleY, bubbleW, bubbleH);
+        ctx.restore();
+      }
+    }
+
+    function point(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left) * canvasWidth / rect.width,
+        y: (event.clientY - rect.top) * canvasHeight / rect.height
+      };
+    }
+    function overBoss(point) {
+      if (!ready) return false;
+      const pos = position();
+      return point.x >= pos.x && point.x <= pos.x + BOSS_SIZE &&
+             point.y >= pos.y && point.y <= pos.y + BOSS_SIZE;
+    }
+    canvas.addEventListener('pointermove', event => {
+      canvas.style.cursor = overBoss(point(event)) ? 'pointer' : 'default';
+    });
+    canvas.addEventListener('pointerleave', () => { canvas.style.cursor = 'default'; });
+    canvas.addEventListener('pointerdown', event => {
+      if (!overBoss(point(event))) return;
+      meowSound.pause();
+      meowSound.currentTime = 0;
+      meowSound.play().catch(error => console.warn('Meow.wavを再生できません:', error));
+      const now = performance.now();
+      meowUntil = now + 1200;
+      bossReactUntil = now + 1200;
+      if (boss.mode === 'rest') setMode('idle', 6000);
+    });
+
+    function loop(now) {
+      if (lastTime === null) lastTime = now;
+      const dt = Math.min(now - lastTime, 50);
+      lastTime = now;
+      update(dt, now);
+      draw(now);
+      animationId = requestAnimationFrame(loop);
+    }
+    bossSprite.onload = () => {
+      ready = true;
+      resizeCanvas();
+      animationId = requestAnimationFrame(loop);
+    };
+    bossSprite.onerror = () => console.error('BOSS画像を読み込めません:', bossSprite.src);
+    meowBubble.onload = () => { bubbleReady = true; };
+    meowBubble.onerror = () => console.error('吹き出し画像を読み込めません:', meowBubble.src);
+    bossSprite.src = 'playground/cats/boss.png';
+    meowBubble.src = 'images/meow.png';
+    window.addEventListener('resize', resizeCanvas);
+    document.addEventListener('visibilitychange', () => { lastTime = null; });
+    reducedMotion.addEventListener?.('change', event => {
+      boss.x = bounds().anchor;
+      setMode('idle', event.matches ? Number.POSITIVE_INFINITY : 6000);
+    });
+  })();
+  </script>
+
 </body>
 </html>
