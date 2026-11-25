@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ded0c7">
+<title>VOXEL TYPE | NULLLATTE PLAYGROUND</title>
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<style>
+@font-face{font-family:"MaruMonica";src:url("../fonts/MaruMonica.ttf") format("truetype");font-weight:normal;font-style:normal;font-display:swap}
+
+:root{--bg:#ded0c7;--ink:#3a323c;--muted:#80656a;--border:#a37370;--cream:#f9f2eb;--panel:#e9dbd2;--dark:#6b5258}
+*{box-sizing:border-box}html,body{min-height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"MaruMonica","Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,sans-serif}
+button,input{font:inherit}button:focus-visible,input:focus-visible{outline:3px solid #705153;outline-offset:3px}
+.shell{width:min(1060px,calc(100% - 32px));margin:auto;padding:12px 0 12px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:9px}
+.path{font-size:12px;letter-spacing:.13em}.back{display:inline-flex;align-items:center;justify-content:center;font-size:11px;border:1px solid var(--border);border-radius:999px;padding:6px 10px;white-space:nowrap;text-decoration:none;color:inherit}.back:hover{background:#f9f2eb}
+.heading{text-align:center;margin:0 0 12px}.heading .sup{margin:0 0 4px;font-size:11px;letter-spacing:.24em;color:#966c71}
+h1{font-size:clamp(26px,3vw,35px);letter-spacing:.08em;line-height:1.12;font-weight:normal;margin:0}.desc{margin:4px 0 0;font-size:13px;letter-spacing:.04em;color:#72595e}
+.lab{overflow:hidden;background:var(--cream);border:2px solid var(--border);border-radius:20px;box-shadow:6px 7px 0 #a3737028}
+.toolbar{height:27px;display:flex;align-items:center;background:#e6d4c8;border-bottom:1px solid #b79295;padding:0 13px;}
+.dots{display:flex;gap:6px;align-items:center}.dots span{width:10px;height:10px;border:1px solid #916d73;border-radius:50%;background:#d7c1b4}.dots span:nth-child(2){background:#cca795}.dots span:nth-child(3){background:#6b5258}
+.viewport{position:relative;height:clamp(270px,46dvh,440px);touch-action:none;overscroll-behavior:contain;cursor:grab;background:radial-gradient(ellipse at 48% 40%,#fcf8f1 0%,#f6eae1 57%,#ecdbd2 100%);overflow:hidden;user-select:none}
+.viewport.is-dragging{cursor:grabbing}
+.viewport canvas{width:100%;height:100%;display:block}
+.corner{position:absolute;left:16px;bottom:12px;font-size:11px;color:#947d7e;letter-spacing:.08em;pointer-events:none}
+.corner.right{left:auto;right:16px}
+.controls{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;padding:10px;background:#f9f2eb;border-top:1px solid #e4ccc2}
+.word-field{display:flex;align-items:center;gap:9px;font-size:12px;color:#705153;letter-spacing:.1em}
+.word-rule{font-size:11px;color:var(--muted);letter-spacing:0;white-space:nowrap}.word-field input{min-width:0;width:136px;height:39px;border:1px solid #b79295;border-radius:9px;background:#fffaf5;padding:7px 12px;color:#3a323c;letter-spacing:.16em;text-transform:uppercase;font-size:16px}
+.btn{min-height:39px;border:1px solid var(--dark);border-radius:9px;padding:8px 18px;color:#fff9f1;background:var(--dark);cursor:pointer;transition:background .15s,transform .15s;font-size:13px;white-space:nowrap}
+.btn-scatter{width:148px;flex:0 0 148px;text-align:center}.btn:hover{background:#8a6970;transform:translateY(-1px)}.btn.outline{background:#fffaf5;color:var(--dark);border-color:#b79295}.btn.outline:hover{background:#eee0da}
+.footer{padding-top:8px;display:flex;justify-content:center;gap:10px;font-size:11px;color:#846c6d;letter-spacing:.06em}
+@media(max-width:600px){.shell{width:calc(100% - 18px);padding-top:13px}.path,.back{font-size:10px}.top{padding-bottom:8px}.heading{margin-bottom:9px}h1{font-size:30px}.desc{font-size:12px}.toolbar{height:25px;padding:0 10px}.viewport{height:clamp(270px,43dvh,400px)}.controls{gap:7px}.word-field{width:100%;justify-content:center;flex-wrap:wrap}.word-field input{width:125px}.btn{flex:1 1 100px;padding:8px 9px}.btn-scatter{flex:1 1 126px;width:126px}.corner{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top"><div class="path">NULLLATTE / PLAYGROUND</div><a class="back" href="../playground.html">← PLAYGROUND</a></header>
+  <div class="heading"><div class="sup">PIXELS WITH DEPTH</div><h1>VOXEL TYPE</h1><p class="desc">四角い文字を、くるり。ぽろぽろ。もう一度。</p></div>
+  <main class="lab">
+    <div class="toolbar" aria-hidden="true"><div class="dots"><span></span><span></span><span></span></div></div>
+    <div id="viewport" class="viewport" aria-label="3Dボクセル文字。ドラッグで回転し、クリックでばらして組み直せます" role="button" tabindex="0"><canvas id="view"></canvas><span class="corner">DRAG TO ROTATE</span><span class="corner right">CLICK TO SCATTER</span></div>
+    <div class="controls">
+      <label class="word-field" for="word">TYPE <span class="word-rule">A–Z / 最大9文字</span><input id="word" type="text" value="NULL" maxlength="9" pattern="[A-Za-z]{1,9}" autocomplete="off" autocapitalize="characters" enterkeyhint="done" inputmode="text" spellcheck="false" aria-label="英字AからZ、最大9文字を入力し、Enterで確定"></label>
+      <button id="scatter" type="button" class="btn btn-scatter">ばらす ◇</button>
+      <button id="reset" type="button" class="btn outline">視点をもどす</button>
+    </div>
+  </main>
+  <footer class="footer">NULLLATTE / a tiny interactive experiment</footer>
+</div>
+<script>
+(() => {
+'use strict';
+// Each 1 in the glyph bitmap becomes a genuine 3D cube (2 layers deep), projected in Canvas 2D.
+// This uses no external libraries so the HTML works when opened locally.
+const glyphs={
+ A:['01110','10001','10001','11111','10001','10001','10001'],
+ B:['11110','10001','10001','11110','10001','10001','11110'],
+ C:['01111','10000','10000','10000','10000','10000','01111'],
+ D:['11110','10001','10001','10001','10001','10001','11110'],
+ E:['11111','10000','10000','11110','10000','10000','11111'],
+ F:['11111','10000','10000','11110','10000','10000','10000'],
+ G:['01111','10000','10000','10111','10001','10001','01111'],
+ H:['10001','10001','10001','11111','10001','10001','10001'],
+ I:['11111','00100','00100','00100','00100','00100','11111'],
+ J:['00111','00010','00010','00010','10010','10010','01100'],
+ K:['10001','10010','10100','11000','10100','10010','10001'],
+ L:['10000','10000','10000','10000','10000','10000','11111'],
+ M:['10001','11011','10101','10101','10001','10001','10001'],
+ N:['10001','11001','10101','10011','10001','10001','10001'],
+ O:['01110','10001','10001','10001','10001','10001','01110'],
+ P:['11110','10001','10001','11110','10000','10000','10000'],
+ Q:['01110','10001','10001','10001','10101','10010','01101'],
+ R:['11110','10001','10001','11110','10100','10010','10001'],
+ S:['01111','10000','10000','01110','00001','00001','11110'],
+ T:['11111','00100','00100','00100','00100','00100','00100'],
+ U:['10001','10001','10001','10001','10001','10001','01110'],
+ V:['10001','10001','10001','10001','10001','01010','00100'],
+ W:['10001','10001','10001','10101','10101','11011','10001'],
+ X:['10001','10001','01010','00100','01010','10001','10001'],
+ Y:['10001','10001','01010','00100','00100','00100','00100'],
+ Z:['11111','00001','00010','00100','01000','10000','11111'],
+ '0':['01110','10001','10011','10101','11001','10001','01110'],
+ '1':['00100','01100','00100','00100','00100','00100','01110'],
+ '2':['01110','10001','00001','00010','00100','01000','11111'],
+ '3':['11110','00001','00001','01110','00001','00001','11110'],
+ '4':['00010','00110','01010','10010','11111','00010','00010'],
+ '5':['11111','10000','10000','11110','00001','00001','11110'],
+ '6':['01111','10000','10000','11110','10001','10001','01110'],
+ '7':['11111','00001','00010','00100','01000','01000','01000'],
+ '8':['01110','10001','10001','01110','10001','10001','01110'],
+ '9':['01110','10001','10001','01111','00001','00001','11110'],
+ ' ':['00000','00000','00000','00000','00000','00000','00000']
+};
+const colors=['#6b5258','#a37370','#cca795','#a37370','#705153','#967e83','#b89d95','#84676b','#59494f'];
+const viewport=document.getElementById('viewport'), canvas=document.getElementById('view'),ctx=canvas.getContext('2d');
+const input=document.getElementById('word'),scatterButton=document.getElementById('scatter');
+const hexRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const rgbHex=(rgb,k)=>'rgb('+rgb.map(v=>Math.max(0,Math.min(255,Math.round(v*k)))).join(',')+')';
+let pieces=[], currentText='NULL', yaw=-.38,pitch=.24,zoom=1,vyaw=0,vpitch=0, scattered=false, pointer=null;
+let vw=900,vh=440,mode='auto';
+const rand=(a,b)=>a+Math.random()*(b-a),clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const faceData=[
+  {normal:[0,0,1], indices:[4,5,6,7],shade:1.00},
+  {normal:[0,0,-1],indices:[1,0,3,2],shade:.65},
+  {normal:[1,0,0], indices:[5,1,2,6],shade:.76},
+  {normal:[-1,0,0],indices:[0,4,7,3],shade:.89},
+  {normal:[0,1,0], indices:[7,6,2,3],shade:1.18},
+  {normal:[0,-1,0],indices:[0,1,5,4],shade:.68}
+];
+const cubeVerts=[[-.48,-.48,-.48],[.48,-.48,-.48],[.48,.48,-.48],[-.48,.48,-.48],[-.48,-.48,.48],[.48,-.48,.48],[.48,.48,.48],[-.48,.48,.48]];
+function build(text){
+  let t=text.toUpperCase().replace(/[^A-Z]/g,'').slice(0,9); if(!t)t='NULL';
+  input.value=t; currentText=t;
+  const width=(t.length*6)-1;
+  const data=[];
+  for(let c=0;c<t.length;c++){
+    const pattern=glyphs[t[c]]||glyphs[' '];
+    for(let yy=0;yy<7;yy++)for(let xx=0;xx<5;xx++)if(pattern[yy][xx]==='1'){
+      for(let d=0;d<2;d++)data.push({
+        x:c*6+xx-(width-1)/2,y:3-yy,z:-d, shade:colors[c%colors.length],
+        dx:0,dy:0,dz:0,vx:0,vy:0,vz:0,twist:0,wt:rand(-.2,.2),
+        scatterX:rand(-6,6),scatterY:rand(-3.9,3.9),scatterZ:rand(-5,5),
+        scatterTwist:rand(-.8,.8)
+      });
+    }
+  }
+  pieces=data;scattered=false;scatterButton.textContent='ばらす ◇';document.querySelector('.corner.right').textContent='CLICK TO SCATTER';
+}
+function rot(p){
+ const cy=Math.cos(yaw),sy=Math.sin(yaw),cx=Math.cos(pitch),sx=Math.sin(pitch);
+ const x=p[0]*cy+p[2]*sy, z=-p[0]*sy+p[2]*cy;
+ return [x,p[1]*cx-z*sx,p[1]*sx+z*cx];
+}
+function project(r){
+ const width=(currentText.length*6)-1;
+ const fit=Math.min(vw/(width+13),vh/14)*zoom;
+ const cam=45; const s=fit*cam/(cam-r[2]);
+ return [vw/2+r[0]*s, vh/2-r[1]*s];
+}
+function draw(now){
+ const faces=[];
+ for(const p of pieces){
+   // Critically damped-ish spring: consistent time step with capped elapsed delta.
+   for(let n=0;n<3;n++){
+     const key=['dx','dy','dz'][n],velocity=['vx','vy','vz'][n],goal=scattered?p[['scatterX','scatterY','scatterZ'][n]]:0;
+     p[velocity]+=(goal-p[key])*.075;p[velocity]*=.79;p[key]+=p[velocity];
+   }
+   const twGoal=scattered?p.scatterTwist:0;
+   p.wt+=(twGoal-p.twist)*.054;p.wt*=.8;p.twist+=p.wt;
+   const base=[p.x+p.dx,p.y+p.dy,p.z+p.dz];
+   const zCos=Math.cos(p.twist),zSin=Math.sin(p.twist);
+   const vert=cubeVerts.map(([x,y,z])=>rot([base[0]+x*zCos-y*zSin,base[1]+x*zSin+y*zCos,base[2]+z]));
+   const norm=(n)=>rot(n);
+   for(const face of faceData){
+      if(norm(face.normal)[2]<=.03)continue;
+      const pts=face.indices.map(i=>project(vert[i]));
+      const depth=face.indices.reduce((s,i)=>s+vert[i][2],0)/4;
+      faces.push({pts,depth,fill:rgbHex(hexRgb(p.shade),face.shade),stroke:face.shade>1?'rgba(83,57,63,.56)':'rgba(58,50,60,.46)'});
+   }
+ }
+ faces.sort((a,b)=>a.depth-b.depth);
+ ctx.clearRect(0,0,vw,vh);
+ // Subtle horizonless tabletop / cast-shadow to anchor the floating word.
+ const grad=ctx.createRadialGradient(vw*.5,vh*.75,2,vw*.5,vh*.75,vw*.40);
+ grad.addColorStop(0,'rgba(99,74,83,.14)');grad.addColorStop(.5,'rgba(99,74,83,.045)');grad.addColorStop(1,'rgba(99,74,83,0)');
+ ctx.fillStyle=grad;ctx.beginPath();ctx.ellipse(vw/2,vh*.78,vw*.34,vh*.10,0,0,Math.PI*2);ctx.fill();
+ for(const face of faces){
+   ctx.beginPath();ctx.moveTo(face.pts[0][0],face.pts[0][1]);
+   for(let i=1;i<4;i++)ctx.lineTo(face.pts[i][0],face.pts[i][1]);
+   ctx.closePath();ctx.fillStyle=face.fill;ctx.fill();
+   ctx.strokeStyle=face.stroke;ctx.lineWidth=.9;ctx.lineJoin='bevel';ctx.stroke();
+ }
+}
+function frame(now){
+ if(!pointer){yaw+=vyaw;pitch=clamp(pitch+vpitch,-1.2,1.2);vyaw*=.91;vpitch*=.91;
+ if(Math.abs(vyaw)<.00005)vyaw=0;if(Math.abs(vpitch)<.00005)vpitch=0;}
+ draw(now);requestAnimationFrame(frame);
+}
+function resize(){
+ const rect=canvas.getBoundingClientRect();vw=Math.max(1,rect.width);vh=Math.max(1,rect.height);
+ const pixelRatio=Math.min(2,window.devicePixelRatio||1);
+ canvas.width=Math.round(vw*pixelRatio);canvas.height=Math.round(vh*pixelRatio);ctx.setTransform(pixelRatio,0,0,pixelRatio,0,0);
+}
+window.addEventListener('resize',resize);new ResizeObserver(resize).observe(viewport);
+viewport.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();pointer={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,moved:false};viewport.setPointerCapture(e.pointerId);viewport.classList.add('is-dragging');vyaw=vpitch=0;});
+viewport.addEventListener('pointermove',e=>{
+ if(!pointer||pointer.id!==e.pointerId)return;
+ const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;
+ if(Math.hypot(e.clientX-pointer.startX,e.clientY-pointer.startY)>6)pointer.moved=true;
+ const s=Math.max(1,Math.min(vw,vh));
+ yaw+=dx*2.3/s;pitch=clamp(pitch+dy*2.3/s,-1.2,1.2);
+ vyaw=dx*2.3/s*.6;vpitch=dy*2.3/s*.6;
+ pointer.x=e.clientX;pointer.y=e.clientY;
+});
+function toggleScatter(){scattered=!scattered;scatterButton.textContent=scattered?'組み立てる ◇':'ばらす ◇';document.querySelector('.corner.right').textContent=scattered?'CLICK TO REBUILD':'CLICK TO SCATTER';}
+viewport.addEventListener('pointerup',e=>{if(!pointer||pointer.id!==e.pointerId)return;const click=!pointer.moved;pointer=null;viewport.classList.remove('is-dragging');if(viewport.hasPointerCapture(e.pointerId))viewport.releasePointerCapture(e.pointerId);if(click)toggleScatter();});
+viewport.addEventListener('pointercancel',()=>{pointer=null;viewport.classList.remove('is-dragging');});
+viewport.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleScatter();}});
+viewport.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*(e.deltaY>0?.92:1.08),.60,1.6);},{passive:false});
+viewport.addEventListener('dblclick',()=>{yaw=-.38;pitch=.24;zoom=1;});
+document.getElementById('scatter').addEventListener('click',toggleScatter);
+document.getElementById('reset').addEventListener('click',()=>{yaw=-.38;pitch=.24;zoom=1;vyaw=vpitch=0;});
+input.addEventListener('input',()=>{const v=input.value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,9);if(v!==input.value)input.value=v;});
+input.addEventListener('keydown',e=>{if(e.key==='Enter' && !e.isComposing){e.preventDefault();if(input.value!==currentText)build(input.value);input.blur();}});
+input.addEventListener('change',()=>{if(input.value!==currentText)build(input.value);});
+resize();build('NULL');requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
