@@ -40,6 +40,13 @@
     <span class="gallery-shortcut-caption">DOT RADIO · ゲームの音楽</span>
     <span class="gallery-shortcut-arrow" aria-hidden="true">◆</span>
   </button>
+  <button class="gallery-collection-shortcut" type="button"
+          data-gallery-view="diorama" aria-pressed="false" aria-controls="gallery-diorama">
+    <span class="gallery-shortcut-number">COLLECTION / 03</span>
+    <span class="gallery-shortcut-title">DIORAMA</span>
+    <span class="gallery-shortcut-caption">WORDLAND</span>
+    <span class="gallery-shortcut-arrow" aria-hidden="true">◆</span>
+  </button>
 </div>
 
 <!-- Collection 01: Fictional products -->
@@ -91,8 +98,20 @@
       </div>
     </a>
   </section>
+
+<!-- Collection 03: a ticket is the entrance. No additional explanatory copy. -->
+<section class="gallery-exhibit gallery-wordland" id="gallery-diorama" aria-label="WORDLAND" hidden>
+  <button type="button" class="wordland-ticket" id="wordland-ticket"
+          aria-label="WORDLANDの入場券をもぎって遊園地に入る">
+    <img id="wordland-ticket-image" src="images/wordland/ticket-full.png"
+         alt="WORDLAND ADMISSION TICKET" width="181" height="102">
+  </button>
+</section>
 </main>
 <footer>© NULLLATTE — Made with care.</footer>
+</div>
+<div class="wordland-gate" id="wordland-gate" aria-hidden="true">
+  <img src="wordland/assets/wordland-logo.png" alt="" width="115" height="16">
 </div>
 <dialog class="goods-dialog" id="goods-dialog" aria-labelledby="dialog-name"><button class="goods-close" id="dialog-close" type="button" aria-label="Close">×</button><div class="goods-dialog-inner"><div class="goods-dialog-visual" id="dialog-visual"></div><div class="goods-dialog-copy"><span class="goods-dialog-kind" id="dialog-kind"></span><h3 id="dialog-name"></h3><p class="goods-dialog-en" id="dialog-en"></p><p id="dialog-ja" hidden></p></div></div></dialog>
 <script src="i18n.js"></script>
@@ -103,7 +122,8 @@
     const buttons = document.querySelectorAll('[data-gallery-view]');
     const sections = {
       art: document.getElementById('fictional-goods'),
-      audio: document.getElementById('gallery-audio')
+      audio: document.getElementById('gallery-audio'),
+      diorama: document.getElementById('gallery-diorama')
     };
     for (const button of buttons) {
       button.addEventListener('click', () => {
@@ -118,7 +138,55 @@
         }
       });
     }
+    // A return from WORDLAND reopens the ticket exhibit rather than ART.
+    if (new URLSearchParams(window.location.search).get('view') === 'diorama') {
+      [...buttons].find(button => button.dataset.galleryView === 'diorama')?.click();
+    }
   })();
+</script>
+<script>
+(() => {
+  'use strict';
+  const ticket = document.getElementById('wordland-ticket');
+  const picture = document.getElementById('wordland-ticket-image');
+  const gate = document.getElementById('wordland-gate');
+  const frames = [
+    'images/wordland/ticket-full.png',
+    'images/wordland/ticket-tear.png',
+    'images/wordland/ticket-used.png'
+  ];
+  let entering = false;
+  // Preload images to avoid a blank ticket between frames.
+  frames.slice(1).concat('wordland/assets/wordland-logo.png').forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+  ticket.addEventListener('click', () => {
+    if (entering) return;
+    entering = true;
+    ticket.disabled = true;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    picture.src = frames[1];
+    setTimeout(() => { picture.src = frames[2]; }, reduced ? 80 : 260);
+    setTimeout(() => {
+      gate.classList.add('is-visible');
+      gate.setAttribute('aria-hidden', 'false');
+    }, reduced ? 180 : 850);
+    setTimeout(() => {
+      // The destination uses the same logo curtain, then fades it out over the park.
+      try { sessionStorage.setItem('wordland-ticket-entered', '1'); } catch (_) {}
+      window.location.assign('wordland/index.html');
+    }, reduced ? 340 : 2500);
+  });
+  // Restore the ticket when returning from the browser back-forward cache.
+  window.addEventListener('pageshow', () => {
+    entering = false;
+    ticket.disabled = false;
+    picture.src = frames[0];
+    gate.classList.remove('is-visible');
+    gate.setAttribute('aria-hidden', 'true');
+  });
+})();
 </script>
 <script src="transition.js"></script>
 </body>

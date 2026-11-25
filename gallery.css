@@ -410,3 +410,31 @@ white-space: pre-line;
 @media (prefers-reduced-motion: reduce) {
   .gallery-goods .vending-machine .goods-card { transition: none; }
 }
+
+
+/* GALLERY COLLECTION 03 / WORDLAND — ticket-only exhibit */
+.gallery-collection-nav { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.gallery-wordland { min-height:clamp(260px,42vh,460px); display:flex; align-items:center; justify-content:center; }
+.gallery-wordland[hidden] { display:none!important; }
+.wordland-ticket { display:block; width:min(380px,82vw); margin:0; padding:0; border:0; background:transparent; cursor:pointer; line-height:0; transition:transform .15s ease; }
+.wordland-ticket img { display:block; width:100%; height:auto; image-rendering:pixelated; }
+.wordland-ticket:hover { transform:translateY(-3px); }
+.wordland-ticket:active { transform:translateY(0); }
+.wordland-ticket:focus-visible { outline:3px solid var(--accent); outline-offset:8px; border-radius:3px; }
+.wordland-ticket:disabled { cursor:default; }
+/* Show the logo over the ticket by fading in an opaque curtain. */
+.wordland-gate { display:flex; position:fixed; z-index:10000; inset:0; align-items:center; justify-content:center; background:#ded0c7; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .65s ease, visibility 0s linear .65s; }
+.wordland-gate.is-visible { opacity:1; visibility:visible; pointer-events:auto; transition:opacity .65s ease, visibility 0s; }
+.wordland-gate img { display:block; width:min(460px,76vw); height:auto; image-rendering:pixelated; }
+@media(max-width:650px){
+ .gallery-collection-nav { grid-template-columns:repeat(3,minmax(0,1fr));gap:7px; }
+ .gallery-collection-shortcut { padding:10px 7px; }
+ .gallery-shortcut-number { font-size:9px;letter-spacing:.04em; }
+ .gallery-shortcut-title { font-size:clamp(14px,4vw,20px);letter-spacing:.01em; }
+ .gallery-shortcut-caption { font-size:10px;overflow-wrap:anywhere; }
+ .gallery-wordland { min-height:clamp(250px,44vh,370px); }
+}
+@media(prefers-reduced-motion:reduce){ .wordland-ticket,.wordland-gate{transition:none;} }
+html {
+  scrollbar-gutter: stable;
+}
