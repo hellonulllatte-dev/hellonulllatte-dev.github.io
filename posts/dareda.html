@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <title>タイピングが苦手だからこそ、こだわったタイピングゲーム。『だーれだ？』 | NULLLATTE DEVLOG</title>
+  <meta name="description" content="『だーれだ？』の制作振り返り。タイピングが苦手だからこそ大切にした3つのゲームデザイン。">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* Existing DEVLOG article styles come from ../style.css. */
+    .dareda-post-figure { margin: 30px 0 38px; text-align: center; }
+    .dareda-post-figure img { display:block; width:100%; max-width:100%; height:auto; border-radius:8px; image-rendering:pixelated; }
+    .dareda-post-concept { margin:28px 0 12px; line-height:1.7; color:#78575e; }
+    .post-content .dareda-post-quote { margin: 24px 0 30px; }
+    .post-content .dareda-post-quote p { margin:0; }
+    .post-content .dareda-post-signature { margin-top:34px; text-align:right; }
+    .post-header h2 { overflow-wrap:anywhere; }
+    .dareda-language[hidden], [data-dareda-title][hidden] { display:none !important; }
+    @media(max-width:600px) { .dareda-post-figure { margin:22px 0 28px; } }
+      .dareda-toc { display:grid; gap:8px; margin: 20px 0 36px; }
+    .dareda-toc a { color:inherit; text-decoration:underline; }
+    .dareda-language h3 { scroll-margin-top:24px; }
+  </style>
+</head>
+<body>
+  <div class="site">
+    <header class="header">
+      <div class="brand">
+        <img src="../images/coffee.gif" alt="Coffee cup" class="brand-icon">
+        <h1>NULLLATTE</h1>
+        <p class="brand-subtitle">Little games, made with care.</p>
+      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html">Home</a>
+        <a href="../games.html">Games</a>
+        <a href="../cast.html">Cast</a>
+        <a href="../devlog.html" aria-current="page">Devlog</a>
+        <a href="../gallery.html">GALLERY</a>
+        <a href="../playground.html">PLAYGROUND</a>
+        <a href="../about.html">About</a>
+      </nav>
+      <div class="language">
+        <button type="button">JP</button><span>/</span><button type="button">EN</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <article class="post-article">
+        <header class="post-header">
+          <p class="post-meta"><time datetime="2026-11-25">2026.11.25</time> · POSTMORTEM</p>
+          <h2 data-i18n-ignore><span data-dareda-title="ja">タイピングが苦手だからこそ、こだわったタイピングゲーム。『だーれだ？』</span><span data-dareda-title="en" hidden>A Typing Game Made with Care, Because I’m Bad at Typing: Guess Who? (だーれだ？)</span></h2>
+        </header>
+        <div class="post-content" data-i18n-ignore>
+        <div class="dareda-language" lang="ja" data-dareda-lang="ja">
+<h3>作った背景</h3>
+<p>『だーれだ？』は、ゲームJAM参加中、制作が早めに終わったため、余った時間の暇つぶしに作った小規模ゲームです。</p>
+<p>当時、私は某美少女ハーレム作品のスロットに行きたかった。</p>
+<p>そんな欲望から生まれたのが、10人の女の子に目隠しをされて「だーれだ？」と聞かれる、百合ハーレム推理タイピングゲームです。</p>
+<p>目隠しされているので、立ち絵も描かなくていい。素晴らしい。</p>
+<p>作った結果わかった自分のゲーム作りの癖3つ。</p>
+<figure class="dareda-post-figure"><img src="../images/da-reda.png" alt="『だーれだ？』のサムネイル" loading="lazy" decoding="async"></figure><nav class="dareda-toc" aria-label="目次"><a href="#ja-section-1">1｜速さと正確性を求めない</a><a href="#ja-section-2">2｜好感度100％からの加点式</a><a href="#ja-section-3">3｜自由入力可能、でも必須にしない</a></nav>
+<h3 id="ja-section-1">1｜速さと正確性を求めない</h3>
+<p>早くタイピングすれば、名前をすぐにあてられるイケメンお姉さんに。</p>
+<p>遅くタイピングしたら、名前をゆっくり読んでじらすいけずなお姉さんに。どっちでも女の子を喜ばせられます。いいね。</p>
+<p>タイピングが下手＆遅すぎて会社で毎日タイピング上達用サイトをやらされてスコアをつけられていた過去。</p>
+<p>どう転んでも成功のタイピングゲームにしたかった。</p>
+<h3 id="ja-section-2">2｜好感度100％からの加点式</h3>
+<p>好感度システムはなし。だってすでに完全なハーレムを築いているから。</p>
+<p>はずれても、そもそもいたずらなので、やーいだまされた！ってむしろ加点になる子も。</p>
+<p>減点式のゲームデザインが好みではないのかもしれません。</p>
+<h3 id="ja-section-3">3｜自由入力可能、でも必須にしない</h3>
+<p>名前を当てた後、自由入力によって女の子たちのさまざまな反応を探すことができます。</p>
+<p>ここが本編といっても過言ではありません。なんのワードに反応するかな？って楽しんでほしかった。</p>
+<p>概要欄にヒントなしなのでここにかくと、英単語で　口説き文句　甘い言葉　らへんです。</p>
+<p>でも必須ではなく飛ばせるようにしました。早く次の子を呼んであげたい人もいるとおもうので。</p>
+<p>皆、列をなして待っているのですから。</p>
+<p>タイピングが苦手な人にこそ、やってみてほしいなーとおもいながらつくりました。私みたいに。</p>
+<p>あと百合ハーレムの王になりたい人。私みたいに。</p>
+<p>届いてくれると嬉しいです。</p>
+<p><a class="post-back" href="https://unityroom.com/games/dareda" target="_blank" rel="noopener noreferrer">『だーれだ？』を遊ぶ（PC） ↗</a></p>
+</div>
+<div class="dareda-language" lang="en" data-dareda-lang="en" hidden>
+<h3>How it came about</h3>
+<p>I made Guess Who? (だーれだ？) as a little side project during a game jam. I’d finished my jam game early and had some time to kill.</p>
+<p>At the time, I really wanted to go play a slot machine based on a certain anime-girl harem series.</p>
+<p>Out of that desire came a yuri harem typing game where ten girls take turns covering your eyes and asking, “Guess who?”</p>
+<p>Since you’re blindfolded, I don’t even have to draw character sprites. Wonderful.</p>
+<p>Making this game taught me three things about my own game design habits.</p>
+<figure class="dareda-post-figure"><img src="../images/da-reda.png" alt="Guess Who? game thumbnail" loading="lazy" decoding="async"></figure><nav class="dareda-toc" aria-label="Contents"><a href="#en-section-1">1｜No demands for speed or accuracy</a><a href="#en-section-2">2｜Start at 100% affection and go up from there</a><a href="#en-section-3">3｜Free text input, but never mandatory</a></nav>
+<h3 id="en-section-1">1｜No demands for speed or accuracy</h3>
+<p>Type quickly, and you’re the effortlessly cool woman who knows a girl’s name right away.</p>
+<p>Type slowly, and you’re the mischievous woman who draws out her name just to tease her. Either way, you make the girls happy. Nice.</p>
+<p>I used to be so bad and so slow at typing that my workplace made me practice on a typing website every day and tracked my scores.</p>
+<p>I wanted to make a typing game where, no matter how things went, you succeeded.</p>
+<h3 id="en-section-2">2｜Start at 100% affection and go up from there</h3>
+<p>There’s no affection system. You already have a fully established harem, after all.</p>
+<p>Even when you guess wrong, it was a prank in the first place. For some girls, a triumphant “Ha! Got you!” practically earns you bonus points.</p>
+<p>Maybe I’m just not a fan of game design that takes points away.</p>
+<h3 id="en-section-3">3｜Free text input, but never mandatory</h3>
+<p>Once you’ve guessed a girl’s name, you can type freely to discover all sorts of reactions.</p>
+<p>You could say this is the real game. I wanted players to enjoy wondering, “What words will she react to?”</p>
+<p>I didn’t put any hints in the game description, so here’s one: try English words along the lines of pick-up lines and sweet nothings.</p>
+<p>But I made this part skippable. Some people might be eager to call the next girl over.</p>
+<p>They are all waiting in line, after all.</p>
+<p>I made this hoping that people who are bad at typing would give it a try. People like me.</p>
+<p>And people who want to be the king of a yuri harem. People like me.</p>
+<p>I hope it finds its way to them.</p>
+<p><a class="post-back" href="https://unityroom.com/games/dareda" target="_blank" rel="noopener noreferrer">Play Guess Who? (PC) ↗</a></p>
+</div>
+</div>
+        <a class="post-back" href="../devlog.html">← Back to Devlog</a>
+      </article>
+    </main>
+    <footer>© NULLLATTE — Made with care.</footer>
+  </div>
+  <script src="../i18n.js"></script>
+  <script src="../transition.js"></script>
+  <script>
+    // Switch the essay using the site's existing JP/EN state.
+    (() => {
+      function showEssayLanguage() {
+        const lang = window.NulllatteI18n?.language === 'en' ? 'en' : 'ja';
+        document.querySelectorAll('[data-dareda-lang], [data-dareda-title]').forEach(element => {
+          element.hidden = element.dataset.daredaLang
+            ? element.dataset.daredaLang !== lang
+            : element.dataset.daredaTitle !== lang;
+        });
+        document.title = (lang === 'en'
+          ? 'A Typing Game Made with Care, Because I’m Bad at Typing: Guess Who? (だーれだ？)'
+          : 'タイピングが苦手だからこそ、こだわったタイピングゲーム。『だーれだ？』') + ' | NULLLATTE DEVLOG';
+      }
+      showEssayLanguage();
+      window.addEventListener('nulllatte:languagechange', showEssayLanguage);
+    })();
+  </script>
+</body>
+</html>

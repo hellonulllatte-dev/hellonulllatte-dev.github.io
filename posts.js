@@ -1,5 +1,14 @@
 const POSTS = [
     {
+        "date": "2026-11-25",
+        "category": "postmortem",
+        "title": "タイピングが苦手だからこそ、こだわったタイピングゲーム。『だーれだ？』",
+        "titleEn": "A Typing Game Made with Care, Because I’m Bad at Typing: Guess Who? (だーれだ？)",
+        "description": "タイピングが苦手だからこそ大切にした3つのゲームデザイン。百合ハーレム推理タイピングゲーム『だーれだ？』の制作振り返り。",
+        "descriptionEn": "Three game design habits I discovered while making a yuri harem typing game, as someone who is bad at typing.",
+        "url": "posts/dareda.html"
+    },
+    {
         date: "2026-11-25",
         category: "note",
         title: "小さなゲームをつくりたい！",
