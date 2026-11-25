@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ded0c7">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <title>PUNI LAB | NULLLATTE PLAYGROUND</title>
+  <style>
+    @font-face {
+      font-family: "MaruMonica";
+      src:
+        url("../fonts/MaruMonica.ttf") format("truetype"),
+        url("fonts/MaruMonica.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --paper:#f9f2eb;
+      --bg:#ded0c7;
+      --ink:#3a323c;
+      --muted:#80656a;
+      --line:#a37370;
+      --soft:#e9dbd2;
+      --button:#6b5258;
+    }
+
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-height:100%; }
+    body {
+      background:var(--bg);
+      color:var(--ink);
+      font-family:"MaruMonica","Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;
+      line-height:1.65;
+    }
+    button, input { font:inherit; }
+    button:focus-visible, input:focus-visible, a:focus-visible {
+      outline:3px solid #936a98;
+      outline-offset:3px;
+    }
+
+    .page {
+      width:min(1050px, calc(100% - 36px));
+      margin:0 auto;
+      padding:12px 0 12px;
+    }
+
+    .masthead {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:10px;
+    }
+    .site-label {
+      margin:0;
+      font-size:14px;
+      letter-spacing:.08em;
+      color:var(--ink);
+    }
+    .back-link {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:7px 14px;
+      border:1px solid #b48b8a;
+      border-radius:999px;
+      background:#f3e6de;
+      color:var(--ink);
+      text-decoration:none;
+      white-space:nowrap;
+      font-size:13px;
+      letter-spacing:.04em;
+    }
+    .back-link:hover { background:var(--soft); }
+
+    .hero {
+      text-align:center;
+      margin:0 auto 12px;
+      max-width:760px;
+    }
+    h1 {
+      margin:0;
+      font-size:clamp(27px, 3.4vw, 35px);
+      font-weight:normal;
+      letter-spacing:.04em;
+      line-height:1.1;
+    }
+    .subtitle {
+      margin:5px 0 0;
+      color:#6f585d;
+      font-size:14px;
+      line-height:1.4;
+    }
+
+    .cabinet {
+      border:2px solid var(--line);
+      border-radius:22px;
+      box-shadow:6px 7px 0 #a3737047;
+      background:var(--paper);
+      overflow:hidden;
+    }
+    .bar {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:8px 13px;
+      background:#eadbd3;
+      border-bottom:2px solid #b89d9b;
+    }
+    .dots { display:flex; gap:7px; }
+    .dots i {
+      width:11px;
+      height:11px;
+      border-radius:50%;
+      background:#a37370;
+      border:1px solid #6b5258;
+      display:block;
+    }
+    .dots i:nth-child(2){ background:#cca795; border-color:#a37370; }
+    .dots i:nth-child(3){ background:#d7c1b4; border-color:#a37370; }
+
+    .stage {
+      position:relative;
+      height:clamp(245px, calc(100dvh - 285px), 570px);
+      overflow:hidden;
+      isolation:isolate;
+      background:radial-gradient(ellipse at 50% 40%, #fffaf4 0%, #fcf4ec 66%, #f4e5dd 100%);
+      cursor:crosshair;
+      touch-action:none;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+    .stage::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:.36;
+      pointer-events:none;
+      background-image:radial-gradient(#c9b3ab 1px, transparent 1px);
+      background-size:27px 27px;
+    }
+    .stage::after {
+      content:"";
+      position:absolute;
+      inset:20px;
+      border:1px dashed #c0a59e6b;
+      border-radius:50%;
+      pointer-events:none;
+    }
+    .goo { position:absolute; inset:0; filter:url(#goo); will-change:transform; pointer-events:none; }
+    .orb {
+      position:absolute;
+      left:0;
+      top:0;
+      border-radius:50%;
+      transform:translate3d(-50%,-50%,0);
+      will-change:transform,width,height;
+      pointer-events:none;
+      background:var(--orb);
+    }
+    .sparkle {
+      position:absolute;
+      left:0;
+      top:0;
+      width:14px;
+      height:14px;
+      transform:translate3d(-50%,-50%,0);
+      background:#fff8edb3;
+      border-radius:50%;
+      pointer-events:none;
+      mix-blend-mode:screen;
+    }
+    .ctrls {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      flex-wrap:wrap;
+      padding:11px 15px;
+      background:#f9f2eb;
+    }
+    .knobs { display:flex; flex:1; gap:22px; flex-wrap:wrap; }
+    .knob { min-width:155px; flex:1; max-width:260px; }
+    .knob label {
+      display:flex;
+      justify-content:space-between;
+      font-size:12px;
+      color:#675357;
+      letter-spacing:.04em;
+      margin-bottom:4px;
+    }
+    input[type="range"] { display:block; width:100%; accent-color:#956c81; cursor:pointer; }
+    .actions { display:flex; flex-wrap:wrap; gap:9px; }
+    .action {
+      background:var(--button);
+      color:#fff9f1;
+      padding:7px 13px;
+      border:1px solid #6b5258;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:12px;
+      transition:transform .15s, background .15s;
+      white-space:nowrap;
+    }
+    .action:hover { background:#8d6873; transform:translateY(-2px); }
+    .action.secondary { background:#fff7f0; border-color:#b79295; color:#6b5258; }
+    .action.secondary:hover { background:#eedcd6; }
+
+    svg.defs { position:absolute; width:0; height:0; overflow:hidden; }
+
+    @media (max-width:650px){
+      .page { width:calc(100% - 20px); padding-top:9px; padding-bottom:9px; }
+      .masthead { align-items:flex-start; gap:10px; margin-bottom:9px; }
+      .site-label { font-size:13px; }
+      .back-link { font-size:12px; min-height:36px; padding:6px 11px; }
+      .hero { margin-bottom:9px; }
+      h1 { font-size:29px; }
+      .subtitle { font-size:13px; }
+      .bar { padding:7px 12px; }
+      .stage { height:clamp(220px, calc(100dvh - 310px), 440px); }
+      .stage::after { inset:10px; }
+      .ctrls { padding:9px 12px; gap:8px; }
+      .knobs { gap:10px; }
+      .knob { min-width:122px; }
+      .actions { width:100%; }
+      .action { flex:1; padding:8px 7px; }
+    }
+    @media(prefers-reduced-motion:reduce){ .action{transition:none} }
+  </style>
+</head>
+<body>
+  <svg class="defs" aria-hidden="true"><defs>
+    <filter id="goo" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" id="goo-blur"/>
+      <feColorMatrix in="blur" mode="matrix" id="goo-matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 23 -10" />
+    </filter>
+  </defs></svg>
+
+  <div class="page">
+    <div class="masthead">
+      <p class="site-label">NULLLATTE / PLAYGROUND</p>
+      <a class="back-link" href="../playground.html">← PLAYGROUND</a>
+    </div>
+
+    <div class="hero">
+      <h1>PUNI LAB.</h1>
+      <p class="subtitle">くっついて、のびて、ぷるん。<br>何もない場所をタップすると、もうひとつ。</p>
+    </div>
+
+    <main class="cabinet">
+      <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div id="stage" class="stage" aria-label="ぷにをドラッグして遊ぶ場所。空いているところをタップするともうひとつ増える">
+        <div id="goo-layer" class="goo"></div><div id="spark-layer"></div>
+      </div>
+      <div class="ctrls">
+        <div class="knobs">
+          <div class="knob"><label for="stickiness">ねばり</label><input id="stickiness" type="range" min="0" max="100" value="65" /></div>
+          <div class="knob"><label for="bounce">はずみ</label><input id="bounce" type="range" min="0" max="100" value="55" /></div>
+        </div>
+        <div class="actions"><button class="action secondary" type="button" id="reset">↺ もとにもどす</button></div>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+      const stage = document.querySelector('#stage');
+      const goo = document.querySelector('#goo-layer');
+      const sparks = document.querySelector('#spark-layer');
+      const stick = document.querySelector('#stickiness');
+      const bounce = document.querySelector('#bounce');
+      const blurNode = document.querySelector('#goo-blur');
+      const matrixNode = document.querySelector('#goo-matrix');
+      const colors = ['#cca795','#a37370','#6b5258','#d7c1b4','#3a323c'];
+      const maxBalls = 22;
+      let balls = [];
+      let width = 800, height = 420, drag = null, lastFrame = performance.now();
+      let reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const clamp = (v, a, b) => Math.max(a,Math.min(b,v));
+      const rand = (a,b) => a + Math.random()*(b-a);
+
+      function stageSize(){ const r=stage.getBoundingClientRect(); width=Math.max(1,r.width); height=Math.max(1,r.height); }
+      function create(x,y,r,color){
+        if(balls.length>=maxBalls)return;
+        const el=document.createElement('div'); el.className='orb'; el.style.setProperty('--orb', color);
+        const dot=document.createElement('div'); dot.className='sparkle';
+        goo.append(el); sparks.append(dot);
+        const b={x,y,vx:rand(-.6,.6),vy:rand(-.5,.5),r,el,dot,seed:rand(0,10),color};
+        balls.push(b); renderBall(b); return b;
+      }
+      function renderBall(b){
+        const diameter=b.r*2;
+        b.el.style.width=diameter+'px'; b.el.style.height=diameter+'px';
+        b.el.style.transform=`translate3d(${b.x-b.r}px,${b.y-b.r}px,0)`;
+        b.dot.style.transform=`translate3d(${b.x-b.r*.37-7}px,${b.y-b.r*.34-7}px,0)`;
+        const highlight=clamp(b.r*.14,5,12);
+        b.dot.style.width=highlight+'px'; b.dot.style.height=highlight+'px';
+      }
+      function randomRadius(){ return rand(35,53) * (width<500?.81:1); }
+      function reset(){
+        drag=null; for(const b of balls){ b.el.remove(); b.dot.remove(); } balls=[];
+        stageSize();
+        const positions=[[.22,.47],[.4,.56],[.55,.42],[.71,.6],[.80,.38]];
+        positions.forEach(([x,y],i)=>create(width*x,height*y,randomRadius(),colors[i]));
+      }
+      function eventPos(ev){ const rect=stage.getBoundingClientRect(); return {x:ev.clientX-rect.left,y:ev.clientY-rect.top}; }
+      function onDown(ev){
+        if(ev.button!==undefined && ev.button!==0) return;
+        const pos=eventPos(ev);
+        let nearest=null, dist=Infinity;
+        for(const b of balls){ const d=Math.hypot(b.x-pos.x,b.y-pos.y); if(d<dist){ nearest=b; dist=d; } }
+        if(nearest && dist<nearest.r+18){
+          drag={id:ev.pointerId,ball:nearest,x:pos.x,y:pos.y,ox:nearest.x-pos.x,oy:nearest.y-pos.y,oldX:nearest.x,oldY:nearest.y};
+          stage.setPointerCapture(ev.pointerId); stage.style.cursor='grabbing';
+        } else {
+          create(clamp(pos.x,25,width-25),clamp(pos.y,25,height-25),rand(27,42),colors[balls.length%5]);
+        }
+      }
+      function onMove(ev){ if(drag&&drag.id===ev.pointerId){ const pos=eventPos(ev); drag.x=pos.x; drag.y=pos.y; } }
+      function endDrag(ev){
+        if(!drag || ev.pointerId!==drag.id) return;
+        const b=drag.ball;
+        b.vx=clamp((b.x-drag.oldX)*(0.4+Number(bounce.value)/170),-12,12);
+        b.vy=clamp((b.y-drag.oldY)*(0.4+Number(bounce.value)/170),-12,12);
+        drag=null; stage.style.cursor='crosshair';
+        if(stage.hasPointerCapture(ev.pointerId)) stage.releasePointerCapture(ev.pointerId);
+      }
+      stage.addEventListener('pointerdown',onDown);
+      stage.addEventListener('pointermove',onMove);
+      stage.addEventListener('pointerup',endDrag);
+      stage.addEventListener('pointercancel',endDrag);
+      stage.addEventListener('lostpointercapture',()=>{ drag=null; stage.style.cursor='crosshair'; });
+      document.querySelector('#reset').addEventListener('click',reset);
+      function changeSticky(){
+        const s=Number(stick.value);
+        blurNode.setAttribute('stdDeviation',String(6+s*.1));
+        const alpha=18+s*.12; const offset=-(8+s*.045);
+        matrixNode.setAttribute('values',`1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${alpha.toFixed(1)} ${offset.toFixed(1)}`);
+      }
+      stick.addEventListener('input',changeSticky);
+      const resizeObserver=new ResizeObserver(()=>{
+        const oldW=width, oldH=height; stageSize();
+        if(balls.length){
+          for(const b of balls){
+            b.x=clamp(b.x*width/oldW,b.r,width-b.r);
+            b.y=clamp(b.y*height/oldH,b.r,height-b.r);
+            renderBall(b);
+          }
+        }
+      });
+      resizeObserver.observe(stage);
+
+      function tick(now){
+        const dt=clamp((now-lastFrame)/16.6667,.2,2); lastFrame=now;
+        const stickAmount=Number(stick.value)/100;
+        const bounceAmount=Number(bounce.value)/100;
+        for(let i=0;i<balls.length;i++){
+          const a=balls[i];
+          for(let j=i+1;j<balls.length;j++){
+            const b=balls[j]; const dx=b.x-a.x, dy=b.y-a.y; const d=Math.max(1,Math.hypot(dx,dy));
+            const sum=a.r+b.r; const isDragged=drag&&(drag.ball===a||drag.ball===b); const radius=sum+(isDragged?100:42);
+            if(d<radius){
+              let force;
+              if(d<sum*.65){ force=-(sum*.65-d)*.0028; }
+              else { force=(radius-d)*(.00045+stickAmount*.0009)*(isDragged?2.5:1); }
+              const fx=dx/d*force*dt, fy=dy/d*force*dt;
+              if(!drag||drag.ball!==a){ a.vx+=fx; a.vy+=fy; }
+              if(!drag||drag.ball!==b){ b.vx-=fx; b.vy-=fy; }
+            }
+          }
+        }
+        for(const b of balls){
+          if(drag&&b===drag.ball){
+            drag.oldX=b.x; drag.oldY=b.y;
+            const tx=clamp(drag.x+drag.ox,b.r,width-b.r), ty=clamp(drag.y+drag.oy,b.r,height-b.r);
+            b.x+=(tx-b.x)*Math.min(1,.44*dt); b.y+=(ty-b.y)*Math.min(1,.44*dt);
+            b.vx=(b.x-drag.oldX)*.55; b.vy=(b.y-drag.oldY)*.55;
+          } else {
+            if(!reduced){ b.vx+=Math.sin(now*.00065+b.seed)*.007*dt; b.vy+=Math.cos(now*.0007+b.seed*2)*.009*dt; }
+            const damping=Math.pow(.969-(1-bounceAmount)*.017,dt);
+            b.vx=clamp(b.vx*damping,-15,15); b.vy=clamp(b.vy*damping,-15,15);
+            b.x+=b.vx*dt; b.y+=b.vy*dt;
+            const cushion=clamp(b.r*.35,10,20);
+            if(b.x<b.r){ b.x=b.r; b.vx=Math.abs(b.vx)*(.22+.55*bounceAmount); }
+            if(b.x>width-b.r){ b.x=width-b.r; b.vx=-Math.abs(b.vx)*(.22+.55*bounceAmount); }
+            if(b.y<b.r){ b.y=b.r; b.vy=Math.abs(b.vy)*(.22+.55*bounceAmount); }
+            if(b.y>height-b.r){ b.y=height-b.r; b.vy=-Math.abs(b.vy)*(.22+.55*bounceAmount); }
+            if(b.x<cushion) b.vx+=.03*dt;
+            if(b.x>width-cushion) b.vx-=.03*dt;
+            if(b.y<cushion) b.vy+=.03*dt;
+            if(b.y>height-cushion) b.vy-=.03*dt;
+          }
+          renderBall(b);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      changeSticky();
+      reset();
+      stageSize();
+      requestAnimationFrame((t)=>{ lastFrame=t; requestAnimationFrame(tick); });
+    })();
+  </script>
+</body>
+</html>
