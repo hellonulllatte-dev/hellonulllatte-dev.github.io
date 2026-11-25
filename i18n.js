@@ -83,6 +83,7 @@
   add('二文字の貢物を毎日要求してくる悪魔の妹。', 'A little devil who demands two-character offerings every day.');
 
   add('美しいものなら節操なく口説く怪盗。白薔薇が好きなキザなお姉さん。', 'A dashing lady thief who shamelessly flirts with anyone or anything beautiful. She loves white roses.');
+  add('怪盗アルバの愛猫にして、頼れる相棒。小さな体でせっせと働く、活発な黒猫。アルバに宝物のように大切にされているため、自分のことを宝物だと思っている。', 'Alba the phantom thief\'s beloved cat and trusted partner. A lively black cat who works tirelessly despite his small size. Alba treasures him so dearly that Nox believes he\'s a treasure himself.');
   add('Bunny Barの常連。百合ハーレムの女王。', 'A Bunny Bar regular and queen of a yuri harem.');
   add('3人組アイドルユニットWHITEの青担当のお姉さん。', 'The blue member of the three-person idol unit WHITE.');
   add('Notes from the kitchen.', 'Notes from the kitchen.'); add('制作の舞台裏。', 'Notes from the kitchen.');
