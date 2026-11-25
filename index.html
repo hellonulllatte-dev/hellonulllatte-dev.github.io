@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NULLLATTE | HOME</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home-featured.css">
   <!-- HOME only: no separate floor line; BOSS stands on the footer separator. -->
   <style>
     .home-about { padding-bottom: 0; }
@@ -105,63 +106,18 @@
       <section class="games-section">
         <h2>Featured Games</h2>
 
-        <div class="game-grid">
-
-          <article class="game-card">
-            <img src="images/winery.png" alt="Silver Vine Winery">
-            <h3>SILVER VINE WINERY</h3>
-            <p>A tiny, cozy winery.</p>
-
-            <div class="game-links">
-              <a
-                href="https://unityroom.com/games/matatabi-winery"
-                target="_blank"
-                rel="noopener noreferrer"
-              >unityroom ↗</a>
-
-              <a
-                href="https://nulllatte.itch.io/silver-vine-winery"
-                target="_blank"
-                rel="noopener noreferrer"
-              >itch.io ↗</a>
-            </div>
-          </article>
-
-          <article class="game-card">
-            <img src="images/ragna.png" alt="お姉さん、まだ寝てて。">
-            <h3>お姉さん、まだ寝てて。</h3>
-            <p>Make breakfast quietly. Don't wake her up!</p>
-
-            <div class="game-links">
-              <a
-                href="https://unityroom.com/games/oneesan-still-sleeping"
-                target="_blank"
-                rel="noopener noreferrer"
-              >unityroom · Mobile ↗</a>
-
-              <a
-                href="https://nulllatte.itch.io/oneesan-still-sleeping"
-                target="_blank"
-                rel="noopener noreferrer"
-              >itch.io · PC ↗</a>
-            </div>
-          </article>
-
-          <article class="game-card">
-            <img src="images/wordland.png" alt="ワードランド診断">
-            <h3>ワードランド診断</h3>
-            <p>What kind of amusement park ride are your words?</p>
-
-            <div class="game-links">
-              <a
-                href="https://unityroom.com/games/wordland"
-                target="_blank"
-                rel="noopener noreferrer"
-              >unityroom ↗</a>
-            </div>
-          </article>
-
+        <div class="home-featured" data-i18n-ignore>
+          <div class="hf-window" aria-label="Featured Games">
+            <div class="hf-track"></div>
+          </div>
+          <div class="hf-controls">
+            <button type="button" class="hf-prev" aria-label="Previous">‹</button>
+            <span class="hf-count">01 / 06</span>
+            <button type="button" class="hf-next" aria-label="Next">›</button>
+            <button type="button" class="hf-pause" aria-label="Pause">Ⅱ</button>
+          </div>
         </div>
+        <noscript><p><a href="games.html">View All Games →</a></p></noscript>
 
         <a class="home-more-link" href="games.html">
           View All Games →
@@ -249,6 +205,8 @@
   </div>
 
   <script src="i18n.js"></script>
+  <script src="games-data.js"></script>
+  <script src="home-featured.js"></script>
 
   <!-- DEVLOG -->
   <script src="posts.js"></script>
