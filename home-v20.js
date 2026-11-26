@@ -586,3 +586,43 @@ if('IntersectionObserver' in window && !motion.matches){
 for(const tile of grid.querySelectorAll('.link-tile')){const c=tile.querySelector('canvas'),ctx=c.getContext('2d');let cells=[],cols=0;for(const letter of tile.dataset.label){const g=glyph[letter];g.forEach((line,y)=>[...line].forEach((v,x)=>{if(v==='1')cells.push([cols+x,y]);}));cols+=g[0].length+1;}cols--;let w=0,h=0,start=0,frame=0;const palette=['#ded0c7','#d7c1b4','#cca795','#a37370'];function draw(t=-1){ctx.clearRect(0,0,w,h);const step=Math.max(5,grid.clientWidth/56);ctx.fillStyle=tile.dataset.label==='UNITYROOM'?'#3a323c':tile.dataset.label==='ITCH.IO'?'#a37370':'#c27f6f';ctx.globalAlpha=.50;for(let x=4;x<w-step/2;x+=step)for(let y=4;y<h-step/2;y+=step)ctx.fillRect(x,y,step*.61,step*.61);ctx.globalAlpha=1;const k=Math.min(w*.85/cols,h*.64/7),x0=(w-cols*k)/2,y0=(h-7*k)/2;for(const [x,y] of cells){const pos=x/Math.max(1,cols-1),dist=Math.abs(pos-t);ctx.fillStyle=t===-1?'#ded0c7':dist<.11?'#ded0c7':dist<.23?'#cca795':dist<.4?'#a37370':'#d7c1b4';ctx.fillRect(x0+x*k,y0+y*k,k*.86,k*.86);}}
 function resize(){const r=tile.getBoundingClientRect();w=r.width;h=r.height;const dpr=Math.min(devicePixelRatio||1,2);c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);tile.classList.add('is-drawn');draw();}function tick(now){const p=(now-start)/950;if(p>=1){frame=0;draw();return;}draw(-.3+p*1.6);frame=requestAnimationFrame(tick);}function light(){if(motion.matches)return;if(frame)cancelAnimationFrame(frame);start=performance.now();frame=requestAnimationFrame(tick);}tile.addEventListener('pointerenter',light);tile.addEventListener('focus',light);new ResizeObserver(resize).observe(tile);resize();}
 })();
+/* HOME section navigator. Scroll remains native; existing scroll effects keep running. */
+(()=>{
+  const entries=[['top','TOP'],['featured','FEATURED GAMES'],['message','HELLO!'],['history','HISTORY'],['about','ABOUT']];
+  const sections=entries.map(([id])=>document.getElementById(id));
+  if(sections.some(section=>!section))return;
+  const nav=document.createElement('nav');nav.className='home-dot-nav';nav.setAttribute('aria-label','HOME sections');nav.setAttribute('data-i18n-ignore','');
+  const motion=matchMedia('(prefers-reduced-motion: reduce)');
+  const items=entries.map(([id,name],index)=>{
+    const a=document.createElement('a');a.href='#'+id;a.setAttribute('aria-label',name);
+    const dot=document.createElement('span');dot.className='section-dot';dot.setAttribute('aria-hidden','true');
+    const label=document.createElement('span');label.className='section-dot-label';label.textContent=name;label.setAttribute('aria-hidden','true');
+    a.append(dot,label);nav.append(a);
+    a.addEventListener('click',event=>{
+      if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+      event.preventDefault();
+      const y=window.scrollY;
+      const header=document.querySelector('.site-common-header');
+      const headerOffset=(header?.offsetHeight||0)+18;
+      // Stop before the typewriter starts, leaving its original scroll rhythm intact.
+      const offset=index===0?0:index===2?Math.max(headerOffset,window.innerHeight*.24+8):headerOffset;
+      const top=index===0?0:Math.max(0,y+sections[index].getBoundingClientRect().top-offset);
+      window.scrollTo({top,behavior:motion.matches?'instant':'smooth'});
+    });
+    return a;
+  });
+  document.body.append(nav);document.body.classList.add('has-home-dot-nav');
+  let frame=0,active=-1;
+  function update(){
+    frame=0;const y=Math.max(0,window.scrollY),vh=window.innerHeight;
+    const ref=vh*.38;let next=0;
+    for(let i=1;i<sections.length;i++)if(sections[i].getBoundingClientRect().top<=ref)next=i;
+    if(y>0 && y+vh>=document.documentElement.scrollHeight-4)next=sections.length-1;
+    if(next!==active){active=next;items.forEach((a,i)=>{if(i===active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
+    nav.classList.toggle('is-at-top',y<48);
+  }
+  function queue(){if(!frame)frame=requestAnimationFrame(update);}
+  addEventListener('scroll',queue,{passive:true});addEventListener('resize',queue,{passive:true});addEventListener('pageshow',queue);
+  if('ResizeObserver' in window)new ResizeObserver(queue).observe(document.body);
+  update();
+})();

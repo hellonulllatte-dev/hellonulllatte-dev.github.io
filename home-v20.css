@@ -2458,3 +2458,22 @@ footer {--px-color:#6b5258;font-size:18px;}
 @media(max-width:740px){.exp-hero-content {top:max(125px,15vh);}}
 
 .px-fallback{font-family:MessagePixel,monospace;}
+
+/* HOME-only section navigation: five quiet square dots. */
+.home-dot-nav {position:fixed;z-index:110;right:5px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:0;align-items:center;}
+.home-dot-nav a {position:relative;display:grid;place-items:center;width:32px;height:30px;flex:none;outline-offset:-3px;touch-action:manipulation;}
+.home-dot-nav .section-dot {width:6px;height:6px;background:#a37370;transition:transform 180ms ease,background-color 180ms ease;}
+.home-dot-nav a[aria-current="location"] .section-dot {background:#23232e;transform:scale(1.65);}
+.home-dot-nav a:focus-visible {outline:1px solid #6b5258;}
+.home-dot-nav .section-dot-label {position:absolute;right:100%;top:50%;transform:translate(3px,-50%);white-space:nowrap;padding:2px 7px;background:#ded0c7;color:#6b5258;font:normal 16px/1.25 MessagePixel,monospace;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 140ms ease,transform 140ms ease,visibility 140ms;}
+@media(hover:hover) and (pointer:fine){.home-dot-nav a:hover .section-dot-label {opacity:1;visibility:visible;transform:translate(0,-50%);}}
+.home-dot-nav a:focus-visible .section-dot-label {opacity:1;visibility:visible;transform:translate(0,-50%);}
+@media(max-width:740px){
+  body.has-home-dot-nav {padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));}
+  .home-dot-nav {top:auto;right:auto;bottom:env(safe-area-inset-bottom,0px);left:50%;transform:translateX(-50%);flex-direction:row;background:#ded0c7;padding:0 4px;transition:opacity 160ms ease;}
+  .home-dot-nav a {width:44px;height:44px;}
+  .home-dot-nav .section-dot-label {right:auto;left:50%;top:auto;bottom:100%;transform:translate(-50%,0);}
+  .home-dot-nav a:focus-visible .section-dot-label {transform:translate(-50%,0);}
+  .home-dot-nav.is-at-top:not(:focus-within) {opacity:0;pointer-events:none;visibility:hidden;}
+}
+@media(prefers-reduced-motion:reduce){.home-dot-nav,.home-dot-nav .section-dot,.home-dot-nav .section-dot-label {transition:none;}}
