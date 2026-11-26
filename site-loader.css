@@ -1,0 +1,29 @@
+/* NULLLATTE — three-dot loading transition. */
+html.nl-loader-enabled body { animation: none !important; }
+html.nl-loading body { visibility: hidden; }
+html.nl-loading dialog, html.nl-loading dialog::backdrop { visibility: hidden; }
+#nl-loader[hidden] { display: none; }
+html.nl-loading #nl-loader, html.nl-revealing #nl-loader {
+  display: grid; position: fixed; inset: 0; z-index: 2147483647;
+  place-items: center; background: #ded0c7; visibility: visible;
+  opacity: 1; transition: opacity .35s ease; pointer-events: auto;
+}
+html.nl-revealing #nl-loader { opacity: 0; pointer-events: none; }
+#nl-dots { display: flex; align-items: center; gap: 10px; visibility: hidden; }
+html.nl-loading.nl-waiting #nl-dots { visibility: visible; }
+#nl-dots i { display: block; width: 10px; height: 10px; background: #cca795; }
+html.nl-loading.nl-waiting #nl-dots i { animation: nl-pulse 1.08s steps(1,end) infinite; }
+html.nl-loading.nl-waiting #nl-dots i:nth-child(2) { animation-delay: .18s; }
+html.nl-loading.nl-waiting #nl-dots i:nth-child(3) { animation-delay: .36s; }
+@keyframes nl-pulse {
+  0%,100% { background: #cca795; }
+  17% { background: #a37370; }
+  33% { background: #6b5258; }
+  50% { background: #a37370; }
+  67% { background: #cca795; }
+}
+html.nl-loading .game-grid .game-card.reveal-entering { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  html.nl-loading #nl-loader, html.nl-revealing #nl-loader { transition: none; }
+  html.nl-loading.nl-waiting #nl-dots i { animation: none; background: #6b5258; }
+}

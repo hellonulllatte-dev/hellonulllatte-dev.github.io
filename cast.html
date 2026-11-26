@@ -12,13 +12,30 @@
   gtag('config', 'G-DZBDZFFZ6J');
 </script>
 	<meta charset="UTF-8">
+<!-- NULLLATTE: first-paint guard (shared three-dot loader) -->
+<style>html.nl-loading{background:#ded0c7}html.nl-loading body{visibility:hidden}</style>
+<script>
+(()=>{
+ const root=document.documentElement;
+ root.classList.add('nl-loader-enabled','nl-loading');
+ const boot=window.__nlLoaderBoot={};
+ boot.reset=()=>{clearTimeout(boot.dotsTimer);clearTimeout(boot.fallbackTimer);root.classList.remove('nl-loading','nl-waiting','nl-revealing');const el=document.getElementById('nl-loader');if(el)el.hidden=true;};
+ boot.dotsTimer=setTimeout(()=>{if(root.classList.contains('nl-loading'))root.classList.add('nl-waiting');},200);
+ boot.fallbackTimer=setTimeout(boot.reset,6000);
+})();
+</script>
+<link rel="stylesheet" href="site-loader.css?v=1">
+<script defer src="site-loader.js?v=1"></script>
+
 	<link rel="icon" type="image/png" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>NULLLATTE | CAST</title>
 	<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="site-common.css">
+<link rel="stylesheet" href="site-common.css?v=22-scroll-nav">
 </head>
 <body>
+<div id="nl-loader" aria-hidden="true" hidden><div id="nl-dots"><i></i><i></i><i></i></div></div>
+
 	<div class="site">
 
 		<header class="site-common-header">
@@ -291,6 +308,6 @@
 
 	<script src="i18n.js"></script>
 	<script src="transition.js"></script>
-<script src="site-common.js"></script>
+<script src="site-common.js?v=22-scroll-nav"></script>
 </body>
 </html>
