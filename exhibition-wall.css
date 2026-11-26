@@ -1,0 +1,28 @@
+/* GALLERY — exhibition wall, layout v4. Extend with another .wall-group. */
+.main.exhibition-main,.main.exhibition-room{max-width:none;margin:0 auto;padding-top:clamp(24px,4.2vw,64px)}
+.exhibition-title{position:relative;margin:0 0 24px;color:#23232e;line-height:1;padding-top:23px;width:calc(clamp(190px,30vw,330px) * 88 / 76)}
+.exhibition-title::before{content:"";position:absolute;top:0;left:0;width:9px;height:9px;background:#6b5258}
+.exhibition-title svg{display:block;width:100%;height:auto;overflow:visible;fill:currentColor}
+.exhibition-wall{max-width:1170px;margin:0 auto;padding:12px 0 55px;display:grid;gap:clamp(48px,7vw,105px)}
+.wall-group{display:grid;grid-template-columns:168fr 208fr 224fr;gap:clamp(20px,4.5vw,72px);align-items:start}
+.wall-col{min-width:0;display:flex;flex-direction:column;gap:clamp(24px,4vw,60px)}
+.wall-col.left{padding-top:clamp(12px,2.5vw,39px)}
+.wall-col.right{padding-top:clamp(25px,4.5vw,70px)}
+.wall-col .print{display:block;position:relative;min-width:0;border:0;padding:0;background:none;transform-origin:center;transition:transform .32s cubic-bezier(.22,.8,.25,1);-webkit-tap-highlight-color:transparent;text-decoration:none}
+.print svg,.print img{display:block;width:100%;height:auto}.print img{image-rendering:pixelated}
+.tarot,.goods{width:100%}.tarot{cursor:default}.radio{width:88.5%;align-self:center}
+.ticket{width:100%;align-self:center;transform:rotate(-3deg);cursor:pointer;line-height:0}
+.ticket:disabled{cursor:default;transform:rotate(-3deg)}
+.print:focus-visible{outline:2px solid #6b5258;outline-offset:7px;transform:translateY(-5px)}
+.ticket:focus-visible{transform:translateY(-5px) rotate(0deg)}
+@media(hover:hover){a.print:hover{transform:translateY(-7px)}button.ticket:not(:disabled):hover{transform:translateY(-7px) rotate(0deg)}.radio:hover .eq-dot,.radio:focus-visible .eq-dot{animation:wall-eq .7s steps(1,end) infinite alternate;animation-delay:var(--delay)}}
+@keyframes wall-eq{0%,100%{fill:#cca795}33%{fill:#a37370}66%{fill:#ded0c7}}
+.room-intro{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:15px 32px;margin:0 0 38px}
+.exhibition-title.goods-room-title{width:min(100%,calc(clamp(190px,30vw,330px) * 185 * 26 / (24 * 76)));margin:0}
+.room-return{color:#3a323c;text-decoration:underline;text-underline-offset:5px;font-size:18px;padding:8px 0;flex:none}
+.exhibition-room .gallery-goods{margin:0 0 42px}.exhibition-room .vending-machines{margin-top:0}
+.goods-dialog{scrollbar-color:#6b5258 #ded0c7}
+@media(max-width:800px){.wall-group{gap:25px}}
+@media(max-width:600px){.exhibition-title{width:calc(200px * 88 / 76);margin-bottom:30px}.wall-group{display:flex;flex-direction:column;gap:36px}.wall-col{width:100%;gap:36px;padding:0!important}.wall-col.left .tarot{width:65%;margin-left:4%}.radio{width:68%;align-self:flex-end;margin-right:3%}.ticket{width:79%;align-self:flex-start;margin-left:2%}.goods{width:82%;align-self:flex-end;margin-right:2%}.exhibition-wall{padding-top:0}.exhibition-title.goods-room-title{width:100%}.room-intro{margin-bottom:25px}}
+@media(prefers-reduced-motion:no-preference){.print.wall-pending{opacity:0}.print.wall-reveal{animation:wall-in .65s ease both}@keyframes wall-in{from{opacity:0}to{opacity:1}}}
+@media(prefers-reduced-motion:reduce){.wall-col .print{transition:none}.radio:hover .eq-dot,.radio:focus-visible .eq-dot{animation:none}}
