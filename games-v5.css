@@ -1,0 +1,86 @@
+
+/* GAMES page — V5. Loaded only by games.html. */
+:root {--background:#ded0c7;--text:#3a323c;--accent:#a37370;--line:#cca795;--paper:#d7c1b4;}
+.main{padding-top:clamp(24px,4.2vw,64px);}
+.games-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin:0 0 35px;flex-wrap:wrap;}
+.games-title{position:relative;margin:0;color:#23232e;line-height:1;padding-top:23px;width:clamp(190px,30vw,330px);flex:none;}
+.games-title::before{content:"";position:absolute;left:0;top:0;width:9px;height:9px;background:#6b5258;}
+.games-title-art{display:block;width:100%;height:auto;overflow:visible;}
+.streaming-policy{margin:0;max-width:100%;border:0;border-radius:0;overflow:visible;background:transparent;min-width:0;}
+.streaming-policy-summary{padding:10px 0;gap:14px;}
+.streaming-policy-summary-text{gap:4px;text-align:right;}
+.streaming-policy-summary-text strong{font-size:18px;color:#3a323c;}
+.streaming-policy-summary-text>span{font-size:13px;color:#6b5258;opacity:1;}
+.streaming-policy-summary::after{width:20px;height:20px;flex-basis:20px;}
+.streaming-policy-summary:hover{background:none;color:#a37370;}
+.streaming-policy-summary:hover strong{color:#6b5258;text-decoration:underline;text-underline-offset:5px;}
+.streaming-policy[open]{flex:1 1 100%;}
+.streaming-policy[open] .streaming-policy-summary{justify-content:flex-end;}
+.streaming-policy-content{border-top:1px solid #a37370;background:#d7c1b4;padding:24px;}
+.flavor-filters{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:8px clamp(14px,3vw,42px);margin:0 0 28px;padding:0 0 12px;}
+.flavor-filters button,.flavor-filters button.active,.flavor-filters button:hover{border:0;border-radius:0;background:none;padding:7px 0 13px;font:inherit;font-size:18px;line-height:1.4;color:#6b5258;transition:color .2s;}
+.flavor-filters button.active,.flavor-filters button:hover{color:#23232e;}
+.filter-dot{width:7px;height:7px;background:#a37370;position:absolute;top:0;left:0;pointer-events:none;opacity:0;transform:translate(var(--filter-x,0px),var(--filter-y,0px));}
+.filter-dot.ready{opacity:1;transition:transform .36s cubic-bezier(.22,.8,.25,1);}
+.game-grid{column-gap:clamp(20px,2.6vw,38px);row-gap:42px;}
+.game-card{border-radius:0;overflow:visible;padding:0;}
+.game-card>img{border-radius:0;}
+.game-card .game-note-heading,.game-card h3,.game-card p,.game-card .game-links{padding:0;}
+.game-card h3,.game-card .game-note-heading h3{font-size:21px;line-height:1.35;font-weight:normal;margin:16px 0 0;color:#23232e;overflow-wrap:anywhere;}
+.game-card p{font-size:16px;line-height:1.6;color:#6b5258;opacity:1;margin-top:8px;}
+.game-card .game-note-normal-body{min-height:0;}
+.game-card .game-links{gap:5px 22px;margin-top:15px;}
+.game-card .game-links a,.game-card .game-links a:hover{padding:5px 0;background:transparent;border:0;border-radius:0;font-size:15px;line-height:1.5;transform:none;color:#3a323c;text-decoration:underline;text-decoration-color:#a37370;text-underline-offset:5px;text-decoration-thickness:1px;}
+.game-card .game-links a:hover{color:#6b5258;text-decoration-color:#3a323c;}
+.game-card .game-links a:focus-visible,.flavor-filters button:focus-visible{outline:1px solid #6b5258;outline-offset:4px;}
+.games-more{margin-top:60px;}
+@media(max-width:800px){.games-intro{gap:16px;margin-bottom:22px;}.streaming-policy-summary-text{text-align:left;}.streaming-policy-summary-text strong{font-size:16px;}.streaming-policy-summary-text>span{font-size:12px;}.flavor-filters{gap:8px 20px;}.flavor-filters button,.flavor-filters button.active,.flavor-filters button:hover{font-size:16px;}.game-grid{row-gap:30px;}}
+@media(max-width:600px){.games-title{width:200px;}.games-intro{align-items:flex-start;flex-direction:column;gap:20px;}.streaming-policy[open]{flex-basis:auto;}.streaming-policy-content{padding:16px;}.flavor-filters{margin-bottom:16px;}.game-card h3,.game-card .game-note-heading h3{font-size:20px;}.game-card .game-links{margin-top:10px;}.game-card p{font-size:15px;}}
+@media(prefers-reduced-motion:reduce){.filter-dot.ready{transition:none;}}
+
+
+/* GAMES DESIGN EXPERIMENT 02 — motion only. */
+.filter-dot.ready{transition:transform .36s cubic-bezier(.22,.8,.25,1);}
+.game-grid .game-card.reveal-pending{opacity:0;transform:translateY(4px);}
+.game-grid .game-card.reveal-entering{animation:games-card-in .65s cubic-bezier(.22,.8,.25,1) var(--reveal-delay,0ms) both;}
+@keyframes games-card-in{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:600px){.game-grid .game-card.reveal-entering{animation-duration:.5s;}}
+@media(prefers-reduced-motion:reduce){.filter-dot.ready{transition:none;}.game-grid .game-card.reveal-pending,.game-grid .game-card.reveal-entering{animation:none;opacity:1;transform:none;}}
+
+
+/* GAMES experiment 04 — flat modal, fade only. */
+.streaming-policy-summary{border:0;background:transparent;font:inherit;color:inherit;text-align:inherit;max-width:100%;}
+.streaming-policy-summary::after{content:none;display:none;}
+html.guidelines-open{overflow:hidden;}
+.guidelines-dialog{position:fixed;inset:0;margin:auto;width:min(740px,calc(100% - 48px));max-width:none;max-height:min(84dvh,900px);padding:0;border:0;border-radius:0;background:#ded0c7;color:#3a323c;box-shadow:none;font-family:inherit;overflow:auto;overscroll-behavior:contain;}
+/* GAMES experiment 05: NULLLATTE palette, modal scrollbar only. */
+.guidelines-dialog{scrollbar-color:#6b5258 #ded0c7;scrollbar-width:thin;}
+@supports selector(::-webkit-scrollbar){
+  .guidelines-dialog{scrollbar-color:auto;scrollbar-width:auto;}
+  .guidelines-dialog::-webkit-scrollbar{width:10px;height:10px;}
+  .guidelines-dialog::-webkit-scrollbar-track{background:#ded0c7;}
+  .guidelines-dialog::-webkit-scrollbar-thumb{background:#6b5258;border-radius:0;}
+  .guidelines-dialog::-webkit-scrollbar-thumb:hover{background:#3a323c;}
+  .guidelines-dialog::-webkit-scrollbar-button{display:none;}
+  .guidelines-dialog::-webkit-scrollbar-corner{background:#ded0c7;}
+}
+.guidelines-dialog[open]{animation:guidelines-in .28s ease both;}
+.guidelines-dialog[open]::backdrop{background:rgba(35,35,46,.68);animation:guidelines-in .28s ease both;}
+.guidelines-dialog.is-closing{animation:guidelines-out .23s ease both;}
+.guidelines-dialog.is-closing::backdrop{animation:guidelines-out .23s ease both;}
+@keyframes guidelines-in{from{opacity:0}to{opacity:1}}
+@keyframes guidelines-out{from{opacity:1}to{opacity:0}}
+.guidelines-panel{padding:32px 36px 0;}
+.guidelines-heading{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-top:17px;margin:0 0 20px;}
+.guidelines-heading::before{content:"";position:absolute;top:0;left:0;width:8px;height:8px;background:#a37370;}
+.guidelines-heading h2{font-size:clamp(30px,5vw,44px);line-height:1.2;font-weight:normal;letter-spacing:1px;margin:0;color:#23232e;}
+.guidelines-close,.guidelines-close-bottom{border:0;background:transparent;color:#3a323c;font:inherit;cursor:pointer;padding:4px 8px;line-height:1.4;}
+.guidelines-close{font-size:28px;min-width:40px;min-height:40px;margin-top:-3px;}
+.guidelines-close:hover,.guidelines-close-bottom:hover{color:#a37370;}
+.guidelines-close:focus-visible,.guidelines-close-bottom:focus-visible{outline:1px solid #6b5258;outline-offset:2px;}
+.guidelines-dialog .streaming-policy-content{background:transparent;border-top:1px solid #cca795;padding:24px 0 0;font-size:16px;line-height:1.9;}
+.guidelines-dialog .streaming-policy-content h3{position:relative;color:#23232e;padding-left:17px;font-size:19px;margin-top:26px;}
+.guidelines-dialog .streaming-policy-content h3::before{content:"";width:6px;height:6px;background:#a37370;position:absolute;left:0;top:.8em;}
+.guidelines-end{display:flex;justify-content:flex-end;padding:20px 28px 24px;}
+@media(max-width:600px){.guidelines-dialog{width:calc(100% - 24px);max-height:88dvh;}.guidelines-panel{padding:24px 20px 0;}.guidelines-dialog .streaming-policy-content{font-size:15px;padding-top:18px;}.guidelines-end{padding:16px 16px 20px;}}
+@media(prefers-reduced-motion:reduce){.guidelines-dialog[open],.guidelines-dialog[open]::backdrop,.guidelines-dialog.is-closing,.guidelines-dialog.is-closing::backdrop{animation:none;}}
