@@ -1,0 +1,73 @@
+/* Common navigation and footer — V20. */
+/* Reserve the same scrollbar space on all shared pages. */
+html {scrollbar-gutter:stable;}
+.site-common-header {position:relative;display:flex;justify-content:flex-end;align-items:center;min-height:54px;padding:0 0 16px;border-bottom:1px solid var(--line);}
+.site-common-header .site-common-bar {position:relative;inset:auto;margin-left:auto;}
+.site-common-bar {font-family:Arial,sans-serif;line-height:1.65;}
+.site-common-bar .exp-small-brand {font-size:19px;--px-color:#23232e;color:#23232e;letter-spacing:0;z-index:2;}
+.site-common-bar .exp-language {display:flex;align-items:center;gap:5px;font-size:18px;color:#6b5258;}
+.site-common-bar .exp-language button {border:0;background:transparent;font:inherit;color:inherit;cursor:pointer;padding:5px 3px;}
+.site-common-bar .exp-language button[aria-pressed=true] {color:#3a323c;text-decoration:underline;text-underline-offset:4px;}
+.site-common-bar .exp-nav {z-index:2;}
+.site-common-bar .exp-nav a {position:relative;line-height:1.25;font-weight:400;color:#6b5258;letter-spacing:0;}
+.site-common-bar .exp-nav a[aria-current],.site-common-bar .exp-nav a:hover {color:#3a323c;}
+.site-common-bar .exp-language .px-render {--px-color:#6b5258;}
+.site-common-bar .exp-language button[aria-pressed=true] {--px-color:#23232e;}
+.site-common-bar .exp-language button[aria-pressed=true] .px-word {border-bottom:1px solid #23232e;}
+.site-common-footer {padding-top:24px;border-top:1px solid var(--line);text-align:center;font-size:18px;--px-color:#6b5258;line-height:1.65;}
+.px-render {font-weight:400!important;letter-spacing:0!important;}
+.px-word {display:inline-block;white-space:nowrap;max-width:100%;}
+.px-glyph {position:relative;display:inline-block;white-space:pre;color:transparent;vertical-align:baseline;line-height:inherit;}
+.px-ink {position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:1.1875em;background:var(--px-color,currentColor);color:inherit;mask-repeat:no-repeat;mask-position:center;mask-size:100% 100%;image-rendering:pixelated;pointer-events:none;}
+.px-render {--px-color:#3a323c;}
+
+/* V18: static bitmap navigation; no JS or font loading needed. */
+.exp-nav a .nav-pixel-label {display:block;flex:none;overflow:visible;}
+.exp-nav a {letter-spacing:0;}
+@media(max-width:600px){.exp-nav a {font-size:19px;}}
+
+/* Common horizontal header, all pages. */
+.exp-topbar {position:relative;z-index:5;top:auto;right:auto;display:flex;align-items:center;justify-content:flex-end;--nav-gap:clamp(12px,calc((50vw - 420px) / 6),100px);gap:var(--nav-gap);width:max-content;min-width:0;max-width:100%;padding-bottom:14px;}
+.exp-topbar .exp-small-brand {position:relative;inset:auto;transform:none;flex:none;display:block;line-height:1.25;white-space:nowrap;}
+.exp-topbar .exp-nav {position:static;display:flex;align-items:center;justify-content:flex-start;gap:var(--nav-gap);flex:none;}
+.exp-topbar .exp-nav a {padding:4px 0;display:flex;align-items:center;justify-content:center;flex:none;font-size:clamp(17px,1.5vw,23px);white-space:nowrap;}
+.exp-topbar .exp-nav a::before {content:none;}
+.exp-topbar .exp-language {position:static;flex:none;white-space:nowrap;}
+.exp-nav-indicator {position:absolute;left:0;top:0;width:7px;height:7px;background:#a37370;pointer-events:none;transform:translate3d(var(--nav-x,0px),var(--nav-y,0px),0);opacity:0;}
+.exp-nav-indicator.is-ready {opacity:1;transition:transform .42s cubic-bezier(.22,.8,.25,1);}
+.exp-topbar .exp-small-brand:focus-visible,.exp-topbar .exp-nav a:focus-visible {outline:1px solid #a37370;outline-offset:3px;}
+@media(max-width:740px){
+ .exp-topbar {top:auto;left:auto;right:auto;width:100%;display:grid;grid-template-columns:1fr auto;gap:9px 12px;padding-bottom:12px;}
+ .exp-topbar .exp-small-brand {grid-column:1;grid-row:1;justify-self:start;}
+ .exp-topbar .exp-language {grid-column:2;grid-row:1;justify-self:end;}
+ .exp-topbar .exp-nav {grid-column:1/-1;grid-row:2;gap:6px;justify-content:space-between;}
+ .exp-topbar .exp-nav a {font-size:clamp(14px,4.2vw,19px);}
+
+}
+@media(prefers-reduced-motion:reduce){.exp-nav-indicator.is-ready{transition:none;}}
+
+.site-common-bar .exp-small-brand {--px-color:#23232e;}
+.site-common-bar .exp-language .px-render {--px-color:#6b5258;}
+.site-common-bar .exp-language button[aria-pressed=true] {--px-color:#23232e;}
+.site-common-footer.px-render {--px-color:#6b5258;}
+.site-common-bar .exp-nav a svg {fill:currentColor;}
+@media(max-width:600px){.site-common-bar .exp-small-brand,.site-common-bar .exp-language{font-size:16px;}.site-common-footer{font-size:16px;}}
+
+/* The HOME header uses the same structure as all other pages. The overlay
+   shell reproduces the common .site horizontal padding and top inset; it
+   stays outside the hero so the approved hero geometry is not affected. */
+.site-common-home-shell {
+  position:absolute;
+  z-index:20;
+  top:0; left:0; right:0;
+  width:100%; max-width:1400px;
+  margin-inline:auto;
+  padding:8px 64px 0;
+  box-sizing:border-box;
+  pointer-events:none;
+}
+.site-common-home-shell .site-common-header {border-bottom-color:transparent;}
+.site-common-home-shell .site-common-bar {pointer-events:auto;}
+.site-common-header {font-family:Arial,sans-serif;font-size:16px;line-height:1.65;}
+.site-common-bar .exp-nav a {font-family:Arial,sans-serif;}
+@media(max-width:800px){.site-common-home-shell{padding-inline:24px;}}

@@ -285,6 +285,7 @@
   }
 
   function applyAttributes(element) {
+    if (element.closest(".site-common-bar, .site-common-footer, .exp-hero, main[data-i18n-ignore]")) return;
     const names = ['alt', 'aria-label', 'title', 'placeholder'];
     let saved = attrOriginals.get(element);
     if (!saved) { saved = {}; attrOriginals.set(element, saved); }
@@ -314,8 +315,8 @@
   }
 
   function updateButtons() {
-    document.querySelectorAll('.language button').forEach(button => {
-      const code = normalize(button.textContent).toLowerCase();
+    document.querySelectorAll('.language button, .exp-language button').forEach(button => {
+      const code = button.dataset.language || normalize(button.textContent).toLowerCase();
       const active = code === language || (code === 'jp' && language === 'ja');
       button.classList.toggle('active', active);
       button.setAttribute('aria-pressed', String(active));
@@ -331,10 +332,10 @@
   }
 
   function bindButtons() {
-    document.querySelectorAll('.language button').forEach(button => {
+    document.querySelectorAll('.language button, .exp-language button').forEach(button => {
       if (button.dataset.i18nBound) return;
       button.dataset.i18nBound = 'true';
-      button.addEventListener('click', () => setLanguage(normalize(button.textContent).toLowerCase() === 'en' ? 'en' : 'ja'));
+      button.addEventListener('click', () => setLanguage((button.dataset.language || normalize(button.textContent).toLowerCase()) === 'en' ? 'en' : 'ja'));
     });
     updateButtons();
   }

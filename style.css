@@ -1853,3 +1853,111 @@ body.page-leaving {
   }
 }
 
+/* =========================
+   HOME Scroll Band
+========================= */
+
+.home-band {
+  --band-progress: 0;
+  --band-bg: #d8c8be;
+  --band-dark: #7b6269;
+  --band-line: #8c6f76;
+  --band-accent: #c9a695;
+
+  position: relative;
+  width: 100%;
+  height: clamp(88px, 10vw, 130px);
+  margin: 0 auto 28px;
+  border: 2px solid var(--band-line);
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--band-bg);
+  isolation: isolate;
+}
+
+/* ドットタイルのベース */
+.home-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 calc(100% - 1px),
+      rgba(255,255,255,0.42) calc(100% - 1px) 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0 calc(100% - 1px),
+      rgba(255,255,255,0.42) calc(100% - 1px) 100%
+    );
+  background-size: 44px 44px;
+  opacity: calc(0.22 + var(--band-progress) * 0.55);
+  transform: translateX(calc((1 - var(--band-progress)) * -28px));
+  transition: opacity 0.12s linear, transform 0.12s linear;
+  z-index: 0;
+}
+
+/* 色付きタイルを少し混ぜる */
+.home-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--band-accent), var(--band-accent)) 4% 0 / 44px 44px no-repeat,
+    linear-gradient(var(--band-accent), var(--band-accent)) 18% 44px / 44px 44px no-repeat,
+    linear-gradient(var(--band-accent), var(--band-accent)) 32% 0 / 44px 44px no-repeat,
+    linear-gradient(var(--band-accent), var(--band-accent)) 52% 44px / 44px 44px no-repeat,
+    linear-gradient(var(--band-accent), var(--band-accent)) 70% 0 / 44px 44px no-repeat,
+    linear-gradient(var(--band-accent), var(--band-accent)) 88% 44px / 44px 44px no-repeat,
+    linear-gradient(var(--band-dark), var(--band-dark)) left bottom / calc(18% + var(--band-progress) * 82%) 36% no-repeat;
+  opacity: calc(0.18 + var(--band-progress) * 0.9);
+  transition: opacity 0.12s linear;
+  z-index: 1;
+}
+
+.home-band__title {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(24px, 4.5vw, 56px);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  transform:
+    translateY(calc((1 - var(--band-progress)) * 10px))
+    scale(calc(0.94 + var(--band-progress) * 0.06));
+  opacity: calc(0.35 + var(--band-progress) * 0.65);
+  transition: transform 0.12s linear, opacity 0.12s linear;
+}
+
+/* モバイルでは少し控えめに */
+@media (max-width: 640px) {
+  .home-band {
+    height: 82px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+  }
+
+  .home-band::before {
+    background-size: 28px 28px;
+  }
+}
+
+/* 動き苦手な人向け */
+@media (prefers-reduced-motion: reduce) {
+  .home-band,
+  .home-band::before,
+  .home-band::after,
+  .home-band__title {
+    transition: none !important;
+  }
+
+  .home-band {
+    --band-progress: 1;
+  }
+}

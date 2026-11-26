@@ -26,14 +26,11 @@
     const main = link(links[0]); main.className = 'hf-main';
     const img = document.createElement('img'); img.src = g.id === 'gyutto-call' ? 'images/cast_sena.png' : g.image; img.alt = g.imageAlt; img.draggable = false;
     const title = document.createElement('h3'); title.textContent = g.title;
-    const desc = document.createElement('p'); desc.textContent = g.description[lang()];
-    main.append(img, title, desc); card.append(main);
-    const row = document.createElement('div'); row.className = 'game-links';
-    links.forEach(l => { const a = link(l); a.textContent = l.label; row.append(a); });
-    card.append(row); track.append(card); cards.push({card, desc, g});
+    main.setAttribute('aria-label', g.title);
+    main.append(img, title); card.append(main);
+    track.append(card); cards.push({card});
   }
   function labels() {
-    cards.forEach(({desc,g}) => { desc.textContent = g.description[lang()]; });
     root.querySelector('.hf-prev').setAttribute('aria-label', lang() === 'ja' ? '前の作品' : 'Previous game');
     root.querySelector('.hf-next').setAttribute('aria-label', lang() === 'ja' ? '次の作品' : 'Next game');
     pause.textContent = paused ? '▶' : 'Ⅱ';
@@ -77,7 +74,7 @@
   pause.addEventListener('click', () => { paused = !paused; labels(); schedule(); });
   root.addEventListener('pointerover', e => {
     if (e.pointerType !== 'mouse') return;
-    const next = Boolean(e.target.closest('.game-links a, .hf-controls button'));
+    const next = Boolean(e.target.closest('.hf-main, .hf-controls button'));
     if (next !== hover) { hover = next; schedule(); }
   });
   root.addEventListener('pointerleave', () => { if (hover) { hover = false; schedule(); } });
