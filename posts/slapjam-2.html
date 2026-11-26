@@ -2,7 +2,84 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Google tag (gtag.js) -->
+  
+<!-- NULLLATTE: self-contained three-dot loader (recovery v2) -->
+<style>
+/* NULLLATTE — three-dot loading transition. */
+html.nl-loader-enabled body { animation: none !important; }
+html.nl-loading body { visibility: hidden; }
+html.nl-loading dialog, html.nl-loading dialog::backdrop { visibility: hidden; }
+#nl-loader[hidden] { display: none; }
+html.nl-loading #nl-loader, html.nl-revealing #nl-loader {
+  display: grid; position: fixed; inset: 0; z-index: 2147483647;
+  place-items: center; background: #ded0c7; visibility: visible;
+  opacity: 1; transition: opacity .35s ease; pointer-events: auto;
+}
+html.nl-revealing #nl-loader { opacity: 0; pointer-events: none; }
+#nl-dots { display: flex; align-items: center; gap: 10px; visibility: hidden; }
+html.nl-loading.nl-waiting #nl-dots { visibility: visible; }
+#nl-dots i { display: block; width: 10px; height: 10px; background: #cca795; }
+html.nl-loading.nl-waiting #nl-dots i { animation: nl-pulse 1.08s steps(1,end) infinite; }
+html.nl-loading.nl-waiting #nl-dots i:nth-child(2) { animation-delay: .18s; }
+html.nl-loading.nl-waiting #nl-dots i:nth-child(3) { animation-delay: .36s; }
+@keyframes nl-pulse {
+  0%,100% { background: #cca795; }
+  17% { background: #a37370; }
+  33% { background: #6b5258; }
+  50% { background: #a37370; }
+  67% { background: #cca795; }
+}
+html.nl-loading .game-grid .game-card.reveal-entering { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  html.nl-loading #nl-loader, html.nl-revealing #nl-loader { transition: none; }
+  html.nl-loading.nl-waiting #nl-dots i { animation: none; background: #6b5258; }
+}
+
+html.nl-loading{background:#ded0c7}
+html.cast-room.nl-loading,html.cast-room.nl-loading #nl-loader,html.cast-room.nl-revealing #nl-loader{background:#6b5258}
+html.cast-room #nl-dots i{background:#a37370}
+html.cast-room.nl-loading.nl-waiting #nl-dots i{animation-name:cast-pulse}
+@keyframes cast-pulse{0%,100%{background:#a37370}17%{background:#cca795}33%{background:#ded0c7}50%{background:#cca795}67%{background:#a37370}}
+@media(prefers-reduced-motion:reduce){html.cast-room.nl-loading.nl-waiting #nl-dots i{animation:none;background:#ded0c7}}
+</style>
+<script>
+(()=>{
+ const root=document.documentElement;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let done=false,dotsTimer,deadline,grace,cleanupTimer;
+ const overlay=()=>document.getElementById('nl-loader');
+ function cleanup(){
+   clearTimeout(cleanupTimer);
+   root.classList.remove('nl-revealing','room-from-games','room-from-cast');
+   const el=overlay();if(el)el.hidden=true;
+ }
+ function finish(immediate=false){
+   if(done)return;
+   done=true;
+   clearTimeout(dotsTimer);clearTimeout(deadline);clearTimeout(grace);
+   const el=overlay();
+   if(!el||immediate||reduced.matches){root.classList.remove('nl-loading','nl-waiting');cleanup();return;}
+   void el.offsetWidth;
+   root.classList.add('nl-revealing');
+   root.classList.remove('nl-loading','nl-waiting');
+   cleanupTimer=setTimeout(cleanup,400);
+ }
+ root.classList.add('nl-loader-enabled','nl-loading');
+ dotsTimer=setTimeout(()=>{if(!done)root.classList.add('nl-waiting');},200);
+ // Bound the loader independently of network, fonts and other scripts.
+ deadline=setTimeout(()=>finish(),1200);
+ function ready(){
+   if(done)return;
+   void document.body.offsetWidth;
+   grace=setTimeout(()=>finish(),300);
+   const fonts=document.fonts?document.fonts.ready:Promise.resolve();
+   Promise.resolve(fonts).catch(()=>{}).then(()=>{if(!done)requestAnimationFrame(()=>finish());});
+ }
+ document.addEventListener('DOMContentLoaded',ready,{once:true});
+ addEventListener('pageshow',e=>{if(e.persisted){finish(true);cleanup();document.body.classList.remove('page-leaving');}});
+})();
+</script>
+<!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZBDZFFZ6J"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,20 +90,6 @@
   </script>
 
   <meta charset="UTF-8">
-<!-- NULLLATTE: first-paint guard (shared three-dot loader) -->
-<style>html.nl-loading{background:#ded0c7}html.nl-loading body{visibility:hidden}</style>
-<script>
-(()=>{
- const root=document.documentElement;
- root.classList.add('nl-loader-enabled','nl-loading');
- const boot=window.__nlLoaderBoot={};
- boot.reset=()=>{clearTimeout(boot.dotsTimer);clearTimeout(boot.fallbackTimer);root.classList.remove('nl-loading','nl-waiting','nl-revealing');const el=document.getElementById('nl-loader');if(el)el.hidden=true;};
- boot.dotsTimer=setTimeout(()=>{if(root.classList.contains('nl-loading'))root.classList.add('nl-waiting');},200);
- boot.fallbackTimer=setTimeout(boot.reset,6000);
-})();
-</script>
-<link rel="stylesheet" href="../site-loader.css?v=1">
-<script defer src="../site-loader.js?v=1"></script>
 
   <link rel="icon" type="image/png" href="../images/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -407,7 +470,7 @@
   </script>
 
   <script src="../i18n.js"></script>
-  <script src="../transition.js"></script>
+  
 <script src="../site-common.js?v=23-rooms"></script>
 </body>
 </html>
