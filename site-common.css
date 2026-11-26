@@ -71,3 +71,31 @@ html {scrollbar-gutter:stable;}
 .site-common-header {font-family:Arial,sans-serif;font-size:16px;line-height:1.65;}
 .site-common-bar .exp-nav a {font-family:Arial,sans-serif;}
 @media(max-width:800px){.site-common-home-shell{padding-inline:24px;}}
+
+/* Direction-aware shared header: retain the original layout at the top. */
+.site-follow-spacer {display:none;pointer-events:none;}
+.site-follow-spacer.is-active {display:block;flex:none;}
+.site-common-header.is-following {
+  position:fixed; z-index:120; top:var(--follow-top,8px);
+  left:var(--follow-left,0px); right:auto; width:var(--follow-width,100%);
+  margin:0; border-bottom-color:transparent;
+  transform:translateY(calc(-100% - 24px));
+  transition:transform 240ms cubic-bezier(.22,.8,.25,1);
+  pointer-events:none;
+}
+/* Full-width opaque band, moving with the same header (no layout change). */
+.site-common-header.is-following::before {
+  content:"";
+  position:absolute; z-index:-1; pointer-events:none;
+  top:calc(0px - var(--follow-top,8px)); bottom:0;
+  left:calc(0px - var(--follow-left,0px));
+  width:var(--follow-viewport-width,100vw);
+  background:var(--background,#ded0c7);
+}
+.site-common-header.is-following .site-common-bar {background:transparent;pointer-events:none;}
+.site-common-header.is-following.is-follow-visible,
+.site-common-header.is-following:has(:focus-visible) {transform:translateY(0);}
+.site-common-header.is-following.is-follow-visible .site-common-bar,
+.site-common-header.is-following:has(:focus-visible) .site-common-bar {pointer-events:auto;}
+.site-common-header.is-following.is-follow-entering {transition:none;}
+@media(prefers-reduced-motion:reduce){.site-common-header.is-following {transition:none;}}

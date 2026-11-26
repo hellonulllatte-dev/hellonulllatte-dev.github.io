@@ -22,3 +22,61 @@ for(const el of document.querySelectorAll(".site-common-bar .exp-small-brand,.si
  if('ResizeObserver' in window){const ro=new ResizeObserver(()=>move(target));ro.observe(bar);items.forEach(a=>ro.observe(a));}
  window.addEventListener('resize',()=>move(target));window.addEventListener('pageshow',()=>move(current));
 })();
+
+/* Shared header: hide on downward scroll, reveal on upward scroll.
+   Move the original element (never clone it), preserving language and dot listeners. */
+(()=>{
+  const header=document.querySelector('.site-common-header');
+  if(!header)return;
+  const spacer=document.createElement('div');
+  spacer.className='site-follow-spacer';spacer.setAttribute('aria-hidden','true');
+  header.before(spacer);
+  let fixed=false,visible=false,frame=0,enterFrame=0;
+  let last=Math.max(0,window.scrollY),turn=last,direction=0;
+  let origin=header.getBoundingClientRect().top+last;
+  const threshold=()=>Math.max(72,origin+header.offsetHeight+8);
+  function setVisible(value){visible=value;header.classList.toggle('is-follow-visible',value);}
+  function geometry(){
+    const r=spacer.getBoundingClientRect();
+    header.style.setProperty('--follow-left',r.left+'px');
+    header.style.setProperty('--follow-width',r.width+'px');
+    header.style.setProperty('--follow-viewport-width',document.documentElement.clientWidth+'px');
+    header.style.setProperty('--follow-top',Math.max(0,origin)+'px');
+  }
+  function enter(){
+    const height=header.getBoundingClientRect().height;
+    spacer.style.height=height+'px';spacer.classList.add('is-active');
+    geometry();fixed=true;
+    header.classList.add('is-following','is-follow-entering');setVisible(false);
+    cancelAnimationFrame(enterFrame);
+    enterFrame=requestAnimationFrame(()=>{enterFrame=requestAnimationFrame(()=>header.classList.remove('is-follow-entering'));});
+  }
+  function leave(){
+    fixed=false;setVisible(false);cancelAnimationFrame(enterFrame);
+    header.classList.remove('is-following','is-follow-entering');
+    spacer.classList.remove('is-active');
+  }
+  function update(){
+    frame=0;const y=Math.max(0,window.scrollY),dy=y-last;
+    if(!fixed && y>=threshold()){enter();turn=y;direction=0;}
+    if(fixed && y<=Math.max(0,origin)){leave();turn=y;direction=0;}
+    if(fixed && dy!==0){
+      const next=Math.sign(dy);
+      if(next!==direction){turn=last;direction=next;}
+      // A small dead zone prevents trackpad jitter from flickering the header.
+      if(Math.abs(y-turn)>=12)setVisible(direction<0);
+    }
+    last=y;
+  }
+  function queue(){if(!frame)frame=requestAnimationFrame(update);}
+  function resize(){
+    if(fixed){geometry();spacer.style.height=header.offsetHeight+'px';}
+    else origin=header.getBoundingClientRect().top+Math.max(0,window.scrollY);
+    queue();
+  }
+  window.addEventListener('scroll',queue,{passive:true});
+  window.addEventListener('resize',resize,{passive:true});
+  window.addEventListener('pageshow',()=>{if(fixed)leave();last=Math.max(0,window.scrollY);turn=last;direction=0;origin=header.getBoundingClientRect().top+last;queue();});
+  if('ResizeObserver' in window)new ResizeObserver(()=>{if(fixed){spacer.style.height=header.offsetHeight+'px';geometry();}}).observe(header);
+  update();
+})();
