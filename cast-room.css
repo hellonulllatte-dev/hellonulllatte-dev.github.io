@@ -1,0 +1,49 @@
+/* CAST — darker sister room of GAMES. */
+html.cast-room{background:#6b5258;scrollbar-color:#cca795 #6b5258}
+.cast-room{--background:#6b5258;--text:#ded0c7;--accent:#cca795;--line:#a37370;--paper:#3a323c}
+body.cast-room{background:#6b5258;color:#ded0c7}
+.cast-room .main{padding-top:clamp(24px,4.2vw,64px)}
+.cast-room .games-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.cast-room .games-title{position:relative;margin:0;line-height:1;padding-top:23px;flex:none}
+.cast-room .games-title::before{content:"";position:absolute;top:0;right:0;width:9px;height:9px;background:#cca795}
+.cast-room .games-title-art{display:block;width:100%;height:auto;overflow:visible}
+.cast-room .filter-dot{width:7px;height:7px;position:absolute;top:0;left:0;pointer-events:none;opacity:0;transform:translate(var(--filter-x,0px),var(--filter-y,0px))}
+.cast-room .filter-dot.ready{opacity:1;transition:transform .36s cubic-bezier(.22,.8,.25,1)}
+.cast-room .site-common-bar .exp-small-brand,.cast-room .site-common-bar .exp-nav a,.cast-room .site-common-bar .exp-language,.cast-room .site-common-bar .exp-language button[aria-pressed=true]{color:#ded0c7;--px-color:#ded0c7}
+.cast-room .site-common-bar .exp-language .px-render,.cast-room .site-common-footer.px-render{--px-color:#ded0c7}
+.cast-room .site-common-bar .exp-language button[aria-pressed=true] .px-word{border-bottom-color:#ded0c7}
+.cast-room .exp-nav-indicator{background:#cca795}
+.cast-room .site-common-bar .exp-nav a:hover{color:#cca795}
+.cast-intro{margin-bottom:35px}
+.cast-title{width:clamp(130px,20.526vw,226px);color:#ded0c7}
+.cast-title::before{background:#cca795}
+.cast-intro .cast-subtitle{color:#ded0c7;opacity:1;text-align:right;margin:0 0 5px;font-size:18px}
+.cast-filters{position:relative;justify-content:flex-start;gap:8px clamp(14px,3vw,42px);margin:0 0 28px;padding:0 0 12px}
+.cast-filters .cast-filter,.cast-filters .cast-filter.active,.cast-filters .cast-filter:hover{border:0;border-radius:0;background:none;padding:7px 0 13px;font:inherit;font-size:18px;line-height:1.4;color:#d7c1b4;transition:color .2s}
+.cast-filters .cast-filter.active,.cast-filters .cast-filter:hover{color:#ded0c7}
+.cast-filters .filter-dot{background:#cca795}
+.cast-card-list{gap:24px;margin-top:0}
+.cast-card{border:0;border-radius:0;background:#3a323c;align-items:center;padding:24px;gap:24px}
+.cast-card-image{border-radius:0;background:#d7c1b4}
+.cast-card-info h3,.cast-card-info p,.cast-card-info h4,.cast-more,.cast-more small{color:#ded0c7;opacity:1}
+.cast-card-info p{font-size:16px;line-height:1.65}
+.cast-card-info h4{color:#cca795;font-size:13px}
+.cast-card-games a{color:#ded0c7;text-decoration-color:#cca795;font-size:15px;overflow-wrap:anywhere}
+.cast-card-games a:hover{color:#cca795}
+.cast-more{margin-top:60px}
+
+.cast-intro{flex-direction:row-reverse}
+.cast-intro .cast-subtitle{text-align:left}
+.cast-filters{justify-content:flex-end}
+.cast-filters .cast-filter:hover{transform:none}
+.cast-filters .cast-filter:focus-visible{outline:1px solid #ded0c7;outline-offset:3px}
+.cast-card-info h3{overflow-wrap:anywhere}
+.cast-room .site-common-bar .exp-language button{color:#d7c1b4;--px-color:#d7c1b4}
+.cast-room .site-common-bar .exp-language button[aria-pressed=true]{color:#ded0c7;--px-color:#ded0c7}
+html.cast-room.nl-loading #nl-loader,html.cast-room.nl-revealing #nl-loader{background:#6b5258}
+html.cast-room #nl-dots i{background:#a37370}
+html.cast-room.nl-loading.nl-waiting #nl-dots i{animation-name:cast-pulse}
+@keyframes cast-pulse{0%,100%{background:#a37370}17%{background:#cca795}33%{background:#ded0c7}50%{background:#cca795}67%{background:#a37370}}
+@media(max-width:800px){.cast-filters{gap:8px 20px}.cast-filters .cast-filter,.cast-filters .cast-filter.active,.cast-filters .cast-filter:hover{font-size:16px}}
+@media(max-width:600px){.cast-title{width:137px}.cast-intro{flex-direction:column;align-items:flex-end;gap:16px;margin-bottom:22px}.cast-intro .cast-subtitle{text-align:right;font-size:16px}.cast-card{padding:16px;gap:14px}.cast-card-image{width:100px;height:100px}.cast-card-info p{font-size:14px}.cast-card-info h3{font-size:20px}.cast-card-games a{font-size:13px}.cast-room .site{padding-left:32px}}
+@media(prefers-reduced-motion:reduce){.cast-filters .filter-dot.ready{transition:none}html.cast-room.nl-loading.nl-waiting #nl-dots i{animation:none;background:#ded0c7}}

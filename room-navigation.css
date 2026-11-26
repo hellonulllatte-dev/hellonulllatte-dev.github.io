@@ -1,0 +1,18 @@
+/* Reciprocal room tabs; baseline faces the outer edge. */
+.room-tab{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:154px;display:flex;justify-content:center;align-items:center;font-family:MaruMonica,sans-serif;font-size:22px;letter-spacing:3px;line-height:1;z-index:110;border:0;border-radius:0;text-decoration:none;transition:width .2s ease;white-space:nowrap}
+.room-tab.to-cast{right:0;background:#6b5258;color:#ded0c7}
+.room-tab.to-games{left:0;background:#ded0c7;color:#6b5258}
+.room-tab-label{display:block;flex:none;writing-mode:horizontal-tb}
+.room-tab.to-cast .room-tab-label{transform:rotate(-90deg)}
+.room-tab.to-games .room-tab-label{transform:rotate(90deg)}
+.room-tab:focus-visible{outline:2px solid #cca795;outline-offset:-4px}
+@media(hover:hover) and (pointer:fine){.room-tab:hover{width:48px}}
+.room-curtain{position:fixed;inset:0;z-index:2147483646;pointer-events:none;visibility:hidden;transform:scaleX(0)}
+.room-curtain.wipe{visibility:visible;animation:room-wipe-in .28s cubic-bezier(.65,0,.25,1) forwards}
+@keyframes room-wipe-in{to{transform:scaleX(1)}}
+html.nl-revealing.room-from-games #nl-loader{opacity:1;transform-origin:left center;animation:room-arrival .28s cubic-bezier(.65,0,.25,1) forwards}
+html.nl-revealing.room-from-cast #nl-loader{opacity:1;transform-origin:right center;animation:room-arrival .28s cubic-bezier(.65,0,.25,1) forwards}
+@keyframes room-arrival{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@media(max-width:800px){.room-tab,.room-tab:hover{width:24px;height:112px;font-size:17px;letter-spacing:1px}}
+@media(max-width:600px){.room-tab{top:auto;bottom:20px;transform:none}}
+@media(prefers-reduced-motion:reduce){.room-tab{transition:none}.room-curtain{display:none}html.nl-revealing.room-from-games #nl-loader,html.nl-revealing.room-from-cast #nl-loader{animation:none;opacity:0}}

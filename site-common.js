@@ -9,7 +9,7 @@ for(const el of document.querySelectorAll(".site-common-bar .exp-small-brand,.si
 (()=>{
  const bar=document.querySelector('.exp-topbar');if(!bar)return;
  const items=[...bar.querySelectorAll('.exp-small-brand,.exp-nav a')];
- const current=items.find(a=>a.getAttribute('aria-current')==='page')||items[0];
+ const current=items.find(a=>['page','true'].includes(a.getAttribute('aria-current')))||items[0];
  const dot=bar.querySelector('.exp-nav-indicator');let target=current;
  function move(item){target=item;const b=bar.getBoundingClientRect(),r=item.getBoundingClientRect();
  dot.style.setProperty('--nav-x',`${r.left-b.left+r.width/2-dot.offsetWidth/2}px`);
