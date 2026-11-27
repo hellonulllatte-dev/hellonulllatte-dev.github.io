@@ -2477,3 +2477,19 @@ footer {--px-color:#6b5258;font-size:18px;}
   .home-dot-nav.is-at-top:not(:focus-within) {opacity:0;pointer-events:none;visibility:hidden;}
 }
 @media(prefers-reduced-motion:reduce){.home-dot-nav,.home-dot-nav .section-dot,.home-dot-nav .section-dot-label {transition:none;}}
+
+/* HISTORY: reserve the tallest text layout on narrow screens only. */
+#history .pixel-history-info-sizer { display: none; }
+@media (max-width: 700px) {
+  #history .pixel-history-preview-inner { align-items: start; }
+  #history .pixel-history-preview-inner > .pixel-history-image-link { grid-area: 1 / 1; }
+  #history .pixel-history-preview-inner > .pixel-history-info,
+  #history .pixel-history-info-sizer { grid-area: 2 / 1; min-width: 0; }
+  #history .pixel-history-info-sizer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    visibility: hidden;
+    pointer-events: none;
+  }
+  #history .pixel-history-info-sizer > .pixel-history-info { grid-area: 1 / 1; align-self: start; }
+}

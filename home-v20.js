@@ -405,6 +405,9 @@ const counter=document.querySelector('.pixel-history-counter'); if(counter){for(
     const description = root.querySelector('[data-ph-description]');
     const links = root.querySelector('[data-ph-links]');
     const jam = root.querySelector('[data-ph-jam]');
+    const info = root.querySelector('.pixel-history-info');
+    const mobileLayout = window.matchMedia('(max-width: 700px)');
+    let infoSizer = null;
     let value = 0;
     let animationFrame = 0;
     let drag = null;
@@ -445,21 +448,62 @@ const counter=document.querySelector('.pixel-history-counter'); if(counter){for(
     }
 
 
-  function updatePreview(index, force = false) {
-    const game = games[index]; if (!game) return;
-    const descText = game.description[language() === 'en' ? 'en' : 'ja'];
-    if (!force && previewIndex === index && description.getAttribute('aria-label') === descText) return;
-    if (force || previewIndex !== index) {
-      previewIndex = index; image.src = game.image; image.alt = game.imageAlt;
-      imageLink.href = game.links[0]?.href || 'games.html';
-      expPixelText(title,game.title,game.id==='censor-valentine'?'censor':'');
-      expPixelText(date,game.releaseDate);
-      if (jam) { const name=game.jam?.name; jam.hidden=!name; if(name)expPixelText(jam,`GAME JAM / ${name}`); }
-      links.replaceChildren();
-      for(const link of game.links){const a=document.createElement('a');a.href=link.href;a.target='_blank';a.rel='noopener noreferrer';expPixelText(a,link.label);links.append(a);}
+    function renderInfo(game, fields, descText, includeDetails = true) {
+      if (includeDetails) {
+        expPixelText(fields.title, game.title, game.id === 'censor-valentine' ? 'censor' : '');
+        expPixelText(fields.date, game.releaseDate);
+        if (fields.jam) {
+          const name = game.jam?.name;
+          fields.jam.hidden = !name;
+          if (name) expPixelText(fields.jam, `GAME JAM / ${name}`);
+        }
+        fields.links.replaceChildren();
+        for (const link of game.links) {
+          const a = document.createElement('a');
+          a.href = link.href; a.target = '_blank'; a.rel = 'noopener noreferrer';
+          expPixelText(a, link.label); fields.links.append(a);
+        }
+      }
+      expPixelText(fields.description, descText);
     }
-    expPixelText(description,descText);
-  }
+
+    function updatePreview(index, force = false) {
+      const game = games[index]; if (!game) return;
+      const descText = game.description[language() === 'en' ? 'en' : 'ja'];
+      if (!force && previewIndex === index && description.getAttribute('aria-label') === descText) return;
+      const includeDetails = force || previewIndex !== index;
+      if (includeDetails) {
+        previewIndex = index; image.src = game.image; image.alt = game.imageAlt;
+        imageLink.href = game.links[0]?.href || 'games.html';
+      }
+      renderInfo(game, { title, date, jam, links, description }, descText, includeDetails);
+    }
+
+    // Stack invisible copies of the text in the same grid row. Its intrinsic
+    // height follows the tallest entry, including wrapped links and JAM labels.
+    // Only create them on mobile; CSS handles width and font changes naturally.
+    function syncInfoSizer() {
+      if (infoSizer) { infoSizer.remove(); infoSizer = null; }
+      if (!mobileLayout.matches || !info) return;
+      const lang = language() === 'en' ? 'en' : 'ja';
+      infoSizer = document.createElement('div');
+      infoSizer.className = 'pixel-history-info-sizer';
+      infoSizer.setAttribute('aria-hidden', 'true');
+      infoSizer.setAttribute('inert', '');
+      const fragment = document.createDocumentFragment();
+      for (const game of games) {
+        const copy = info.cloneNode(true);
+        const fields = {};
+        for (const key of ['title', 'date', 'jam', 'links', 'description']) {
+          fields[key] = copy.querySelector(`[data-ph-${key}]`);
+          fields[key]?.removeAttribute(`data-ph-${key}`);
+        }
+        renderInfo(game, fields, game.description[lang]);
+        fragment.append(copy);
+      }
+      infoSizer.append(fragment);
+      info.after(infoSizer);
+    }
 
 
     function measure() {
@@ -560,10 +604,15 @@ const counter=document.querySelector('.pixel-history-counter'); if(counter){for(
       if (destination !== null) { event.preventDefault(); springTo(destination); }
     });
 
-    window.addEventListener('nulllatte:languagechange', () => updatePreview(Math.round(value), true));
+    window.addEventListener('nulllatte:languagechange', () => {
+      updatePreview(Math.round(value), true);
+      syncInfoSizer();
+    });
+    mobileLayout.addEventListener('change', syncInfoSizer);
     window.addEventListener('resize', measure);
     window.addEventListener('pageshow', () => { stopAnimation(); render(0); });
     updatePreview(0, true);
+    syncInfoSizer();
     measure();
   });
 })();
