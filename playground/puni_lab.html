@@ -152,6 +152,9 @@
       pointer-events:none;
     }
     .goo { position:absolute; inset:0; filter:url(#goo); will-change:transform; pointer-events:none; }
+    /* Touch devices use a native SVG filter, not a CSS filter on composited HTML. */
+    .goo.goo-native { filter:none; will-change:auto; }
+    .goo-native svg { display:block; width:100%; height:100%; }
     .orb {
       position:absolute;
       left:0;
@@ -276,8 +279,30 @@
       const sparks = document.querySelector('#spark-layer');
       const stick = document.querySelector('#stickiness');
       const bounce = document.querySelector('#bounce');
-      const blurNode = document.querySelector('#goo-blur');
-      const matrixNode = document.querySelector('#goo-matrix');
+      let blurNode = document.querySelector('#goo-blur');
+      let matrixNode = document.querySelector('#goo-matrix');
+      const nativeGoo = matchMedia('(pointer: coarse)').matches;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      let orbLayer = goo;
+      if(nativeGoo){
+        // Keep the desktop renderer intact. On touch devices, put the circles
+        // and their filter in the same SVG so WebKit can render them together.
+        const svg = document.createElementNS(svgNS,'svg');
+        svg.setAttribute('aria-hidden','true');
+        const defs = document.createElementNS(svgNS,'defs');
+        const filter = document.querySelector('#goo').cloneNode(true);
+        filter.id = 'goo-native-filter';
+        blurNode = filter.querySelector('feGaussianBlur');
+        matrixNode = filter.querySelector('feColorMatrix');
+        blurNode.id = 'goo-native-blur';
+        matrixNode.id = 'goo-native-matrix';
+        defs.append(filter);
+        orbLayer = document.createElementNS(svgNS,'g');
+        orbLayer.setAttribute('filter','url(#goo-native-filter)');
+        svg.append(defs,orbLayer);
+        goo.classList.add('goo-native');
+        goo.append(svg);
+      }
       const colors = ['#cca795','#a37370','#6b5258','#d7c1b4','#3a323c'];
       const maxBalls = 22;
       let balls = [];
@@ -289,16 +314,22 @@
       function stageSize(){ const r=stage.getBoundingClientRect(); width=Math.max(1,r.width); height=Math.max(1,r.height); }
       function create(x,y,r,color){
         if(balls.length>=maxBalls)return;
-        const el=document.createElement('div'); el.className='orb'; el.style.setProperty('--orb', color);
+        const el=nativeGoo ? document.createElementNS(svgNS,'circle') : document.createElement('div');
+        if(nativeGoo){ el.setAttribute('fill',color); }
+        else { el.className='orb'; el.style.setProperty('--orb',color); }
         const dot=document.createElement('div'); dot.className='sparkle';
-        goo.append(el); sparks.append(dot);
+        orbLayer.append(el); sparks.append(dot);
         const b={x,y,vx:rand(-.6,.6),vy:rand(-.5,.5),r,el,dot,seed:rand(0,10),color};
         balls.push(b); renderBall(b); return b;
       }
       function renderBall(b){
         const diameter=b.r*2;
-        b.el.style.width=diameter+'px'; b.el.style.height=diameter+'px';
-        b.el.style.transform=`translate3d(${b.x-b.r}px,${b.y-b.r}px,0)`;
+        if(nativeGoo){
+          b.el.setAttribute('cx',b.x); b.el.setAttribute('cy',b.y); b.el.setAttribute('r',b.r);
+        } else {
+          b.el.style.width=diameter+'px'; b.el.style.height=diameter+'px';
+          b.el.style.transform=`translate3d(${b.x-b.r}px,${b.y-b.r}px,0)`;
+        }
         b.dot.style.transform=`translate3d(${b.x-b.r*.37-7}px,${b.y-b.r*.34-7}px,0)`;
         const highlight=clamp(b.r*.14,5,12);
         b.dot.style.width=highlight+'px'; b.dot.style.height=highlight+'px';
