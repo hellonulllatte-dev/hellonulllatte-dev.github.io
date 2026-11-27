@@ -51,18 +51,44 @@
   document.addEventListener('visibilitychange',()=>{if(document.hidden){pointer=null;hideLook();}});
   fine.addEventListener?.('change',updateLook);
   viewport.addEventListener('scroll',updateLook,{passive:true});
+  // Touch devices keep their native horizontal swipe. Once the visitor swipes,
+  // let them browse freely until the gallery leaves the visible screen.
+  let touchStart=null, manualBrowse=false;
+  viewport.addEventListener('touchstart',e=>{
+    const t=e.touches[0];
+    touchStart=e.touches.length===1?{x:t.clientX,y:t.clientY}:null;
+  },{passive:true});
+  viewport.addEventListener('touchmove',e=>{
+    if(!touchStart||e.touches.length!==1)return;
+    const t=e.touches[0], dx=Math.abs(t.clientX-touchStart.x), dy=Math.abs(t.clientY-touchStart.y);
+    if(Math.max(dx,dy)<8)return;
+    if(dx>dy)manualBrowse=true;
+    touchStart=null;
+  },{passive:true});
+  function endTouch(){touchStart=null;}
+  viewport.addEventListener('touchend',endTouch,{passive:true});
+  viewport.addEventListener('touchcancel',endTouch,{passive:true});
   function draw(){
     queued=false;
     // Natural page scrolling, not a pinned or scroll-jacked section.
-    if(!motion.matches && fine.matches && innerWidth>600){
+    if(!motion.matches){
       const r=viewport.getBoundingClientRect(),vh=innerHeight;
-      // Keep travelling until the exhibition has completely left the top of the screen.
-       const p=Math.max(0,Math.min(1,(vh*.88-r.top)/(vh*.88+r.height)));
-      // Leave the repeated first artwork partly visible, like a continuing exhibition.
-      const repeat=track.querySelector('.hf-repeat');
       const max=Math.max(0,viewport.scrollWidth-viewport.clientWidth);
-      const tail=repeat ? repeat.getBoundingClientRect().width*.6+parseFloat(getComputedStyle(track).paddingRight) : 0;
-      viewport.scrollLeft=p*Math.max(0,max-tail);
+      if(fine.matches && innerWidth>600){
+        // Keep the existing desktop exhibition and its repeated artwork.
+        const p=Math.max(0,Math.min(1,(vh*.88-r.top)/(vh*.88+r.height)));
+        const repeat=track.querySelector('.hf-repeat');
+        const tail=repeat ? repeat.getBoundingClientRect().width*.6+parseFloat(getComputedStyle(track).paddingRight) : 0;
+        viewport.scrollLeft=p*Math.max(0,max-tail);
+      }else{
+        // Finish the mobile sweep before the artwork disappears behind the header.
+        const header=document.querySelector('.site-common-header');
+        const top=Math.max(0,Math.min(vh*.45,header?.getBoundingClientRect().bottom||0));
+        const start=vh*.9, end=Math.min(start-1,top+Math.min(r.height*.22,vh*.12));
+        const p=Math.max(0,Math.min(1,(start-r.top)/(start-end)));
+        if(r.bottom<=top||r.top>=vh)manualBrowse=false;
+        if(!manualBrowse && !touchStart)viewport.scrollLeft=p*max;
+      }
     }
     updateLook();
   }
