@@ -2524,3 +2524,8 @@ footer {--px-color:#6b5258;font-size:18px;}
   #history.pixel-history { padding-top: 12px; }
   #history .pixel-history-drag-panel { height: 48px; }
 }
+
+/* HOME logo C: keep desktop geometry; widen only the narrow-screen hero. */
+@media(max-width:600px){
+ .exp-hero-content {right:10%;}
+}

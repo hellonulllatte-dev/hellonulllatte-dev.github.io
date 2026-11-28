@@ -321,9 +321,9 @@
   dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
   const step=Math.min(w/119,h/103),ox=(w-115*step)/2,oy=(h-99*step)/2;
   points=[];
-  for(const g of letters){glyphs[g.c].forEach((line,y)=>{[...line].forEach((bit,x)=>{if(bit!=='1')return;for(let sy=0;sy<3;sy++)for(let sx=0;sx<3;sx++){
+  for(const g of letters){glyphs[g.c].forEach((line,y)=>{[...line].forEach((bit,x)=>{if(bit!=='1')return;{ // C: one square per original 5×7 glyph cell.
     const k=points.length;
-    points.push({x:ox+(g.col*20+x*3+sx)*step,y:oy+(g.row*26+y*3+sy)*step,s:step*.88,row:g.row,color:colors[g.row],dx:Math.sin(k*12.9898)*step*10,dy:Math.cos(k*5.715)*step*9+step*3});
+    points.push({x:ox+(g.col*20+x*3)*step,y:oy+(g.row*26+y*3)*step,s:step*3*.88,pitch:step*3,row:g.row,color:colors[g.row],dx:Math.sin(k*12.9898)*step*10,dy:Math.cos(k*5.715)*step*9+step*3});
   }});});}
   draw();
  }
@@ -332,7 +332,7 @@
   const scroll=reduce.matches?0:Math.max(0,-hero.getBoundingClientRect().top);
   for(const a of points){const p=clamp((scroll-a.row*distance*.15)/distance,0,1);ctx.fillStyle=a.color;ctx.globalAlpha=1-p*.87;
     const x=Math.round((a.x+a.dx*p)*dpr)/dpr,y=Math.round((a.y+a.dy*p)*dpr)/dpr;
-    const size=Math.max(1/dpr,a.s*(1-p*.4));ctx.fillRect(x,y,size,size);
+    const size=Math.max(1,Math.min(Math.round(a.s*(1-p*.4)*dpr),Math.floor(a.pitch*dpr)-1))/dpr;ctx.fillRect(x,y,size,size);
   }ctx.globalAlpha=1;
  }
  function queue(){if(!queued){queued=true;requestAnimationFrame(draw);}}
